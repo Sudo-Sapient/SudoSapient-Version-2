@@ -1,9 +1,8 @@
 import { Hero } from "@/components/sections/Hero";
 import { Pillars } from "@/components/sections/Pillars";
 import { SelectedWork } from "@/components/sections/SelectedWork";
-import { FeaturedCaseStudy } from "@/components/sections/FeaturedCaseStudy";
 import { Process } from "@/components/sections/Process";
-import { Proof } from "@/components/sections/Proof";
+import { Testimonials } from "@/components/sections/Testimonials";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export default function HomePage() {
@@ -12,9 +11,8 @@ export default function HomePage() {
       <Hero />
       <Pillars />
       <SelectedWork />
-      <FeaturedCaseStudy />
       <Process />
-      <Proof />
+      <Testimonials />
       <FinalCTA />
     </>
   );

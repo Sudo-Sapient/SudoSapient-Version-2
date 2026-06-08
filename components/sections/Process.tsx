@@ -36,7 +36,7 @@ export function Process() {
       <GridBackground />
       <Container className="relative z-10">
         <SectionHeading
-          index="04"
+          index="03"
           eyebrow="HOW WE WORK"
           title="Four nodes. One line. Six to ten weeks."
           description="The blueprint is the same every time. The work it produces is not."

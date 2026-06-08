@@ -1,5 +1,6 @@
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { LadderClimber } from "@/components/scenes/LadderClimber";
 
 export default function MarketingLayout({
   children,
@@ -9,6 +10,7 @@ export default function MarketingLayout({
   return (
     <>
       <Nav />
+      <LadderClimber />
       <main>{children}</main>
       <Footer />
     </>

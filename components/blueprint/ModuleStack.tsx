@@ -148,21 +148,6 @@ export function ModuleStack({
               >
                 {m.label}
               </text>
-              {m.meta && (
-                <text
-                  x={right - 16}
-                  y={cy + 8}
-                  textAnchor="end"
-                  fontFamily="ui-monospace, monospace"
-                  fontSize="11"
-                  letterSpacing="1.5"
-                  className={textColor}
-                  stroke="none"
-                  opacity="0.7"
-                >
-                  {m.meta}
-                </text>
-              )}
             </motion.g>
           );
         })}

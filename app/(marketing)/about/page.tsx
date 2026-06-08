@@ -2,6 +2,8 @@ import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
 import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { TechLabel } from "@/components/blueprint/TechLabel";
+import { TeamGrid } from "@/components/sections/TeamGrid";
+import { AnimatedFigure } from "@/components/figures/AnimatedFigure";
 import {
   FigureMeasuring,
   FigureClimbing,
@@ -10,6 +12,26 @@ import {
 } from "@/components/figures";
 
 export const metadata = { title: "About — Sudo Sapient" };
+
+const team = [
+  { name: "Sabari K", role: "Managing Director", img: "/team/sabari-k.jpg" },
+  { name: "Siddharth Bhat", role: "Advisor", img: "/team/siddharth-bhat.jpg" },
+  {
+    name: "Deepak Kumaran",
+    role: "Senior Developer",
+    img: "/team/deepak-kumaran.jpg",
+  },
+  {
+    name: "Janith Reddy",
+    role: "Senior Developer",
+    img: "/team/janith-reddy.jpg",
+  },
+  {
+    name: "Gokul Krishnan",
+    role: "Operations Head",
+    img: "/team/gokul-krishnan.jpg",
+  },
+];
 
 const differentiators = [
   {
@@ -104,9 +126,9 @@ export default function AboutPage() {
               <div key={d.n} className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
                   <TechLabel tone="dark">{d.n}</TechLabel>
-                  <div className="text-ink">
+                  <AnimatedFigure className="inline-block text-ink">
                     <d.Figure size={60} />
-                  </div>
+                  </AnimatedFigure>
                 </div>
                 <div className="h-px w-full bg-ink/30" />
                 <h3 className="font-display text-2xl font-bold tracking-tight-2 text-ink">
@@ -116,6 +138,19 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+        </Container>
+      </section>
+
+      <section className="bg-blueprint py-24 text-white sm:py-28">
+        <Container>
+          <SectionHeading
+            index="A.03"
+            eyebrow="THE TEAM"
+            title="The people who build it."
+            description="Senior people only. The names below are the ones on your calls and the ones writing the code."
+          />
+
+          <TeamGrid members={team} />
         </Container>
       </section>
     </>
@@ -137,9 +172,9 @@ function Card({
     <div className="flex flex-col gap-4 bg-offwhite p-8 sm:p-10">
       <div className="flex items-center justify-between">
         <TechLabel tone="dark">{code}</TechLabel>
-        <div className="text-ink">
+        <AnimatedFigure className="inline-block text-ink">
           <Figure size={64} />
-        </div>
+        </AnimatedFigure>
       </div>
       <h3 className="font-display text-2xl font-bold tracking-tight-2 text-ink">
         {title}

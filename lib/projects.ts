@@ -21,30 +21,6 @@ export type Project = {
 // TODO: replace placeholder case studies with real ones as they're approved.
 export const projects: Project[] = [
   {
-    slug: "mayaakars",
-    title: "A digital studio for a design studio.",
-    client: "Mayaakars",
-    year: "2026",
-    discipline: "Web & Brand",
-    oneLiner:
-      "An end-to-end portfolio platform for a premier architecture and interior design firm — shipped in record time.",
-    problem:
-      "Mayaakars designs high-end spaces, but their work lived in PDFs and a scattered Instagram grid. The firm operated on a traditional outreach model and had no central place for press, prospects, or partners to see the catalogue at full resolution. They needed a web experience that felt as well-constructed as the rooms they build — and a brand positioned to lead in a digital-first design market without losing the credibility they'd already earned.",
-    approach:
-      "We ran the project end-to-end: brand positioning, custom website experience design, and the digital-first architecture under it. The build pairs a tuned design system with a portfolio backend sized for hundreds of high-resolution projects, plus intake flows that route inquiries straight to the studio. Every page was designed to feel like a curated room — premium, considered, and built for scale.",
-    outcome:
-      "Mayaakars moved from traditional outreach to a digital-first brand in weeks. The portfolio launched with the firm's full catalogue and a backend ready to scale as new projects ship — credibility intact, distribution finally unblocked, inquiries now landing in one inbox instead of five.",
-    metrics: [
-      { label: "TURNAROUND", value: "Record time" },
-      { label: "SCOPE", value: "End-to-end" },
-      { label: "DELIVERABLE", value: "Site + brand + portfolio" },
-    ],
-    isPlaceholder: false,
-    featured: true,
-    image: "/case-studies/mayaakars.jpeg",
-    externalUrl: "https://www.mayaakars.com/",
-  },
-  {
     slug: "jgsaw",
     title: "An AI-native GTM engine with one source of truth.",
     client: "Jgsaw",
@@ -86,6 +62,30 @@ export const projects: Project[] = [
       { label: "HUMAN STEPS", value: "1 approval" },
     ],
     isPlaceholder: false,
+  },
+  {
+    slug: "mayaakars",
+    title: "A digital studio for a design studio.",
+    client: "Mayaakars",
+    year: "2026",
+    discipline: "Web & Brand",
+    oneLiner:
+      "An end-to-end portfolio platform for a premier architecture and interior design firm — shipped in record time.",
+    problem:
+      "Mayaakars designs high-end spaces, but their work lived in PDFs and a scattered Instagram grid. The firm operated on a traditional outreach model and had no central place for press, prospects, or partners to see the catalogue at full resolution. They needed a web experience that felt as well-constructed as the rooms they build — and a brand positioned to lead in a digital-first design market without losing the credibility they'd already earned.",
+    approach:
+      "We ran the project end-to-end: brand positioning, custom website experience design, and the digital-first architecture under it. The build pairs a tuned design system with a portfolio backend sized for hundreds of high-resolution projects, plus intake flows that route inquiries straight to the studio. Every page was designed to feel like a curated room — premium, considered, and built for scale.",
+    outcome:
+      "Mayaakars moved from traditional outreach to a digital-first brand in weeks. The portfolio launched with the firm's full catalogue and a backend ready to scale as new projects ship — credibility intact, distribution finally unblocked, inquiries now landing in one inbox instead of five.",
+    metrics: [
+      { label: "TURNAROUND", value: "Record time" },
+      { label: "SCOPE", value: "End-to-end" },
+      { label: "DELIVERABLE", value: "Site + brand + portfolio" },
+    ],
+    isPlaceholder: false,
+    featured: true,
+    image: "/case-studies/mayaakars.jpeg",
+    externalUrl: "https://www.mayaakars.com/",
   },
 ];
 
