@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 222 47% 11%;
+    --primary: 224 71% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 47% 11%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 224 71% 40%;
+    --accent-foreground: 0 0% 100%;
+    --border: 222 47% 11%;
+    --input: 222 47% 11%;
+    --ring: 224 71% 40%;
+    --radius: 0.25rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-offwhite text-ink font-sans;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: #1E40AF;
+    color: #FFFFFF;
+  }
+}
+
+@layer utilities {
+  .blueprint-paper {
+    background-color: #1E40AF;
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+
+  .blueprint-paper-deep {
+    background-color: #1E3A8A;
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+
+  .stroke-draw path,
+  .stroke-draw line,
+  .stroke-draw polyline,
+  .stroke-draw circle,
+  .stroke-draw rect {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 1500ms ease-out forwards;
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .tick-underline {
+    background-image: linear-gradient(
+      to right,
+      currentColor 0,
+      currentColor 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    background-position: 0 100%;
+    background-size: 8px 1px;
+    background-repeat: repeat-x;
+    padding-bottom: 4px;
+  }
+}
