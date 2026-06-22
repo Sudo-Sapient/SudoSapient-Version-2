@@ -13,23 +13,42 @@ import {
 
 export const metadata = { title: "About — Sudo Sapient" };
 
+// bio + focus are placeholder copy — edit freely; they show on the card's flip side.
 const team = [
-  { name: "Sabari K", role: "Managing Director", img: "/team/sabari-k.jpg" },
-  { name: "Siddharth Bhat", role: "Advisor", img: "/team/siddharth-bhat.jpg" },
+  {
+    name: "Sabari K",
+    role: "Managing Director",
+    img: "/team/sabari-k.jpg",
+    bio: "Runs the studio end to end — from the first client call to the final shipped build.",
+    focus: ["Strategy", "Delivery", "Clients"],
+  },
+  {
+    name: "Siddharth Bhat",
+    role: "Advisor",
+    img: "/team/siddharth-bhat.jpg",
+    bio: "Advises on product direction and the hard architecture calls.",
+    focus: ["Product", "Architecture"],
+  },
   {
     name: "Deepak Kumaran",
     role: "Senior Developer",
     img: "/team/deepak-kumaran.jpg",
+    bio: "Builds the core systems — APIs, pipelines, and the AI that runs them.",
+    focus: ["Backend", "AI", "Pipelines"],
   },
   {
     name: "Janith Reddy",
     role: "Senior Developer",
     img: "/team/janith-reddy.jpg",
+    bio: "Turns designs into fast, reliable front-ends people actually enjoy using.",
+    focus: ["Frontend", "UX", "Perf"],
   },
   {
     name: "Gokul Krishnan",
     role: "Operations Head",
     img: "/team/gokul-krishnan.jpg",
+    bio: "Keeps projects on rails — scope, timelines, and the day-to-day.",
+    focus: ["Ops", "Delivery", "Process"],
   },
 ];
 

@@ -20,37 +20,31 @@ export function FigureWriting({
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
-      style={style}
+      style={{ ...style, ["--flip-dur"]: "0.55s" } as React.CSSProperties}
       aria-hidden="true"
     >
-      {/* Head — bent forward looking at work */}
-      <circle cx={14} cy={12} r={HEAD_R} />
-      {/* Spine — bent forward */}
-      <line x1={16} y1={18} x2={22} y2={36} />
-      {/* Right arm — extended writing on ground */}
-      <line x1={19} y1={24} x2={28} y2={34} />
-      <line x1={28} y1={34} x2={34} y2={46} />
-      {/* Pen tip */}
-      <line x1={34} y1={46} x2={37} y2={49} />
-      {/* Left arm — propping body */}
-      <line x1={17} y1={22} x2={12} y2={34} />
-      <line x1={12} y1={34} x2={14} y2={46} />
-      {/* Left leg — kneeling */}
-      <line x1={22} y1={36} x2={14} y2={50} />
-      <line x1={14} y1={50} x2={14} y2={60} />
-      {/* Right leg — kneeling, knee on ground */}
-      <line x1={22} y1={36} x2={30} y2={46} />
-      <line x1={30} y1={46} x2={28} y2={58} />
-      {/* Pen marks on ground */}
-      <line x1={30} y1={52} x2={38} y2={52} />
-      <line x1={28} y1={56} x2={36} y2={56} />
-      {/* Ground line */}
-      <line
-        x1={6}  y1={61} x2={38} y2={61}
-        strokeDasharray="1.5 1.5"
-        strokeWidth={0.8}
-        opacity={0.45}
-      />
+      {/* Shared — head, spine, board-holding arm, board, writing upper arm, legs */}
+      <circle cx={17} cy={9} r={HEAD_R} />
+      <line x1={17} y1={14} x2={19} y2={35} />
+      <line x1={18} y1={18} x2={12} y2={25} />
+      <line x1={12} y1={25} x2={20} y2={29} />
+      <polyline points="19,28 30,25 31,30 20,33 19,28" />
+      <line x1={18} y1={18} x2={25} y2={24} />
+      <line x1={19} y1={35} x2={15} y2={49} />
+      <line x1={15} y1={49} x2={13} y2={63} />
+      <line x1={19} y1={35} x2={24} y2={49} />
+      <line x1={24} y1={49} x2={26} y2={63} />
+
+      {/* Writing hand — Frame A: pen at the left of the board */}
+      <g className="flip-a">
+        <line x1={25} y1={24} x2={28} y2={28} />
+        <line x1={28} y1={28} x2={29} y2={31} />
+      </g>
+      {/* Writing hand — Frame B: pen at the right of the board */}
+      <g className="flip-b">
+        <line x1={25} y1={24} x2={30} y2={27} />
+        <line x1={30} y1={27} x2={32} y2={29} />
+      </g>
     </svg>
   );
 }

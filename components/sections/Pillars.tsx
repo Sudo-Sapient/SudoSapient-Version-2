@@ -12,6 +12,7 @@ import {
   FigureCarrying,
   FigurePointing,
   FigureStanding,
+  BreathingFigure,
 } from "@/components/figures";
 
 export function Pillars() {
@@ -50,7 +51,7 @@ export function Pillars() {
                 ]}
               />
             </CornerBrackets>
-            <FigureOverlay align="bottom-right" width="22%">
+            <FigureOverlay align="bottom-right" width="22%" index={0}>
               <FigureCarrying className="w-full" />
             </FigureOverlay>
           </PillarCard>
@@ -78,7 +79,7 @@ export function Pillars() {
                 ]}
               />
             </CornerBrackets>
-            <FigureOverlay align="bottom-right" width="20%">
+            <FigureOverlay align="bottom-right" width="20%" index={1}>
               <FigurePointing className="w-full" />
             </FigureOverlay>
           </PillarCard>
@@ -98,7 +99,7 @@ export function Pillars() {
             <CornerBrackets tone="dark" className="px-6 py-8">
               <CameraDiagram />
             </CornerBrackets>
-            <FigureOverlay align="bottom-right" width="22%">
+            <FigureOverlay align="bottom-right" width="22%" index={2}>
               <FigureStanding className="w-full" />
             </FigureOverlay>
           </PillarCard>
@@ -162,10 +163,12 @@ function FigureOverlay({
   children,
   width,
   align,
+  index = 0,
 }: {
   children: React.ReactNode;
   width: string;
   align: "bottom-right" | "bottom-left";
+  index?: number;
 }) {
   return (
     <motion.div
@@ -178,7 +181,9 @@ function FigureOverlay({
       }`}
       style={{ width }}
     >
-      {children}
+      <BreathingFigure index={index} className="block w-full">
+        {children}
+      </BreathingFigure>
     </motion.div>
   );
 }
@@ -224,7 +229,7 @@ function CameraDiagram() {
         x="170"
         y="24"
         textAnchor="middle"
-        fontFamily="ui-monospace, monospace"
+        style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
         fontSize="10"
         letterSpacing="2"
         fill="#0F172A"

@@ -9,5 +9,7 @@ export { FigureCarrying }  from "./FigureCarrying";
 export { FigureWriting }   from "./FigureWriting";
 export { FigureWaving }    from "./FigureWaving";
 export { FigureThinking }  from "./FigureThinking";
+export { FigureWalking }   from "./FigureWalking";
+export { BreathingFigure } from "./BreathingFigure";
 
 export type { FigureProps } from "./rig";

@@ -86,7 +86,26 @@ Low-level reusable UI controls.
 Keep these generic.
 
 ### `components/figures/`
-Illustrative figure components used in the brand system.
+Illustrative stick-figure components used in the brand system. They share one
+40×70 rig (`figures/rig.ts`) and animate via flipbook (see "Animation &
+interactive systems" below).
+
+### `components/scenes/`
+GSAP + ScrollTrigger scenes that animate the figures on scroll (hero "plotter
+pass", process "drafting pass", the side `LadderClimber`). These use the premium
+DrawSVGPlugin.
+
+### `components/motion/`
+Text-reveal primitive (`AnimatedText`) — rise / scramble / typewriter effects
+built on Framer Motion + split-type.
+
+### `components/cursor/`
+The custom blueprint crosshair cursor (`BlueprintCursor`). Desktop / fine-pointer
+only; hidden on touch and under reduced motion.
+
+### `components/interactive/`
+Interaction wrappers — currently `Shootable`, the "shoot the stickman" easter
+egg layered over figures without touching their base animation.
 
 ### `lib/`
 Shared data and utilities.
@@ -103,6 +122,78 @@ The website serves images from `public/case-studies/`, not from here.
 Reference-only material (the figure-library sandbox). Not part of the main app
 runtime. It is excluded in `tsconfig.json` and ignored by ESLint config.
 See `archive/README.md`.
+
+## Animation & interactive systems
+
+This site has a custom **2D** animation layer (no 3D). It is the part most likely
+to confuse a new developer, so it is documented here in full.
+
+### Fonts
+`app/layout.tsx` loads **Space Grotesk** (display/headings) and **Space Mono**
+(labels) via `next/font`, exposed as Tailwind tokens (`font-display`,
+`font-mono`).
+
+### Stick-figure system (`components/figures/`)
+- `rig.ts` defines the shared **40×70 viewBox** and body proportions every
+  figure uses, so any figure can be swapped 1:1.
+- Figures animate by **flipbook**: each pose is its own `<g>` and we hard-cut
+  between them (`step-end`). The keyframes live in `app/globals.css`
+  (`flip-a/b`, `flip3-*`, walk cycle `walk-*`). This is deliberate — it never
+  shows a half-broken pose or wobble.
+- `MascotFigure` is the roaming "doorman" used by the team grid.
+- All figure motion is disabled under `prefers-reduced-motion`.
+
+### Scroll scenes (`components/scenes/`)
+GSAP + ScrollTrigger (+ DrawSVGPlugin) drive the hero, process pipeline, and the
+side `LadderClimber`. The climber recolours itself to stay legible over light/
+dark sections; that recolour is **throttled (~7×/s)** so it doesn't force layout
+on every scroll frame.
+
+### Text reveals (`components/motion/AnimatedText.tsx`)
+`<AnimatedText variant="rise|scramble|typewriter" … />`. The real text is always
+in the DOM (SSR + accessibility via `aria-label`); the animated copy is
+`aria-hidden`. Reduced motion shows the final text immediately.
+
+### Custom cursor (`components/cursor/BlueprintCursor.tsx`)
+A blueprint crosshair that recolours (white on dark, blue on light) and snaps CAD
+brackets onto links/buttons/figures. Fine-pointer only. Its background detection
+is throttled so the crosshair itself stays frame-smooth.
+
+### Blueprint WebGL background (`components/blueprint/BlueprintCanvas.tsx`)
+A single **OGL** fragment shader (deep-blue grid that drifts, a sweeping light,
+paper grain, a cursor ripple, and a scroll "print-in"). It is dropped behind the
+dark `bg-blueprint` sections, layered on top of the static `<GridBackground/>`
+(which is the **no-WebGL fallback**). Important behaviours:
+- **Disabled on phones (<768px)** — the cheap static grid shows instead.
+- DPR capped at 1.5; the render loop **pauses** when off-screen or the tab is
+  hidden.
+- **Fails safe**: if the GPU drops the WebGL context, the loop stops and the
+  static grid shows — it must never throw inside the render loop.
+
+### "Shoot the stickman" easter egg (`components/interactive/Shootable.tsx`)
+Aim the crosshair at a figure → it surrenders → click to "shoot" it. It randomly
+falls over or fades out, then respawns. It is **additive** — it wraps a figure
+without changing the figure's own animation.
+
+### Team grid (`components/sections/TeamGrid.tsx`)
+Portraits are **flip-lid cards** (front photo / back bio). The bio + focus tags
+come from the `team` array in `app/(marketing)/about/page.tsx` (placeholder copy
+— safe to edit). On single-row desktop a roaming `MascotFigure` walks to the
+clicked card and "opens" it; below `lg`, or on touch / reduced motion, the card
+just flips on tap. **Faces are never covered.**
+
+### Performance & device rules (follow these when adding effects)
+- Gate heavy/continuous work behind `prefers-reduced-motion` and pointer/size
+  media queries (see existing components for the pattern).
+- Throttle any per-scroll or per-pointer work that reads layout
+  (`getBoundingClientRect`, `getComputedStyle`, `elementsFromPoint`).
+- WebGL is desktop/tablet only and must degrade to the static grid.
+
+### Dependency note
+"**Motion**" in this project means **Framer Motion** (`framer-motion`). The
+standalone `motion` and `lenis` packages are intentionally **not** installed.
+Animation libraries in use: `framer-motion`, `gsap` (+ ScrollTrigger,
+DrawSVGPlugin), `ogl` (WebGL background), `split-type` (text splitting).
 
 ## Safe change workflow
 
@@ -128,7 +219,10 @@ See `archive/README.md`.
 
 - App Router is being used, not Pages Router.
 - Styling is Tailwind-based.
-- Motion is handled with Framer Motion.
+- Motion is handled with Framer Motion; scroll choreography with GSAP +
+  ScrollTrigger (+ DrawSVGPlugin); the ambient blueprint background with OGL.
+- The visual identity is strictly 2D (a blueprint / CAD aesthetic). 3D /
+  react-three-fiber was tried and removed — keep it 2D.
 - Project data is file-based, not CMS-based.
 - There is no backend database in this repo.
 

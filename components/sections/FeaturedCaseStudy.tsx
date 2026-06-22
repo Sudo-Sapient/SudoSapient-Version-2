@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
+import { BlueprintCanvas } from "@/components/blueprint/BlueprintCanvas";
 import { BlueprintFrame } from "@/components/blueprint/BlueprintFrame";
 import { CornerBrackets } from "@/components/blueprint/CornerBrackets";
 import { TechLabel } from "@/components/blueprint/TechLabel";
@@ -18,6 +19,7 @@ import {
   FigureCarrying,
   FigureStanding,
   FigureSitting,
+  BreathingFigure,
 } from "@/components/figures";
 import { projects } from "@/lib/projects";
 
@@ -30,6 +32,7 @@ export function FeaturedCaseStudy() {
   return (
     <section className="relative overflow-hidden bg-blueprint py-24 text-white sm:py-32">
       <GridBackground />
+      <BlueprintCanvas />
 
       <Container className="relative z-10">
         <SectionHeading
@@ -113,13 +116,19 @@ export function FeaturedCaseStudy() {
 
                   {/* figures pinned around the structure for depth */}
                   <div className="pointer-events-none absolute -left-3 bottom-2 text-white opacity-90 sm:-left-5">
-                    <FigureMeasuring size={96} />
+                    <BreathingFigure index={0}>
+                      <FigureMeasuring size={96} />
+                    </BreathingFigure>
                   </div>
                   <div className="pointer-events-none absolute -right-2 top-6 text-white opacity-80 sm:-right-4">
-                    <FigureStanding size={72} />
+                    <BreathingFigure index={1}>
+                      <FigureStanding size={72} />
+                    </BreathingFigure>
                   </div>
                   <div className="pointer-events-none absolute -right-1 -bottom-2 text-white opacity-90 sm:-right-2">
-                    <FigureCarrying size={88} />
+                    <BreathingFigure index={2}>
+                      <FigureCarrying size={88} />
+                    </BreathingFigure>
                   </div>
                 </motion.div>
 
@@ -205,7 +214,9 @@ export function FeaturedCaseStudy() {
                 </p>
               </div>
               <div className="text-white opacity-90">
-                <FigureSitting size={64} />
+                <BreathingFigure index={3}>
+                  <FigureSitting size={64} />
+                </BreathingFigure>
               </div>
             </div>
           </BlueprintFrame>

@@ -47,12 +47,15 @@ app/
   layout.tsx
 
 components/
-  blueprint/   # visual system: frames, labels, diagrams, dividers
-  figures/     # illustration primitives used across sections
-  layout/      # Nav, Footer, Container
-  scenes/      # decorative motion / success scenes
-  sections/    # page sections used by marketing pages
-  ui/          # shared form/button primitives
+  blueprint/    # visual system: frames, labels, diagrams, grid + WebGL background
+  cursor/       # custom blueprint crosshair cursor (desktop only)
+  figures/      # stick-figure system (shared 40x70 rig + flipbook poses)
+  interactive/  # interaction wrappers (e.g. shoot-the-stickman easter egg)
+  layout/       # Nav, Footer, Container
+  motion/       # text-reveal animation primitive (AnimatedText)
+  scenes/       # GSAP scroll-driven figure scenes (hero, process, ladder)
+  sections/     # page sections used by marketing pages
+  ui/           # shared form/button primitives
 
 lib/
   projects.ts  # case study data source

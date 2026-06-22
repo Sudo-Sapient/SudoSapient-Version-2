@@ -23,8 +23,13 @@ export function FigureStanding({
       style={style}
       aria-hidden="true"
     >
-      {/* Head */}
-      <circle cx={20} cy={6} r={HEAD_R} />
+      {/* Head — glances around now and then */}
+      <g
+        className="fig-anim anim-look"
+        style={{ transformBox: "view-box", transformOrigin: "20px 12px" }}
+      >
+        <circle cx={20} cy={6} r={HEAD_R} />
+      </g>
       {/* Spine */}
       <line x1={20} y1={12} x2={20} y2={32} />
       {/* Left arm */}

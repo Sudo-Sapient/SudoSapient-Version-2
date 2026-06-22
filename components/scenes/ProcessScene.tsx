@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { Pipeline } from "@/components/blueprint/Pipeline";
+import { Shootable } from "@/components/interactive/Shootable";
 import {
   FigureSitting,
   FigureWriting,
@@ -10,13 +14,31 @@ import {
   FigurePointing,
 } from "@/components/figures";
 
+gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
+
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
+
+// Pipeline geometry (must match Pipeline.tsx): viewBox 900×160, spine y=80,
+// node centres at these x. Pen sweeps from the first to the last.
+const XS = [60, 340, 620, 840];
+const BASE_Y = 80;
+const SPAN = XS[XS.length - 1] - XS[0]; // 780
+// Fraction along the sweep where the pen reaches each node (0..1).
+const NODE_FR = XS.map((x) => (x - XS[0]) / SPAN);
+// Pen left position as a % of the 900-wide viewBox at each end.
+const PEN_START = `${(XS[0] / 900) * 100}%`;
+const PEN_END = `${(XS[XS.length - 1] / 900) * 100}%`;
+
 /**
- * How We Work: horizontal pipeline of four nodes (Discover, Prototype, Build, Ship).
- * One figure per node, doing that step's action:
- *   Discover  → FigureSitting (listening)
- *   Prototype → FigureWriting (drafting)
- *   Build     → FigurePushing (constructing)
- *   Ship      → FigurePointing (forward, "out")
+ * How We Work — the "Drafting Pass".
+ *
+ * Scroll-scrubbed: an amber plotter pen rides the pipeline spine left → right as
+ * you scroll. The spine draws under it, and the instant the pen reaches each
+ * node the node pops in and its figure is plotted via DrawSVG. Scroll back up
+ * and it un-draws. Figures never change pose — only the pen, node pop and stroke
+ * reveal animate. Reduced motion / mobile fall back to a static, fully-drawn
+ * layout.
  */
 export function ProcessScene() {
   const nodes = [
@@ -27,30 +49,104 @@ export function ProcessScene() {
   ];
   const figures = [FigureSitting, FigureWriting, FigurePushing, FigurePointing];
 
-  return (
-    <div className="relative w-full">
-      <Pipeline
-        nodes={nodes}
-        tone="light"
-        startDelay={0.2}
-        segmentLabels={["1.0x", "2.0x", "3.0x"]}
-      />
+  const scene = React.useRef<HTMLDivElement>(null);
+  const pen = React.useRef<HTMLDivElement>(null);
+  const figRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
-      {/* Figures positioned at each node — fade in after the pipeline draws */}
-      <div className="absolute inset-0 hidden md:block">
-        {figures.map((F, i) => {
-          // The Pipeline viewBox is 900 wide with padX=60; node centers at 60, 340, 620, 840.
-          const nodeCenters = [60, 340, 620, 840];
-          return (
-            <motion.div
+  useIsomorphicLayoutEffect(() => {
+    const root = scene.current;
+    const penEl = pen.current;
+    if (!root || !penEl) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const ctx = gsap.context(() => {
+      const spine = root.querySelector<SVGElement>("[data-pl-spine]");
+      const nodeEls = XS.map((_, i) => root.querySelector<SVGElement>(`[data-pl-node="${i}"]`));
+      const tickEls = XS.map((_, i) => root.querySelector<SVGElement>(`[data-pl-tick="${i}"]`));
+      const labelEls = XS.map((_, i) => root.querySelector<SVGElement>(`[data-pl-label="${i}"]`));
+      const figStrokes = figRefs.current.map((f) =>
+        f
+          ? Array.from(f.querySelectorAll<SVGElement>("line, circle, polyline, path")).filter(
+              (el) => !el.getAttribute("stroke-dasharray")
+            )
+          : []
+      );
+
+      // Hide everything before first paint.
+      if (spine) gsap.set(spine, { drawSVG: "0%" });
+      nodeEls.forEach((n, i) => n && gsap.set(n, { scale: 0, svgOrigin: `${XS[i]} ${BASE_Y}` }));
+      tickEls.forEach((t) => t && gsap.set(t, { opacity: 0 }));
+      labelEls.forEach((l) => l && gsap.set(l, { opacity: 0, y: 6 }));
+      figStrokes.flat().forEach((s) => gsap.set(s, { drawSVG: "0%" }));
+      gsap.set(penEl, { left: PEN_START, opacity: 0 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: root,
+          start: "top 72%",
+          end: "bottom 55%",
+          scrub: 0.5,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // The pen and the spine track scroll across the whole timeline.
+      tl.to(penEl, { opacity: 1, duration: 0.02 }, 0);
+      if (spine) tl.to(spine, { drawSVG: "100%", duration: 1, ease: "none" }, 0);
+      tl.to(penEl, { left: PEN_END, duration: 1, ease: "none" }, 0);
+
+      // Each node + figure resolves the moment the pen arrives at it.
+      NODE_FR.forEach((fr, i) => {
+        const at = fr * 0.92;
+        if (nodeEls[i])
+          tl.to(nodeEls[i], { scale: 1, duration: 0.06, ease: "back.out(2)", svgOrigin: `${XS[i]} ${BASE_Y}` }, at);
+        if (tickEls[i]) tl.to(tickEls[i], { opacity: 1, duration: 0.04 }, at);
+        if (labelEls[i]) tl.to(labelEls[i], { opacity: 1, y: 0, duration: 0.08 }, at + 0.02);
+        if (figStrokes[i].length)
+          tl.to(figStrokes[i], { drawSVG: "100%", duration: 0.12, stagger: 0.012, ease: "none" }, at);
+      });
+
+      // Pen lifts off once it has reached the end.
+      tl.to(penEl, { opacity: 0, duration: 0.05 }, 0.97);
+    }, scene);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <div ref={scene} className="relative w-full">
+      <div className="relative">
+        <Pipeline
+          nodes={nodes}
+          tone="light"
+          mode="manual"
+          segmentLabels={["1.0x", "2.0x", "3.0x"]}
+        />
+
+        {/* The plotter pen — rides the spine, scrubbed to scroll. */}
+        <div
+          ref={pen}
+          aria-hidden
+          className="pointer-events-none absolute top-1/2 z-20 -translate-y-1/2 opacity-0"
+          style={{ left: PEN_START }}
+        >
+          <span className="relative block h-4 w-4 -translate-x-1/2">
+            <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-warn" />
+            <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-warn" />
+          </span>
+        </div>
+
+        {/* Figures at each node — plotted in by the scrub timeline (desktop). */}
+        <div className="absolute inset-0 hidden md:block">
+          {figures.map((F, i) => (
+            <div
               key={i}
-              initial={{ opacity: 0, y: 6 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ delay: 1.5 + i * 0.12, duration: 0.5 }}
+              ref={(el) => {
+                figRefs.current[i] = el;
+              }}
               className="absolute text-white"
               style={{
-                left: `${(nodeCenters[i] / 900) * 100}%`,
+                left: `${(XS[i] / 900) * 100}%`,
                 top: "65%",
                 transform: "translateX(-50%)",
                 width: "10%",
@@ -58,10 +154,12 @@ export function ProcessScene() {
                 maxWidth: 84,
               }}
             >
-              <F className="w-full" />
-            </motion.div>
-          );
-        })}
+              <Shootable className="block w-full">
+                <F className="w-full" />
+              </Shootable>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* On mobile, render figures in a row below the pipeline */}

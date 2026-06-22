@@ -79,7 +79,7 @@ export function SystemDiagram({
           <text
             x={12}
             y={20}
-            fontFamily="ui-monospace, monospace"
+            style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
             fontSize="10"
             letterSpacing="2"
             className={textColor}
@@ -118,7 +118,7 @@ export function SystemDiagram({
                   x={cx}
                   y={cy - 4}
                   textAnchor="middle"
-                  fontFamily="ui-monospace, monospace"
+                  style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
                   fontSize="9"
                   letterSpacing="1.5"
                   className={textColor}
@@ -179,7 +179,7 @@ export function SystemDiagram({
                 x={cx}
                 y={cy + 3}
                 textAnchor="middle"
-                fontFamily="ui-monospace, monospace"
+                style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
                 fontSize="10"
                 fontWeight="600"
                 letterSpacing="1.5"

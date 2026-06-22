@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { FigureWaving, FigurePointing } from "@/components/figures";
+import { FigureWaving, FigurePointing, BreathingFigure } from "@/components/figures";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 
 /**
@@ -18,8 +18,12 @@ export function ContactSuccessScene() {
       className="flex flex-col items-start gap-6 border border-white/30 p-8 sm:p-10"
     >
       <div className="flex items-end gap-6 text-white">
-        <FigureWaving className="h-24 w-auto" />
-        <FigurePointing className="h-28 w-auto" />
+        <BreathingFigure index={0}>
+          <FigureWaving className="h-24 w-auto" />
+        </BreathingFigure>
+        <BreathingFigure index={1}>
+          <FigurePointing className="h-28 w-auto" />
+        </BreathingFigure>
       </div>
       <TechLabel>{"// CONSTRUCTION SCHEDULED"}</TechLabel>
       <h2 className="font-display text-3xl font-extrabold leading-tight tracking-tight-2 text-white sm:text-4xl">

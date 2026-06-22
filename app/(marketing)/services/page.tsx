@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
@@ -15,6 +16,7 @@ import {
   FigureClimbing,
   FigureStanding,
   FigureSitting,
+  BreathingFigure,
 } from "@/components/figures";
 
 export const metadata = { title: "Services — Sudo Sapient" };
@@ -97,22 +99,28 @@ export default function ServicesPage() {
           </CornerBrackets>
           {/* Figures interacting with the stack */}
           <div
-            className="pointer-events-none absolute left-[-2%] bottom-[6%] text-white"
-            style={{ width: "10%", minWidth: 56 }}
+            className="fig-rise pointer-events-none absolute left-[-2%] bottom-[6%] text-white"
+            style={{ width: "10%", minWidth: 56, "--rise": "10px", "--rise-dur": "3s", animationDelay: "-0.5s" } as CSSProperties}
           >
-            <FigureCarrying className="w-full" />
+            <BreathingFigure index={0} className="block w-full">
+              <FigureCarrying className="w-full" />
+            </BreathingFigure>
           </div>
           <div
-            className="pointer-events-none absolute right-[4%] top-[20%] text-white"
-            style={{ width: "8%", minWidth: 48 }}
+            className="fig-rise pointer-events-none absolute right-[4%] top-[20%] text-white"
+            style={{ width: "8%", minWidth: 48, "--rise": "36px", "--rise-dur": "5.2s", animationDelay: "-0.3s" } as CSSProperties}
           >
-            <FigureClimbing className="w-full" />
+            <BreathingFigure index={1} className="block w-full">
+              <FigureClimbing className="w-full" />
+            </BreathingFigure>
           </div>
           <div
-            className="pointer-events-none absolute right-[-2%] bottom-[-2%] text-white"
-            style={{ width: "10%", minWidth: 56 }}
+            className="fig-rise pointer-events-none absolute right-[-2%] bottom-[-2%] text-white"
+            style={{ width: "10%", minWidth: 56, "--rise": "8px", "--rise-dur": "3.4s", animationDelay: "-1.5s" } as CSSProperties}
           >
-            <FigureSitting className="w-full" />
+            <BreathingFigure index={2} className="block w-full">
+              <FigureSitting className="w-full" />
+            </BreathingFigure>
           </div>
         </div>
       </ServiceBlock>
@@ -132,16 +140,20 @@ export default function ServicesPage() {
             />
           </CornerBrackets>
           <div
-            className="pointer-events-none absolute left-[3%] bottom-[-4%] text-white"
-            style={{ width: "9%", minWidth: 56 }}
+            className="fig-rise pointer-events-none absolute left-[3%] bottom-[-4%] text-white"
+            style={{ width: "9%", minWidth: 56, "--rise": "11px", "--rise-dur": "2.8s", animationDelay: "-0.9s" } as CSSProperties}
           >
-            <FigurePushing className="w-full" />
+            <BreathingFigure index={0} className="block w-full">
+              <FigurePushing className="w-full" />
+            </BreathingFigure>
           </div>
           <div
-            className="pointer-events-none absolute right-[8%] bottom-[-4%] text-white"
-            style={{ width: "8%", minWidth: 52 }}
+            className="fig-rise pointer-events-none absolute right-[8%] bottom-[-4%] text-white"
+            style={{ width: "8%", minWidth: 52, "--rise": "9px", "--rise-dur": "3.2s", animationDelay: "-1.8s" } as CSSProperties}
           >
-            <FigurePointing className="w-full" />
+            <BreathingFigure index={1} className="block w-full">
+              <FigurePointing className="w-full" />
+            </BreathingFigure>
           </div>
         </div>
       </ServiceBlock>
@@ -172,16 +184,20 @@ export default function ServicesPage() {
             />
           </CornerBrackets>
           <div
-            className="pointer-events-none absolute right-[2%] bottom-[-4%] text-white"
-            style={{ width: "10%", minWidth: 60 }}
+            className="fig-rise pointer-events-none absolute right-[2%] bottom-[-4%] text-white"
+            style={{ width: "10%", minWidth: 60, "--rise": "9px", "--rise-dur": "3.6s", animationDelay: "-0.6s" } as CSSProperties}
           >
-            <FigureStanding className="w-full" />
+            <BreathingFigure index={0} className="block w-full">
+              <FigureStanding className="w-full" />
+            </BreathingFigure>
           </div>
           <div
-            className="pointer-events-none absolute left-[6%] bottom-[-4%] text-white"
-            style={{ width: "10%", minWidth: 60 }}
+            className="fig-rise pointer-events-none absolute left-[6%] bottom-[-4%] text-white"
+            style={{ width: "10%", minWidth: 60, "--rise": "10px", "--rise-dur": "3s", animationDelay: "-2.1s" } as CSSProperties}
           >
-            <FigurePointing className="w-full" />
+            <BreathingFigure index={1} className="block w-full">
+              <FigurePointing className="w-full" />
+            </BreathingFigure>
           </div>
         </div>
       </ServiceBlock>

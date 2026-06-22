@@ -1,29 +1,25 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono } from "next/font/google";
+import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
+import { BlueprintCursor } from "@/components/cursor/BlueprintCursor";
 
-const inter = Inter({
+// Technical grotesque — body + display (used bold/tight for headings).
+const grotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-grotesk",
   display: "swap",
 });
 
-const interDisplay = Inter({
+// CAD annotation mono — pairs with Space Grotesk as a superfamily.
+const mono = Space_Mono({
   subsets: ["latin"],
-  weight: ["700", "800", "900"],
-  variable: "--font-inter-display",
-  display: "swap",
-});
-
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "700"],
   variable: "--font-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Sudo Sapient — We build AI systems that automate, create, and scale.",
+  title: "Sudo Sapient",
   description:
     "An AI studio that builds AI products, AI automation, and AI media. Working systems in weeks, not quarters.",
   openGraph: {
@@ -40,11 +36,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${interDisplay.variable} ${mono.variable}`}
-    >
-      <body>{children}</body>
+    <html lang="en" className={`${grotesk.variable} ${mono.variable}`}>
+      <body>
+        {children}
+        <BlueprintCursor />
+      </body>
     </html>
   );
 }

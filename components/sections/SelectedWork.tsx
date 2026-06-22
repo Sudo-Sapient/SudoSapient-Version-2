@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { GridBackground } from "@/components/blueprint/GridBackground";
+import { BlueprintCanvas } from "@/components/blueprint/BlueprintCanvas";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import { CornerBrackets } from "@/components/blueprint/CornerBrackets";
 import { SystemDiagram } from "@/components/blueprint/SystemDiagram";
@@ -88,6 +89,7 @@ export function SelectedWork() {
   return (
     <section className="relative overflow-hidden bg-blueprint py-24 text-white sm:py-32">
       <GridBackground />
+      <BlueprintCanvas />
       <Container className="relative z-10">
         <SectionHeading
           index="02"

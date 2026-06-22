@@ -11,6 +11,7 @@ import {
   FigureClimbing,
   FigureMeasuring,
   FigurePointing,
+  BreathingFigure,
 } from "@/components/figures";
 
 export async function generateStaticParams() {
@@ -54,7 +55,9 @@ export default async function CaseStudyPage({
                 <p className="max-w-2xl text-lg text-white/80">{project.oneLiner}</p>
               </div>
               <div className="md:col-span-4 flex justify-end text-white">
-                <Figure size={140} />
+                <BreathingFigure>
+                  <Figure size={140} />
+                </BreathingFigure>
               </div>
             </div>
 

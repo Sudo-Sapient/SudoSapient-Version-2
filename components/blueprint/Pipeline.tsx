@@ -17,6 +17,13 @@ type Props = {
   startDelay?: number;
   /** Show "x.x" labels between nodes. */
   segmentLabels?: string[];
+  /**
+   * "framer" (default): self-animates left → right on view.
+   * "manual": renders fully drawn with no entrance and tags each part with a
+   * data-attribute (data-pl-spine / -tick / -node / -label) so a parent scroll
+   * timeline (the Process "Drafting Pass") can drive the reveal.
+   */
+  mode?: "framer" | "manual";
 };
 
 /**
@@ -29,9 +36,14 @@ export function Pipeline({
   className,
   startDelay = 0,
   segmentLabels,
+  mode = "framer",
 }: Props) {
   const stroke = tone === "light" ? "#FFFFFF" : "#0F172A";
   const textColor = tone === "light" ? "fill-white" : "fill-ink";
+
+  // In "manual" mode, strip every entrance prop so a parent timeline drives it.
+  const a = <T extends Record<string, unknown>>(props: T): Partial<T> =>
+    mode === "manual" ? {} : props;
 
   const W = 900;
   const H = 160;
@@ -59,31 +71,34 @@ export function Pipeline({
       >
         {/* Spine */}
         <motion.line
+          data-pl-spine
           x1={xs[0]}
           y1={baseY}
           x2={xs[xs.length - 1]}
           y2={baseY}
-          initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 1.2, ease: "easeOut", delay: startDelay }}
+          {...a({
+            initial: { pathLength: 0 },
+            whileInView: { pathLength: 1 },
+            viewport: { once: true, amount: 0.3 },
+            transition: { duration: 1.2, ease: "easeOut", delay: startDelay },
+          })}
         />
 
         {/* Tick caps at each node along the spine */}
         {xs.map((x, i) => (
           <motion.line
             key={`tick-${i}`}
+            data-pl-tick={i}
             x1={x}
             y1={baseY - 8}
             x2={x}
             y2={baseY + 8}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{
-              duration: 0.3,
-              delay: startDelay + 0.4 + i * 0.1,
-            }}
+            {...a({
+              initial: { opacity: 0 },
+              whileInView: { opacity: 1 },
+              viewport: { once: true, amount: 0.3 },
+              transition: { duration: 0.3, delay: startDelay + 0.4 + i * 0.1 },
+            })}
           />
         ))}
 
@@ -91,15 +106,22 @@ export function Pipeline({
         {nodes.map((n, i) => (
           <motion.g
             key={n.code}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{
-              duration: 0.4,
-              delay: startDelay + 0.8 + i * 0.12,
-              ease: "easeOut",
-            }}
-            style={{ transformOrigin: `${xs[i]}px ${baseY}px` }}
+            data-pl-node={i}
+            {...a({
+              initial: { opacity: 0, scale: 0.8 },
+              whileInView: { opacity: 1, scale: 1 },
+              viewport: { once: true, amount: 0.3 },
+              transition: {
+                duration: 0.4,
+                delay: startDelay + 0.8 + i * 0.12,
+                ease: "easeOut",
+              },
+            })}
+            style={
+              mode === "framer"
+                ? { transformOrigin: `${xs[i]}px ${baseY}px` }
+                : undefined
+            }
           >
             <circle cx={xs[i]} cy={baseY} r="14" fill={stroke === "#FFFFFF" ? "#1E40AF" : "#FAFAFA"} />
             <circle cx={xs[i]} cy={baseY} r="14" />
@@ -107,7 +129,7 @@ export function Pipeline({
               x={xs[i]}
               y={baseY + 4}
               textAnchor="middle"
-              fontFamily="ui-monospace, monospace"
+              style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
               fontSize="11"
               fontWeight="600"
               className={textColor}
@@ -122,19 +144,19 @@ export function Pipeline({
         {nodes.map((n, i) => (
           <motion.g
             key={`label-${n.code}`}
-            initial={{ opacity: 0, y: 4 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{
-              duration: 0.4,
-              delay: startDelay + 1.0 + i * 0.1,
-            }}
+            data-pl-label={i}
+            {...a({
+              initial: { opacity: 0, y: 4 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true, amount: 0.3 },
+              transition: { duration: 0.4, delay: startDelay + 1.0 + i * 0.1 },
+            })}
           >
             <text
               x={xs[i]}
               y={36}
               textAnchor="middle"
-              fontFamily="ui-monospace, monospace"
+              style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
               fontSize="10"
               letterSpacing="2"
               opacity="0.7"
@@ -147,7 +169,7 @@ export function Pipeline({
               x={xs[i]}
               y={56}
               textAnchor="middle"
-              fontFamily="Inter Display, Inter, sans-serif"
+              style={{ fontFamily: "var(--font-grotesk), system-ui, sans-serif" }}
               fontSize="18"
               fontWeight="700"
               letterSpacing="-0.3"
@@ -161,7 +183,7 @@ export function Pipeline({
                 x={xs[i]}
                 y={baseY + 36}
                 textAnchor="middle"
-                fontFamily="ui-monospace, monospace"
+                style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
                 fontSize="10"
                 letterSpacing="2"
                 opacity="0.7"
@@ -194,7 +216,7 @@ export function Pipeline({
                   x={cx}
                   y={baseY - 16}
                   textAnchor="middle"
-                  fontFamily="ui-monospace, monospace"
+                  style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
                   fontSize="10"
                   letterSpacing="2"
                   className={textColor}

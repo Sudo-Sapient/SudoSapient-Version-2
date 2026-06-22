@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Container } from "./Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
 import { TechLabel } from "@/components/blueprint/TechLabel";
-import { FigureWaving } from "@/components/figures";
+import { FigureWaving, BreathingFigure } from "@/components/figures";
 
 export function Footer() {
   return (
@@ -43,7 +43,9 @@ export function Footer() {
       </div>
 
       <div className="pointer-events-none absolute bottom-0 right-4 text-white/80 sm:right-10">
-        <FigureWaving size={80} />
+        <BreathingFigure>
+          <FigureWaving size={80} />
+        </BreathingFigure>
       </div>
     </footer>
   );

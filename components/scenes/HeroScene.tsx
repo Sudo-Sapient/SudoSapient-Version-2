@@ -1,8 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { ModuleStack } from "@/components/blueprint/ModuleStack";
+import { BreathingFigure } from "@/components/figures";
 import {
   FigurePushing,
   FigureClimbing,
@@ -10,73 +12,182 @@ import {
   FigureSitting,
 } from "@/components/figures";
 
+gsap.registerPlugin(DrawSVGPlugin);
+
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
+
+// How long the plotter pen takes to sweep top → bottom of the scene.
+const TRAVEL = 1.5;
+// Each stroke draws over this long, starting as the pen reaches its height.
+const STROKE_DUR = 0.34;
+// Breathing begins once the build has fully settled.
+const SETTLE = TRAVEL + 0.7;
+
 /**
- * The homepage hero composition.
- * Focal structure: the three-module stack (PRODUCT / AUTOMATION / MEDIA),
- * built in plain view by:
- *   - FigurePushing (foreground left, large): pushing the bottom MEDIA module into place
- *   - FigureClimbing (right side, medium): scaling the AUTOMATION module
- *   - FigureStanding (top right, small): smaller observer, depth cue
- *   - FigureSitting (foreground right, large): cross-legged on the baseline, watching
+ * Homepage hero — the "Plotter Pass".
  *
- * Figures fade in after the structure draws.
+ * On load a thin amber drafting guide descends the scene. As its Y crosses each
+ * element, that element draws itself in (DrawSVG), so the whole composition —
+ * the PRODUCT/AUTOMATION/MEDIA stack and the four figures — appears to be
+ * plotted top-to-bottom by a single pen. The guide retracts and the scene is
+ * left crisp and static, after which the crew starts an almost-imperceptible
+ * breathing idle. Poses never move; only the stroke reveal + guide animate.
+ * Reduced motion: everything renders fully drawn, no pen.
  */
 export function HeroScene() {
+  const scope = React.useRef<HTMLDivElement>(null);
+  const guide = React.useRef<HTMLDivElement>(null);
+
+  useIsomorphicLayoutEffect(() => {
+    const root = scope.current;
+    const pen = guide.current;
+    if (!root || !pen) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const ctx = gsap.context(() => {
+      const rect = root.getBoundingClientRect();
+      const height = rect.height || 1;
+
+      // Vertical position (0..1) of an element's centre within the scene.
+      const frac = (el: Element) => {
+        const r = el.getBoundingClientRect();
+        return gsap.utils.clamp(0, 1, (r.top + r.height / 2 - rect.top) / height);
+      };
+
+      // Drawable strokes — skip dashed guides (DrawSVG flickers on them).
+      const strokes = Array.from(
+        root.querySelectorAll<SVGElement>("svg line, svg rect, svg polyline, svg circle, svg path")
+      ).filter((el) => !el.getAttribute("stroke-dasharray"));
+      const texts = Array.from(root.querySelectorAll<SVGTextElement>("svg text"));
+
+      // Hide everything before first paint, then plot it back in.
+      gsap.set(strokes, { drawSVG: "0%" });
+      gsap.set(texts, { opacity: 0 });
+      gsap.set(pen, { y: 0, opacity: 1 });
+
+      const tl = gsap.timeline();
+
+      strokes.forEach((el) => {
+        tl.fromTo(
+          el,
+          { drawSVG: "0%" },
+          { drawSVG: "100%", duration: STROKE_DUR, ease: "power1.out" },
+          frac(el) * TRAVEL
+        );
+      });
+
+      texts.forEach((el) => {
+        const target = Number(el.getAttribute("opacity") ?? "1");
+        tl.to(el, { opacity: target, duration: 0.3 }, frac(el) * TRAVEL + 0.12);
+      });
+
+      // The pen sweeps down, then retracts up and fades out.
+      tl.to(pen, { y: height, duration: TRAVEL, ease: "none" }, 0);
+      tl.to(pen, { y: -24, opacity: 0, duration: 0.4, ease: "power1.in" }, TRAVEL + 0.05);
+    }, scope);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="relative isolate w-full">
-      {/* Focal structure */}
+    <div ref={scope} className="relative isolate w-full">
+      {/* The plotter pen: a thin amber guide line with a crosshair at the left. */}
+      <div
+        ref={guide}
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 z-20 opacity-0"
+      >
+        <div className="relative h-px w-full bg-warn/80">
+          <span className="absolute -left-0.5 top-1/2 h-3 w-3 -translate-y-1/2">
+            <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-warn" />
+            <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-warn" />
+          </span>
+        </div>
+      </div>
+
+      {/* Focal structure — driven by the plotter, so render it static. */}
       <ModuleStack
         modules={[
-          { code: "M.01", label: "PRODUCT", meta: "agents · copilots · RAG" },
-          { code: "M.02", label: "AUTOMATION", meta: "pipelines · routing" },
-          { code: "M.03", label: "MEDIA", meta: "shows · clips · essays" },
+          { code: "M.01", label: "PRODUCT" },
+          { code: "M.02", label: "AUTOMATION" },
+          { code: "M.03", label: "MEDIA" },
         ]}
         tone="light"
-        startDelay={0.6}
+        mode="static"
       />
 
-      {/* Background observer — top right, small scale (depth) */}
-      <motion.div
-        initial={{ opacity: 0, y: 4 }}
-        animate={{ opacity: 0.7, y: 0 }}
-        transition={{ delay: 2.4, duration: 0.5 }}
-        className="pointer-events-none absolute right-[3%] top-[-2%] text-white/85"
-        style={{ width: "8%", minWidth: 36 }}
+      {/* Background observer — top right, rides up/down like a hoist */}
+      <div
+        className="fig-rise pointer-events-none absolute right-[3%] top-[-2%] text-white/85"
+        style={
+          {
+            width: "8%",
+            minWidth: 36,
+            "--rise": "9px",
+            "--rise-dur": "3.6s",
+            animationDelay: `${SETTLE}s`,
+          } as React.CSSProperties
+        }
       >
-        <FigureStanding className="w-full" />
-      </motion.div>
+        <BreathingFigure index={0} startDelay={SETTLE} className="block w-full">
+          <FigureStanding className="w-full" />
+        </BreathingFigure>
+      </div>
 
-      {/* Foreground left — pushing the bottom module right-to-left into the stack */}
-      <motion.div
-        initial={{ opacity: 0, x: -8 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2.2, duration: 0.5 }}
-        className="pointer-events-none absolute left-[-1%] bottom-[8%] text-white"
-        style={{ width: "16%", minWidth: 72 }}
+      {/* Foreground left — heaves the bottom module up into place */}
+      <div
+        className="fig-rise pointer-events-none absolute left-[-1%] bottom-[8%] text-white"
+        style={
+          {
+            width: "16%",
+            minWidth: 72,
+            "--rise": "11px",
+            "--rise-dur": "2.9s",
+            animationDelay: `${SETTLE + 0.4}s`,
+          } as React.CSSProperties
+        }
       >
-        <FigurePushing className="w-full" />
-      </motion.div>
+        <BreathingFigure index={1} startDelay={SETTLE} className="block w-full">
+          <FigurePushing className="w-full" />
+        </BreathingFigure>
+      </div>
 
-      {/* Right side — climbing the middle module (medium scale) */}
-      <motion.div
-        initial={{ opacity: 0, x: 6 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2.3, duration: 0.5 }}
-        className="pointer-events-none absolute right-[6%] top-[26%] text-white"
-        style={{ width: "12%", minWidth: 60 }}
+      {/* Right side — actually climbs up & down the middle module */}
+      <div
+        className="fig-rise pointer-events-none absolute right-[6%] top-[26%] text-white"
+        style={
+          {
+            width: "12%",
+            minWidth: 60,
+            "--rise": "44px",
+            "--rise-dur": "5.5s",
+            animationDelay: `${SETTLE + 0.2}s`,
+          } as React.CSSProperties
+        }
       >
-        <FigureClimbing className="w-full" />
-      </motion.div>
+        <BreathingFigure index={2} startDelay={SETTLE} className="block w-full">
+          <FigureClimbing className="w-full" />
+        </BreathingFigure>
+      </div>
 
-      {/* Foreground right — sitting on the baseline, watching */}
-      <motion.div
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2.5, duration: 0.5 }}
-        className="pointer-events-none absolute right-[2%] bottom-[-2%] text-white"
-        style={{ width: "14%", minWidth: 64 }}
+      {/* Foreground right — sitting on the baseline, bobs as it watches */}
+      <div
+        className="fig-rise pointer-events-none absolute right-[2%] bottom-[-2%] text-white"
+        style={
+          {
+            width: "14%",
+            minWidth: 64,
+            "--rise": "8px",
+            "--rise-dur": "3.3s",
+            animationDelay: `${SETTLE + 0.6}s`,
+          } as React.CSSProperties
+        }
       >
-        <FigureSitting className="w-full" />
+        <BreathingFigure index={3} startDelay={SETTLE} className="block w-full">
+          <FigureSitting className="w-full" />
+        </BreathingFigure>
         {/* tiny notebook line beside the seated figure */}
         <svg
           viewBox="0 0 60 40"
@@ -91,7 +202,7 @@ export function HeroScene() {
           <line x1="12" y1="20" x2="38" y2="20" />
           <line x1="12" y1="26" x2="42" y2="26" />
         </svg>
-      </motion.div>
+      </div>
     </div>
   );
 }

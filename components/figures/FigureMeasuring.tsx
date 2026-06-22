@@ -33,8 +33,13 @@ export function FigureMeasuring({
       <line x1={6} y1={40} x2={10} y2={40} />
       <line x1={6} y1={48} x2={10} y2={48} />
 
-      {/* Head — looking up-left toward ruler */}
-      <circle cx={22} cy={8} r={HEAD_R} />
+      {/* Head — looking up-left toward ruler, nods as it reads */}
+      <g
+        className="fig-anim anim-tilt"
+        style={{ transformBox: "view-box", transformOrigin: "22px 14px" }}
+      >
+        <circle cx={22} cy={8} r={HEAD_R} />
+      </g>
       {/* Spine */}
       <line x1={22} y1={14} x2={22} y2={34} />
       {/* Left arm — raised, hand gripping ruler top */}

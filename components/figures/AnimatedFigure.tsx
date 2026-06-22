@@ -4,6 +4,7 @@ import * as React from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
 
@@ -65,7 +66,7 @@ export function AnimatedFigure({
   }, [duration, stagger]);
 
   return (
-    <span ref={root} className={className}>
+    <span ref={root} className={cn("inline-block", className)}>
       {children}
     </span>
   );

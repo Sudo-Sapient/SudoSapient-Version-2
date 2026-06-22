@@ -18,6 +18,12 @@ type Props = {
   startDelay?: number;
   /** Show dimension caps + total-height label on the side. */
   showDimensions?: boolean;
+  /**
+   * "framer" (default): self-animates its strokes in on view.
+   * "static": renders fully drawn with no entrance, so a parent timeline (e.g.
+   * the hero "Plotter Pass") can drive the reveal instead.
+   */
+  mode?: "framer" | "static";
 };
 
 /**
@@ -34,9 +40,15 @@ export function ModuleStack({
   className,
   startDelay = 0,
   showDimensions = true,
+  mode = "framer",
 }: Props) {
   const stroke = tone === "light" ? "#FFFFFF" : "#0F172A";
   const textColor = tone === "light" ? "fill-white" : "fill-ink";
+
+  // In "static" mode we strip every entrance prop, so each motion element
+  // renders as a plain, fully-visible SVG node a parent timeline can drive.
+  const a = <T extends Record<string, unknown>>(props: T): Partial<T> =>
+    mode === "static" ? {} : props;
 
   // Layout: 600x420 viewBox, 60px x-padding for dimension caps on left
   const W = 600;
@@ -66,10 +78,12 @@ export function ModuleStack({
           y={top}
           width={innerW}
           height={bottom - top}
-          initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 1.2, ease: "easeOut", delay: startDelay }}
+          {...a({
+            initial: { pathLength: 0 },
+            whileInView: { pathLength: 1 },
+            viewport: { once: true, amount: 0.3 },
+            transition: { duration: 1.2, ease: "easeOut", delay: startDelay },
+          })}
         />
 
         {/* internal dividers */}
@@ -80,14 +94,16 @@ export function ModuleStack({
             y1={top + rowH * (i + 1)}
             x2={right}
             y2={top + rowH * (i + 1)}
-            initial={{ pathLength: 0 }}
-            whileInView={{ pathLength: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{
-              duration: 0.8,
-              ease: "easeOut",
-              delay: startDelay + 0.4 + i * 0.15,
-            }}
+            {...a({
+              initial: { pathLength: 0 },
+              whileInView: { pathLength: 1 },
+              viewport: { once: true, amount: 0.3 },
+              transition: {
+                duration: 0.8,
+                ease: "easeOut",
+                delay: startDelay + 0.4 + i * 0.15,
+              },
+            })}
           />
         ))}
 
@@ -97,13 +113,12 @@ export function ModuleStack({
           return (
             <motion.g
               key={`brackets-${i}`}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                duration: 0.4,
-                delay: startDelay + 0.9 + i * 0.1,
-              }}
+              {...a({
+                initial: { opacity: 0 },
+                whileInView: { opacity: 1 },
+                viewport: { once: true, amount: 0.3 },
+                transition: { duration: 0.4, delay: startDelay + 0.9 + i * 0.1 },
+              })}
             >
               <polyline points={`${left + 4},${y + 14} ${left + 4},${y + 4} ${left + 14},${y + 4}`} />
               <polyline points={`${right - 14},${y + 4} ${right - 4},${y + 4} ${right - 4},${y + 14}`} />
@@ -117,18 +132,17 @@ export function ModuleStack({
           return (
             <motion.g
               key={m.code}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                duration: 0.5,
-                delay: startDelay + 1.0 + i * 0.12,
-              }}
+              {...a({
+                initial: { opacity: 0 },
+                whileInView: { opacity: 1 },
+                viewport: { once: true, amount: 0.3 },
+                transition: { duration: 0.5, delay: startDelay + 1.0 + i * 0.12 },
+              })}
             >
               <text
                 x={left + 16}
                 y={cy - 18}
-                fontFamily="ui-monospace, monospace"
+                style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
                 fontSize="11"
                 letterSpacing="2"
                 className={textColor}
@@ -139,7 +153,7 @@ export function ModuleStack({
               <text
                 x={left + 16}
                 y={cy + 8}
-                fontFamily="Inter Display, Inter, sans-serif"
+                style={{ fontFamily: "var(--font-grotesk), system-ui, sans-serif" }}
                 fontSize="32"
                 fontWeight="800"
                 letterSpacing="-0.5"
@@ -155,10 +169,12 @@ export function ModuleStack({
         {/* left dimension caps + label */}
         {showDimensions && (
           <motion.g
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: startDelay + 1.4 }}
+            {...a({
+              initial: { opacity: 0 },
+              whileInView: { opacity: 1 },
+              viewport: { once: true, amount: 0.3 },
+              transition: { duration: 0.5, delay: startDelay + 1.4 },
+            })}
           >
             <line x1={36} y1={top} x2={36} y2={bottom} />
             <line x1={28} y1={top} x2={44} y2={top} />
@@ -167,7 +183,7 @@ export function ModuleStack({
               x={26}
               y={(top + bottom) / 2}
               textAnchor="middle"
-              fontFamily="ui-monospace, monospace"
+              style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
               fontSize="10"
               letterSpacing="2"
               className={textColor}
@@ -181,10 +197,12 @@ export function ModuleStack({
 
         {/* baseline tick row */}
         <motion.g
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: startDelay + 1.5 }}
+          {...a({
+            initial: { opacity: 0 },
+            whileInView: { opacity: 1 },
+            viewport: { once: true, amount: 0.3 },
+            transition: { duration: 0.5, delay: startDelay + 1.5 },
+          })}
         >
           {[0.1, 0.3, 0.5, 0.7, 0.9].map((p) => (
             <line

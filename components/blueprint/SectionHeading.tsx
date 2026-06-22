@@ -2,6 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { TechLabel } from "./TechLabel";
 import { DimensionLine } from "./DimensionLine";
+import { AnimatedText } from "@/components/motion/AnimatedText";
 
 type Props = {
   index: string; // "01", "02", ...
@@ -33,14 +34,16 @@ export function SectionHeading({
           {eyebrow}
         </TechLabel>
       </div>
-      <h2
+      <AnimatedText
+        as="h2"
+        variant="rise"
+        trigger="inView"
+        text={title}
         className={cn(
           "max-w-4xl font-display text-4xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-5xl md:text-6xl",
           titleColor
         )}
-      >
-        {title}
-      </h2>
+      />
       {description && (
         <p className={cn("max-w-2xl text-lg leading-relaxed", descColor)}>
           {description}

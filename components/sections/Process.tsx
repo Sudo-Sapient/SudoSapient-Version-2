@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
+import { BlueprintCanvas } from "@/components/blueprint/BlueprintCanvas";
 import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { ProcessScene } from "@/components/scenes/ProcessScene";
 import { TechLabel } from "@/components/blueprint/TechLabel";
@@ -34,6 +35,7 @@ export function Process() {
   return (
     <section className="relative overflow-hidden bg-blueprint py-24 text-white sm:py-32">
       <GridBackground />
+      <BlueprintCanvas />
       <Container className="relative z-10">
         <SectionHeading
           index="03"

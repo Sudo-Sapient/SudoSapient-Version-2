@@ -20,28 +20,32 @@ export function FigureCarrying({
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
-      style={style}
+      style={{ ...style, ["--flip-dur"]: "0.8s" } as React.CSSProperties}
       aria-hidden="true"
     >
-      {/* Block overhead */}
+      {/* Shared — block, head, spine, arms holding it up */}
       <rect x={11} y={1} width={18} height={10} />
-
-      {/* Head */}
       <circle cx={20} cy={18} r={HEAD_R} />
-      {/* Spine */}
       <line x1={20} y1={24} x2={20} y2={44} />
-      {/* Left arm — raised to carry block */}
       <line x1={20} y1={27} x2={15} y2={18} />
       <line x1={15} y1={18} x2={13} y2={11} />
-      {/* Right arm — raised to carry block */}
       <line x1={20} y1={27} x2={25} y2={18} />
       <line x1={25} y1={18} x2={27} y2={11} />
-      {/* Left leg — stride */}
-      <line x1={20} y1={44} x2={15} y2={57} />
-      <line x1={15} y1={57} x2={12} y2={68} />
-      {/* Right leg — stride */}
-      <line x1={20} y1={44} x2={25} y2={57} />
-      <line x1={25} y1={57} x2={28} y2={68} />
+
+      {/* Legs — Frame A: left leg forward */}
+      <g className="flip-a">
+        <line x1={20} y1={44} x2={24} y2={56} />
+        <line x1={24} y1={56} x2={26} y2={67} />
+        <line x1={20} y1={44} x2={16} y2={56} />
+        <line x1={16} y1={56} x2={13} y2={67} />
+      </g>
+      {/* Legs — Frame B: right leg forward */}
+      <g className="flip-b">
+        <line x1={20} y1={44} x2={16} y2={56} />
+        <line x1={16} y1={56} x2={13} y2={67} />
+        <line x1={20} y1={44} x2={24} y2={56} />
+        <line x1={24} y1={56} x2={26} y2={67} />
+      </g>
     </svg>
   );
 }
