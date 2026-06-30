@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
-import { BlueprintCanvas } from "@/components/blueprint/BlueprintCanvas";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import { Button } from "@/components/ui/Button";
 import { FinalCtaScene } from "@/components/scenes/FinalCtaScene";
@@ -20,19 +19,18 @@ export function FinalCTA() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-blueprint py-28 text-white sm:py-36">
+    <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-32 lg:py-36">
       <GridBackground />
-      <BlueprintCanvas />
       <Container className="relative z-10">
-        <div className="grid items-center gap-16 md:grid-cols-12">
-          <div className="md:col-span-7 flex flex-col gap-6">
+        <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-12">
+          <div className="flex flex-col gap-6 lg:col-span-7">
             <TechLabel>SECTION_05 — NEXT</TechLabel>
             <AnimatedText
               as="h2"
               variant="rise"
               trigger="inView"
               text="Have something to build?"
-              className="font-display text-5xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-6xl md:text-7xl"
+              className="font-display text-4xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-5xl md:text-6xl lg:text-7xl"
             />
             <p className="max-w-xl text-lg text-white/80">
               Tell us what you want to ship. We&rsquo;ll come back within a working
@@ -52,7 +50,7 @@ export function FinalCTA() {
             </div>
           </div>
 
-          <div className="md:col-span-5">
+          <div className="lg:col-span-5">
             <FinalCtaScene waving={waving} />
           </div>
         </div>

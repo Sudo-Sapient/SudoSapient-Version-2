@@ -47,16 +47,18 @@ export function AnimatedText({
 }: Props) {
   const ref = React.useRef<HTMLElement>(null);
   const inner = React.useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once, margin: "0px 0px -12% 0px" });
+  const inView = useInView(ref, { once, margin: "0px 0px -120px 0px" });
   const reduce = useReducedMotion();
-  const started = React.useRef(false);
 
   const run = trigger === "load" ? true : inView;
 
   useIsomorphicLayoutEffect(() => {
     const el = inner.current;
-    if (!el || !run || started.current) return;
-    started.current = true;
+    if (!el || !run) return;
+    // framer's useReducedMotion returns null on the first paint, then resolves.
+    // Wait for it — otherwise the effect starts, gets cancelled when `reduce`
+    // flips null→boolean, and a stale guard could leave the text frozen.
+    if (reduce === null) return;
 
     if (reduce) {
       el.textContent = text;

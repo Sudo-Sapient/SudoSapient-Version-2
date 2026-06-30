@@ -163,7 +163,7 @@ export function ProcessScene() {
       </div>
 
       {/* On mobile, render figures in a row below the pipeline */}
-      <div className="mt-6 grid grid-cols-4 gap-3 md:hidden">
+      <div className="mt-6 grid grid-cols-4 gap-2 sm:gap-3 md:hidden">
         {figures.map((F, i) => (
           <motion.div
             key={i}

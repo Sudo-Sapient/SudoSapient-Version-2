@@ -18,6 +18,27 @@ export async function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const project = getProject(slug);
+  if (!project) return { title: "Case study — Sudo Sapient" };
+  const title = `${project.title} — Sudo Sapient`;
+  return {
+    title,
+    description: project.oneLiner,
+    openGraph: {
+      title,
+      description: project.oneLiner,
+      type: "article",
+      images: project.image ? [{ url: project.image }] : undefined,
+    },
+  };
+}
+
 export default async function CaseStudyPage({
   params,
 }: {
@@ -38,7 +59,7 @@ export default async function CaseStudyPage({
 
   return (
     <>
-      <section className="bg-blueprint py-20 text-white">
+      <section className="bg-blueprint py-12 text-white sm:py-16 md:py-20">
         <Container>
           <BlueprintFrame
             subject={project.title.toUpperCase()}
@@ -46,15 +67,15 @@ export default async function CaseStudyPage({
             version="V1.0"
             date={project.year}
           >
-            <div className="grid items-end gap-10 md:grid-cols-12">
-              <div className="md:col-span-8 flex flex-col gap-6">
+            <div className="grid items-end gap-6 sm:gap-10 lg:grid-cols-12">
+              <div className="flex flex-col gap-6 lg:col-span-8">
                 <TechLabel>CLIENT · {project.client}</TechLabel>
-                <h1 className="font-display text-4xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-5xl md:text-6xl">
+                <h1 className="font-display text-3xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-4xl md:text-5xl lg:text-6xl">
                   {project.title}
                 </h1>
                 <p className="max-w-2xl text-lg text-white/80">{project.oneLiner}</p>
               </div>
-              <div className="md:col-span-4 flex justify-end text-white">
+              <div className="flex justify-end text-white lg:col-span-4">
                 <BreathingFigure>
                   <Figure size={140} />
                 </BreathingFigure>
@@ -96,13 +117,13 @@ export default async function CaseStudyPage({
         </Container>
       </section>
 
-      <section className="bg-offwhite py-20">
-        <Container className="grid gap-16 md:grid-cols-12">
+      <section className="bg-offwhite py-12 sm:py-16 md:py-20">
+        <Container className="grid gap-10 md:grid-cols-12 md:gap-16">
           <Block index="01" label="PROBLEM" body={project.problem} />
           <Block index="02" label="APPROACH" body={project.approach} />
           <Block index="03" label="OUTCOME" body={project.outcome} />
 
-          <div className="md:col-span-12 mt-4 grid grid-cols-3 gap-6 border-y border-ink/20 py-8">
+          <div className="md:col-span-12 mt-4 grid grid-cols-1 gap-4 border-y border-ink/20 py-6 sm:grid-cols-3 sm:gap-6 sm:py-8">
             {project.metrics.map((m) => (
               <div key={m.label} className="flex flex-col gap-1">
                 <TechLabel tone="dark">{m.label}</TechLabel>

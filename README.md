@@ -24,10 +24,12 @@ Open `http://localhost:3000`.
 
 ## Stack
 
-- Next.js App Router
+- Next.js App Router (React 19)
 - TypeScript
 - Tailwind CSS
-- Framer Motion
+- Framer Motion + GSAP (ScrollTrigger, DrawSVG)
+- OGL — WebGL blueprint background (homepage hero)
+- Fonts: Fraunces (display/headings), Space Grotesk (body), Space Mono (labels)
 - Radix UI primitives
 
 ## Project structure
@@ -51,10 +53,11 @@ components/
   cursor/       # custom blueprint crosshair cursor (desktop only)
   figures/      # stick-figure system (shared 40x70 rig + flipbook poses)
   interactive/  # interaction wrappers (e.g. shoot-the-stickman easter egg)
-  layout/       # Nav, Footer, Container
+  layout/       # Nav, Footer, FooterWordmark, Container
   motion/       # text-reveal animation primitive (AnimatedText)
   scenes/       # GSAP scroll-driven figure scenes (hero, process, ladder)
   sections/     # page sections used by marketing pages
+  system/       # app-wide client guards (ClientErrorGuard — stale-chunk recovery)
   ui/           # shared form/button primitives
 
 lib/
@@ -137,4 +140,3 @@ See:
 - `docs/HANDOFF.md`
 
 That file explains how to take over the project, update content, and avoid the most likely mistakes.
-# SudoSapient-Version-2

@@ -17,7 +17,7 @@ import {
 
 export function Pillars() {
   return (
-    <section className="relative bg-offwhite py-24 sm:py-32">
+    <section className="relative bg-offwhite py-16 sm:py-24 md:py-32">
       <Container>
         <SectionHeading
           index="01"
@@ -27,7 +27,7 @@ export function Pillars() {
           tone="dark"
         />
 
-        <div className="mt-16 grid gap-px border border-ink/15 bg-ink/15 lg:grid-cols-3">
+        <div className="mt-12 grid gap-px border border-ink/15 bg-ink/15 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
           {/* P.01 — AI PRODUCTS: ModuleStack focal, FigureCarrying placing a module */}
           <PillarCard
             code="P.01"
@@ -128,7 +128,7 @@ function PillarCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col gap-6 bg-offwhite p-8 sm:p-10"
+      className="flex flex-col gap-6 bg-offwhite p-6 sm:p-8 md:p-10"
     >
       <div className="flex items-center justify-between">
         <TechLabel tone="dark">{code}</TechLabel>

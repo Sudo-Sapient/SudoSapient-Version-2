@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { GridBackground } from "@/components/blueprint/GridBackground";
-import { BlueprintCanvas } from "@/components/blueprint/BlueprintCanvas";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import { CornerBrackets } from "@/components/blueprint/CornerBrackets";
 import { SystemDiagram } from "@/components/blueprint/SystemDiagram";
@@ -87,9 +86,8 @@ const projectDiagrams: Record<string, DiagramSpec> = {
 
 export function SelectedWork() {
   return (
-    <section className="relative overflow-hidden bg-blueprint py-24 text-white sm:py-32">
+    <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-32">
       <GridBackground />
-      <BlueprintCanvas />
       <Container className="relative z-10">
         <SectionHeading
           index="02"
@@ -98,7 +96,7 @@ export function SelectedWork() {
           description="A studio is only as serious as the systems on its shelf. Three from the last quarter."
         />
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {projects.map((p, i) => {
             const diagram = projectDiagrams[p.slug];
             return (

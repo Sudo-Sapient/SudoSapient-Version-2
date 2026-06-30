@@ -1,52 +1,55 @@
-import * as React from "react";
 import Link from "next/link";
 import { Container } from "./Container";
-import { GridBackground } from "@/components/blueprint/GridBackground";
 import { TechLabel } from "@/components/blueprint/TechLabel";
-import { FigureWaving, BreathingFigure } from "@/components/figures";
+import { FooterWordmark } from "./FooterWordmark";
 
 export function Footer() {
+  const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden border-t border-white/20 bg-blueprint-deep text-white">
-      <GridBackground variant="deep" />
-      <Container className="relative z-10 grid gap-12 py-16 sm:grid-cols-4">
-        <div className="sm:col-span-2 flex flex-col gap-4">
-          <span className="font-display text-2xl font-extrabold tracking-tight-2">
-            Sudo Sapient
-          </span>
+    <footer className="relative overflow-hidden border-t border-white/15 bg-blueprint-deep text-white">
+      <Container className="relative z-10 pb-8 pt-16 sm:pt-20">
+        {/* Eyebrow row */}
+        <div className="flex items-center justify-between">
+          <TechLabel>{"// AI PRODUCTS · AUTOMATION · MEDIA"}</TechLabel>
+          <Link
+            href="/contact"
+            className="font-mono text-[12px] uppercase tracking-[0.18em] text-white/70 transition-colors hover:text-white"
+          >
+            Start a Project →
+          </Link>
         </div>
 
-        <FooterCol
-          label="STUDIO"
-          links={[
-            { href: "/work", label: "Work" },
-            { href: "/services", label: "Services" },
-            { href: "/about", label: "About" },
-          ]}
-        />
+        {/* The kinetic wordmark — the studio signature */}
+        <div className="mt-8 sm:mt-10">
+          <FooterWordmark />
+        </div>
 
-        <FooterCol
-          label="CONTACT"
-          links={[
-            { href: "mailto:sudosapient@gmail.com", label: "sudosapient@gmail.com" },
-            { href: "mailto:hi@sudosapient.dev", label: "hi@sudosapient.dev" },
-            { href: "tel:+918050029848", label: "+91 80500 29848" },
-          ]}
-        />
-      </Container>
+        {/* Slim contact row */}
+        <div className="mt-10 grid gap-8 sm:grid-cols-2">
+          <FooterCol
+            label="STUDIO"
+            links={[
+              { href: "/work", label: "Work" },
+              { href: "/services", label: "Services" },
+              { href: "/about", label: "About" },
+            ]}
+          />
+          <FooterCol
+            label="CONTACT"
+            links={[
+              { href: "mailto:sudosapient@gmail.com", label: "sudosapient@gmail.com" },
+              { href: "mailto:hi@sudosapient.dev", label: "hi@sudosapient.dev" },
+              { href: "tel:+918050029848", label: "+91 80500 29848" },
+            ]}
+          />
+        </div>
 
-      <div className="relative z-10 border-t border-white/15">
-        <Container className="flex flex-col items-start justify-between gap-2 py-5 sm:flex-row sm:items-center">
-          <TechLabel>© {new Date().getFullYear()} · SUDO SAPIENT · ALL RIGHTS RESERVED</TechLabel>
+        {/* Legal microrow */}
+        <div className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
+          <TechLabel>© {year} · SUDO SAPIENT · ALL RIGHTS RESERVED</TechLabel>
           <TechLabel>BUILT BY HUMANS + MACHINES</TechLabel>
-        </Container>
-      </div>
-
-      <div className="pointer-events-none absolute bottom-0 right-4 text-white/80 sm:right-10">
-        <BreathingFigure>
-          <FigureWaving size={80} />
-        </BreathingFigure>
-      </div>
+        </div>
+      </Container>
     </footer>
   );
 }
@@ -61,12 +64,12 @@ function FooterCol({
   return (
     <div className="flex flex-col gap-3">
       <TechLabel>{label}</TechLabel>
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-wrap gap-x-6 gap-y-2 sm:flex-col sm:gap-2">
         {links.map((l) => (
           <li key={l.href}>
             <Link
               href={l.href}
-              className="text-sm text-white/85 hover:text-white"
+              className="text-sm text-white/85 transition-colors hover:text-white"
             >
               {l.label}
             </Link>

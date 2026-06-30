@@ -36,7 +36,7 @@ export function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="scroll-mt-20 bg-offwhite pb-24 pt-4 sm:pb-32"
+      className="scroll-mt-20 bg-offwhite pb-16 pt-4 sm:pb-24 md:pb-32"
     >
       <Container>
         <SectionHeading
@@ -47,7 +47,7 @@ export function Testimonials() {
           description="The people who put working AI systems into production."
         />
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
+        <div className="mt-12 grid gap-4 sm:mt-14 sm:gap-6 md:grid-cols-2">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.name}
@@ -58,7 +58,7 @@ export function Testimonials() {
             >
               <CornerBrackets
                 tone="dark"
-                className="relative flex h-full flex-col gap-8 border border-ink/15 bg-white p-8 sm:p-10"
+                className="relative flex h-full flex-col gap-6 border border-ink/15 bg-white p-6 sm:gap-8 sm:p-8 md:p-10"
               >
                 {t.isPlaceholder && (
                   <span className="absolute right-3 top-3 border border-warn/60 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.2em] text-warn">

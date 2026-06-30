@@ -16,14 +16,14 @@ export function Hero() {
     <section className="relative isolate overflow-hidden bg-blueprint text-white">
       <GridBackground />
       <BlueprintCanvas reveal={false} />
-      <Container className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col py-16 sm:py-20">
+      <Container className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col py-12 sm:py-16 md:py-20">
         {/* The composed scene: focal ModuleStack + active figures */}
-        <div className="relative grid items-center gap-10 md:grid-cols-12">
-          <div className="md:col-span-7 lg:col-span-7 relative">
+        <div className="relative grid items-center gap-8 sm:gap-10 lg:grid-cols-12">
+          <div className="relative lg:col-span-7">
             <HeroScene />
           </div>
 
-          <div className="md:col-span-5 lg:col-span-5 flex flex-col gap-6">
+          <div className="flex flex-col gap-6 lg:col-span-5">
             <AnimatedText
               as="h1"
               variant="scramble"
@@ -31,7 +31,7 @@ export function Hero() {
               delay={0.5}
               speed={0.018}
               text="We build AI systems that automate, create, and scale."
-              className="font-display text-4xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-5xl lg:text-6xl"
+              className="font-display text-3xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-4xl md:text-5xl lg:text-6xl"
             />
 
             <motion.div

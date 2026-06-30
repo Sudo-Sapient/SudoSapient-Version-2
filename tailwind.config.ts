@@ -50,7 +50,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-grotesk)", "system-ui", "sans-serif"],
-        display: ["var(--font-grotesk)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "ui-serif", "serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       letterSpacing: {

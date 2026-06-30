@@ -201,11 +201,25 @@ export function LadderClimber() {
     // Re-check once the layout has fully settled (fonts/images).
     const settle = window.setTimeout(onResize, 350);
 
+    // Fade the climber out while the footer is in view so it never collides
+    // with the giant footer wordmark or right-edge content.
+    const footerEl = document.querySelector("footer");
+    const footerIO = footerEl
+      ? new IntersectionObserver(
+          ([entry]) => {
+            railEl.style.opacity = entry.isIntersecting ? "0" : "";
+          },
+          { rootMargin: "0px" }
+        )
+      : null;
+    if (footerEl) footerIO?.observe(footerEl);
+
     return () => {
       window.removeEventListener("scroll", scheduleTone);
       window.removeEventListener("resize", onResize);
       window.clearTimeout(settle);
       window.clearTimeout(toneTimer);
+      footerIO?.disconnect();
       ctx.revert();
     };
   }, []);
@@ -264,7 +278,7 @@ export function LadderClimber() {
     <div
       ref={rail}
       aria-hidden
-      className="pointer-events-none fixed right-3 top-16 z-30 hidden h-[calc(100vh-4rem)] w-20 text-white lg:block"
+      className="pointer-events-none fixed right-3 top-16 z-30 hidden h-[calc(100vh-4rem)] w-20 text-white transition-opacity duration-500 lg:block"
     >
       {/* Dim ladder (full height) — the route ahead */}
       <div className="absolute inset-y-0 left-1/2 w-8 -translate-x-1/2 opacity-40">

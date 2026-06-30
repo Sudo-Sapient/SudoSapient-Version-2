@@ -191,7 +191,7 @@ export function HeroScene() {
         {/* tiny notebook line beside the seated figure */}
         <svg
           viewBox="0 0 60 40"
-          className="absolute -bottom-2 -right-6 w-12"
+          className="absolute -bottom-2 -right-6 hidden w-12 sm:block"
           fill="none"
           stroke="#FFFFFF"
           strokeWidth="1.25"

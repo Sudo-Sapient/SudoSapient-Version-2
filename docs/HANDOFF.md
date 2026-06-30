@@ -107,6 +107,11 @@ only; hidden on touch and under reduced motion.
 Interaction wrappers — currently `Shootable`, the "shoot the stickman" easter
 egg layered over figures without touching their base animation.
 
+### `components/system/`
+App-wide client guards. `ClientErrorGuard` auto-recovers from stale code-chunk
+errors (e.g. an open tab after a redeploy) and silences benign ResizeObserver
+noise. Mounted once in `app/layout.tsx`.
+
 ### `lib/`
 Shared data and utilities.
 
@@ -129,9 +134,10 @@ This site has a custom **2D** animation layer (no 3D). It is the part most likel
 to confuse a new developer, so it is documented here in full.
 
 ### Fonts
-`app/layout.tsx` loads **Space Grotesk** (display/headings) and **Space Mono**
-(labels) via `next/font`, exposed as Tailwind tokens (`font-display`,
-`font-mono`).
+`app/layout.tsx` loads three faces via `next/font`, exposed as Tailwind tokens:
+**Fraunces** — editorial serif → `font-display` (the wordmark + all headings);
+**Space Grotesk** → `font-sans` (body copy); **Space Mono** → `font-mono`
+(technical labels).
 
 ### Stick-figure system (`components/figures/`)
 - `rig.ts` defines the shared **40×70 viewBox** and body proportions every
@@ -161,9 +167,16 @@ is throttled so the crosshair itself stays frame-smooth.
 
 ### Blueprint WebGL background (`components/blueprint/BlueprintCanvas.tsx`)
 A single **OGL** fragment shader (deep-blue grid that drifts, a sweeping light,
-paper grain, a cursor ripple, and a scroll "print-in"). It is dropped behind the
-dark `bg-blueprint` sections, layered on top of the static `<GridBackground/>`
-(which is the **no-WebGL fallback**). Important behaviours:
+paper grain, a cursor ripple, and a scroll "print-in"). It is layered on top of
+the static `<GridBackground/>` (which is the **no-WebGL fallback**). Important
+behaviours:
+- **One instance only — the homepage Hero.** Every mounted canvas is its own
+  WebGL context, and browsers cap simultaneous contexts (~8–16). To stay well
+  clear of that limit, only the Hero runs the live shader; all other blue
+  sections use the static `<GridBackground/>` (visually near-identical). **Do not
+  scatter `<BlueprintCanvas/>` across many sections** — that's what caused the
+  blank/"lost context" renders. If you need it lower on a page, refactor to one
+  shared/fixed canvas first.
 - **Disabled on phones (<768px)** — the cheap static grid shows instead.
 - DPR capped at 1.5; the render loop **pauses** when off-screen or the tab is
   hidden.

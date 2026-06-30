@@ -174,8 +174,8 @@ export function TeamGrid({ members }: { members: TeamMember[] }) {
   };
 
   return (
-    <div ref={root} className="relative mt-14">
-      <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-5">
+    <div ref={root} className="relative mt-12 sm:mt-14">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-12 md:grid-cols-4 lg:grid-cols-5">
         {members.map((m, i) => {
           const open = openIndex === i;
           return (
@@ -190,7 +190,7 @@ export function TeamGrid({ members }: { members: TeamMember[] }) {
                   ref={(el) => {
                     cardRefs.current[i] = el;
                   }}
-                  className="flip-scene group block h-full w-full cursor-pointer"
+                  className="flip-scene group block h-full w-full cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
                 >
                   <div className={cn("flip-card", open && "is-open")}>
                     {/* Front — the portrait */}

@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
-import { BlueprintCanvas } from "@/components/blueprint/BlueprintCanvas";
 import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { ProcessScene } from "@/components/scenes/ProcessScene";
 import { TechLabel } from "@/components/blueprint/TechLabel";
@@ -33,9 +32,8 @@ const steps = [
 
 export function Process() {
   return (
-    <section className="relative overflow-hidden bg-blueprint py-24 text-white sm:py-32">
+    <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-32">
       <GridBackground />
-      <BlueprintCanvas />
       <Container className="relative z-10">
         <SectionHeading
           index="03"
@@ -48,7 +46,7 @@ export function Process() {
           <ProcessScene />
         </div>
 
-        <div className="mt-16 grid gap-10 md:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-6 sm:mt-16 sm:gap-8 lg:grid-cols-4">
           {steps.map((s) => (
             <div key={s.n} className="flex flex-col gap-3">
               <TechLabel>STEP_{s.n}</TechLabel>

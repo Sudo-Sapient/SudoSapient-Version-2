@@ -11,7 +11,11 @@ import {
   FigurePointing,
 } from "@/components/figures";
 
-export const metadata = { title: "About — Sudo Sapient" };
+export const metadata = {
+  title: "About — Sudo Sapient",
+  description:
+    "Sudo Sapient is a small AI studio that ships working AI products, automation, and media in weeks — senior people, fixed-scope sprints, full handoff.",
+};
 
 // bio + focus are placeholder copy — edit freely; they show on the card's flip side.
 const team = [
@@ -76,10 +80,11 @@ const differentiators = [
 export default function AboutPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-blueprint py-24 text-white sm:py-28">
+      <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-28">
         <GridBackground />
         <Container className="relative z-10">
           <SectionHeading
+            as="h1"
             index="A"
             eyebrow="ABOUT"
             title="A studio for shipping AI."
@@ -99,7 +104,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="bg-offwhite py-24">
+      <section className="bg-offwhite py-16 md:py-24">
         <Container>
           <SectionHeading
             tone="dark"
@@ -109,7 +114,7 @@ export default function AboutPage() {
             description="Small projects with senior people, billed for the system, not the hour."
           />
 
-          <div className="mt-12 grid gap-px border border-ink/15 bg-ink/15 md:grid-cols-3">
+          <div className="mt-12 grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-2 lg:grid-cols-3">
             <Card
               code="W.01"
               title="Senior people only"
@@ -132,7 +137,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="bg-offwhite pb-24">
+      <section className="bg-offwhite pb-16 md:pb-24">
         <Container>
           <SectionHeading
             tone="dark"
@@ -140,7 +145,7 @@ export default function AboutPage() {
             eyebrow="WHAT MAKES US DIFFERENT"
             title="Three opinions, held strongly."
           />
-          <div className="mt-12 grid gap-12 md:grid-cols-3">
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 sm:gap-12 lg:grid-cols-3">
             {differentiators.map((d) => (
               <div key={d.n} className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
@@ -160,7 +165,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="bg-blueprint py-24 text-white sm:py-28">
+      <section className="bg-blueprint py-16 text-white sm:py-24 md:py-28">
         <Container>
           <SectionHeading
             index="A.03"
@@ -188,7 +193,7 @@ function Card({
   Figure: React.FC<{ size?: number; className?: string }>;
 }) {
   return (
-    <div className="flex flex-col gap-4 bg-offwhite p-8 sm:p-10">
+    <div className="flex flex-col gap-4 bg-offwhite p-6 sm:p-8 md:p-10">
       <div className="flex items-center justify-between">
         <TechLabel tone="dark">{code}</TechLabel>
         <AnimatedFigure className="inline-block text-ink">

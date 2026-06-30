@@ -11,6 +11,8 @@ type Props = {
   description?: string;
   tone?: "light" | "dark";
   className?: string;
+  /** Heading level for the title. Use "h1" once per page (the page hero). */
+  as?: "h1" | "h2";
 };
 
 export function SectionHeading({
@@ -20,6 +22,7 @@ export function SectionHeading({
   description,
   tone = "light",
   className,
+  as = "h2",
 }: Props) {
   const titleColor = tone === "light" ? "text-white" : "text-ink";
   const descColor = tone === "light" ? "text-white/70" : "text-ink/70";
@@ -35,7 +38,7 @@ export function SectionHeading({
         </TechLabel>
       </div>
       <AnimatedText
-        as="h2"
+        as={as}
         variant="rise"
         trigger="inView"
         text={title}

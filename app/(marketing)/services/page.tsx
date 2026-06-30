@@ -19,7 +19,11 @@ import {
   BreathingFigure,
 } from "@/components/figures";
 
-export const metadata = { title: "Services — Sudo Sapient" };
+export const metadata = {
+  title: "Services — Sudo Sapient",
+  description:
+    "AI product development, AI automation, and AI media. Three disciplines, one studio — shipped to real users in 6–10 weeks.",
+};
 
 const services = [
   {
@@ -72,10 +76,11 @@ const services = [
 export default function ServicesPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-blueprint py-24 text-white sm:py-28">
+      <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-28">
         <GridBackground />
         <Container className="relative z-10">
           <SectionHeading
+            as="h1"
             index="S"
             eyebrow="SERVICES"
             title="What you can hire us to build."
@@ -216,25 +221,25 @@ function ServiceBlock({
 }) {
   return (
     <section
-      className={`relative overflow-hidden py-24 sm:py-28 ${
+      className={`relative overflow-hidden py-16 sm:py-24 md:py-28 ${
         flip ? "bg-blueprint-deep" : "bg-blueprint"
       } text-white`}
     >
       <GridBackground variant={flip ? "deep" : "blue"} />
-      <Container className="relative z-10 flex flex-col gap-16">
+      <Container className="relative z-10 flex flex-col gap-10 sm:gap-12 md:gap-16">
         <div className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <TechLabel>{svc.code}</TechLabel>
             <TechLabel>SECTION_{svc.index}</TechLabel>
           </div>
-          <h2 className="max-w-3xl font-display text-4xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-5xl md:text-6xl">
+          <h2 className="max-w-3xl font-display text-3xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-4xl md:text-5xl lg:text-6xl">
             {svc.title}
           </h2>
         </div>
 
         {children}
 
-        <div className="grid gap-12 md:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 sm:gap-10 md:grid-cols-3">
           <div className="flex flex-col gap-3">
             <TechLabel>{"// WHAT IT IS"}</TechLabel>
             <p className="text-base leading-relaxed text-white/85">{svc.what}</p>
@@ -249,7 +254,7 @@ function ServiceBlock({
           </div>
         </div>
 
-        <div className="grid gap-6 border-t border-white/20 pt-8 md:grid-cols-3">
+        <div className="grid gap-4 border-t border-white/20 pt-6 sm:grid-cols-2 sm:gap-6 sm:pt-8 md:grid-cols-3">
           {svc.use.map((u, i) => (
             <div key={i} className="flex gap-3">
               <TechLabel>USE.{String(i + 1).padStart(2, "0")}</TechLabel>

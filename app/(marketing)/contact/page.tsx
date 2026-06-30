@@ -4,11 +4,15 @@ import { GridBackground } from "@/components/blueprint/GridBackground";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import { BlueprintFrame } from "@/components/blueprint/BlueprintFrame";
 
-export const metadata = { title: "Start a Project — Sudo Sapient" };
+export const metadata = {
+  title: "Start a Project — Sudo Sapient",
+  description:
+    "Tell us what you want to build. We reply within a working day with whether we're the right studio for it and what a first sprint looks like.",
+};
 
 export default function ContactPage() {
   return (
-    <section className="relative overflow-hidden bg-blueprint py-20 text-white sm:py-28">
+    <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-28">
       <GridBackground />
       <Container className="relative z-10">
         <BlueprintFrame
@@ -17,10 +21,10 @@ export default function ContactPage() {
           version="V1.0"
           date="2026"
         >
-          <div className="grid gap-12 md:grid-cols-12">
-            <div className="md:col-span-5 flex flex-col gap-6">
+          <div className="grid gap-8 md:gap-12 lg:grid-cols-12">
+            <div className="flex flex-col gap-6 lg:col-span-5">
               <TechLabel>{"// SPEC SHEET"}</TechLabel>
-              <h1 className="font-display text-4xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-5xl">
+              <h1 className="font-display text-3xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-4xl md:text-5xl">
                 Tell us what you want to build.
               </h1>
               <p className="text-white/80">
@@ -35,7 +39,7 @@ export default function ContactPage() {
                 <Metadatum label="NEXT STEP" value="SCOPE NOTE" />
               </div>
             </div>
-            <div className="md:col-span-7">
+            <div className="lg:col-span-7">
               <ContactForm />
             </div>
           </div>
