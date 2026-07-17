@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Container } from "@/components/layout/Container";
-import { GridBackground } from "@/components/blueprint/GridBackground";
 import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { ProcessScene } from "@/components/scenes/ProcessScene";
 import { TechLabel } from "@/components/blueprint/TechLabel";
@@ -11,51 +10,60 @@ const steps = [
   {
     n: "01",
     title: "Discover",
-    body: "One week. We sit with you, map the system, and pick a target worth shipping.",
+    time: "1 week",
+    body: "We map the workflow, pressure-test the opportunity, and choose one outcome worth shipping.",
   },
   {
     n: "02",
     title: "Prototype",
-    body: "Two weeks. A working slice you can use. Real data, real model, narrow scope.",
+    time: "2 weeks",
+    body: "A narrow working slice using real data and a real model—not a clickable theatre demo.",
   },
   {
     n: "03",
     title: "Build",
-    body: "Three to six weeks. The system around the slice. Eval, guardrails, telemetry.",
+    time: "3–6 weeks",
+    body: "We add the product layer, integrations, evals, guardrails, telemetry, and operating controls.",
   },
   {
     n: "04",
     title: "Ship",
-    body: "Hand-off with docs and dashboards. We stay on call for the first month.",
+    time: "Handoff",
+    body: "You receive production code, documentation, dashboards, and support through the first month.",
   },
 ];
 
 export function Process() {
   return (
-    <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-32">
-      <GridBackground />
-      <Container className="relative z-10">
+    <section className="relative overflow-hidden bg-[#eef1f5] py-16 text-ink sm:py-24 md:py-32">
+      <Container>
         <SectionHeading
+          tone="dark"
           index="03"
           eyebrow="HOW WE WORK"
-          title="Four nodes. One line. Six to ten weeks."
-          description="The blueprint is the same every time. The work it produces is not."
+          title="From target to production in four stages."
+          description="A fixed delivery rhythm keeps scope honest and gets a useful system in front of real users early."
         />
 
-        <div className="mt-16">
+        <div className="mx-auto mt-14 hidden max-w-4xl border border-ink/15 bg-blueprint px-6 py-8 text-white md:block">
           <ProcessScene />
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-6 sm:mt-16 sm:gap-8 lg:grid-cols-4">
-          {steps.map((s) => (
-            <div key={s.n} className="flex flex-col gap-3">
-              <TechLabel>STEP_{s.n}</TechLabel>
-              <div className="h-px w-full bg-white/30" />
-              <h3 className="font-display text-2xl font-bold tracking-tight-2">
-                {s.title}
+        <div className="mt-10 grid gap-px border border-ink/15 bg-ink/15 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step) => (
+            <article
+              key={step.n}
+              className="flex min-h-0 flex-col bg-[#eef1f5] p-6 sm:min-h-[260px] sm:p-8"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <TechLabel tone="dark">STEP_{step.n}</TechLabel>
+                <TechLabel tone="dark">{step.time}</TechLabel>
+              </div>
+              <h3 className="mt-8 font-display text-2xl font-bold tracking-tight-2 sm:text-3xl">
+                {step.title}
               </h3>
-              <p className="text-sm leading-relaxed text-white/75">{s.body}</p>
-            </div>
+              <p className="mt-3 text-[15px] leading-relaxed text-ink/70">{step.body}</p>
+            </article>
           ))}
         </div>
       </Container>

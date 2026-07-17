@@ -5,12 +5,8 @@ import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { ModuleStack } from "@/components/blueprint/ModuleStack";
 import { BreathingFigure } from "@/components/figures";
-import {
-  FigurePushing,
-  FigureClimbing,
-  FigureStanding,
-  FigureSitting,
-} from "@/components/figures";
+import { FigureClimbing } from "@/components/figures";
+import { ClimberPosePlayer } from "@/components/figures/ClimberPosePlayer";
 
 gsap.registerPlugin(DrawSVGPlugin);
 
@@ -132,13 +128,17 @@ export function HeroScene() {
         }
       >
         <BreathingFigure index={0} startDelay={SETTLE} className="block w-full">
-          <FigureStanding className="w-full" />
+          <ClimberPosePlayer
+            poses={["stand", "inspect", "stand"]}
+            durations={[0.8, 0.55, 0.8]}
+            className="w-full"
+          />
         </BreathingFigure>
       </div>
 
       {/* Foreground left — heaves the bottom module up into place */}
       <div
-        className="fig-rise pointer-events-none absolute left-[-1%] bottom-[8%] text-white"
+        className="fig-rise pointer-events-none absolute bottom-[8%] left-[-1%] text-white"
         style={
           {
             width: "16%",
@@ -150,7 +150,12 @@ export function HeroScene() {
         }
       >
         <BreathingFigure index={1} startDelay={SETTLE} className="block w-full">
-          <FigurePushing className="w-full" />
+          <ClimberPosePlayer
+            poses={["push", "press", "push"]}
+            durations={[0.58, 0.3, 0.58]}
+            delay={0.2}
+            className="w-full"
+          />
         </BreathingFigure>
       </div>
 
@@ -174,7 +179,7 @@ export function HeroScene() {
 
       {/* Foreground right — sitting on the baseline, bobs as it watches */}
       <div
-        className="fig-rise pointer-events-none absolute right-[2%] bottom-[-2%] text-white"
+        className="fig-rise pointer-events-none absolute bottom-[-2%] right-[2%] text-white"
         style={
           {
             width: "14%",
@@ -186,7 +191,12 @@ export function HeroScene() {
         }
       >
         <BreathingFigure index={3} startDelay={SETTLE} className="block w-full">
-          <FigureSitting className="w-full" />
+          <ClimberPosePlayer
+            poses={["sit", "draft", "sit"]}
+            durations={[0.9, 0.55, 0.9]}
+            delay={0.35}
+            className="w-full"
+          />
         </BreathingFigure>
         {/* tiny notebook line beside the seated figure */}
         <svg

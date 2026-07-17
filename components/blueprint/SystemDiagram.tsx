@@ -49,10 +49,7 @@ export function SystemDiagram({
   const stroke = tone === "light" ? "#FFFFFF" : "#0F172A";
   const textColor = tone === "light" ? "fill-white" : "fill-ink";
 
-  const nodeMap = React.useMemo(
-    () => Object.fromEntries(nodes.map((n) => [n.id, n])),
-    [nodes]
-  );
+  const nodeMap = React.useMemo(() => Object.fromEntries(nodes.map((n) => [n.id, n])), [nodes]);
 
   return (
     <div className={cn("relative w-full", className)}>
@@ -67,13 +64,7 @@ export function SystemDiagram({
         aria-label="System diagram"
       >
         {/* faint outer frame */}
-        <rect
-          x="0.5"
-          y="0.5"
-          width={viewBoxW - 1}
-          height={viewBoxH - 1}
-          opacity="0.25"
-        />
+        <rect x="0.5" y="0.5" width={viewBoxW - 1} height={viewBoxH - 1} opacity="0.25" />
 
         {title && (
           <text
@@ -150,12 +141,7 @@ export function SystemDiagram({
               }}
             >
               {n.shape === "circle" ? (
-                <circle
-                  cx={cx}
-                  cy={cy}
-                  r={20}
-                  fill={tone === "light" ? "#1E40AF" : "#FAFAFA"}
-                />
+                <circle cx={cx} cy={cy} r={20} fill={tone === "light" ? "#1E40AF" : "#FAFAFA"} />
               ) : (
                 <rect
                   x={cx - w / 2}
@@ -168,12 +154,7 @@ export function SystemDiagram({
               {n.shape === "circle" ? (
                 <circle cx={cx} cy={cy} r={20} />
               ) : (
-                <rect
-                  x={cx - w / 2}
-                  y={cy - h / 2}
-                  width={w}
-                  height={h}
-                />
+                <rect x={cx - w / 2} y={cy - h / 2} width={w} height={h} />
               )}
               <text
                 x={cx}

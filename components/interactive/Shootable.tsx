@@ -1,12 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  motion,
-  useReducedMotion,
-  type TargetAndTransition,
-  type Transition,
-} from "framer-motion";
+import { motion, useReducedMotion, type TargetAndTransition, type Transition } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { FigureSurrender } from "@/components/figures/FigureSurrender";
 

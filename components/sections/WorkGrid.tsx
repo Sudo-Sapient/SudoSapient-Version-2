@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import type { Project } from "@/lib/projects";
+import { withBasePath } from "@/lib/site";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,13 +18,14 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
   const root = React.useRef<HTMLDivElement>(null);
 
   useIsomorphicLayoutEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       gsap.from(".work-card", {
-        y: 48,
+        y: 36,
         autoAlpha: 0,
-        duration: 0.7,
+        duration: 0.65,
         ease: "power3.out",
-        stagger: 0.1,
+        stagger: 0.08,
         scrollTrigger: {
           trigger: root.current,
           start: "top 85%",
@@ -31,59 +33,72 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
         },
       });
     }, root);
-
     return () => ctx.revert();
   }, []);
 
   return (
-    <div
-      ref={root}
-      className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
-    >
-      {projects.map((p) => (
+    <div ref={root} className="space-y-6">
+      {projects.map((project, index) => (
         <Link
-          key={p.slug}
-          href={`/work/${p.slug}`}
-          className="work-card group flex flex-col gap-4 border border-ink/15 bg-white p-6 transition-colors hover:border-ink/40"
+          key={project.slug}
+          href={`/work/${project.slug}`}
+          className="work-card group grid overflow-hidden border border-ink/20 bg-white transition-colors hover:border-blueprint md:grid-cols-12"
         >
-          <div className="flex items-center justify-between">
-            <TechLabel tone="dark">{p.discipline.toUpperCase()}</TechLabel>
-            <TechLabel tone="dark">{p.year}</TechLabel>
-          </div>
-          <div className="relative aspect-[4/3] w-full overflow-hidden border border-ink/20">
-            {p.image ? (
+          <div className="relative min-h-[250px] overflow-hidden border-b border-ink/15 bg-[#eef1f5] md:col-span-5 md:min-h-[330px] md:border-b-0 md:border-r">
+            {project.image ? (
               <Image
-                src={p.image}
-                alt={`${p.client} — ${p.title}`}
+                src={withBasePath(project.image)}
+                alt={`${project.client} — ${project.title}`}
                 fill
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                sizes="(min-width: 768px) 42vw, 100vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
               />
             ) : (
-              <svg
-                viewBox="0 0 200 150"
-                fill="none"
-                stroke="#0F172A"
-                strokeWidth="1.25"
-                className="h-full w-full"
-              >
-                <rect x="20" y="20" width="160" height="110" />
-                <line x1="20" y1="40" x2="180" y2="40" />
-                <circle cx="32" cy="30" r="2" />
-                <line x1="40" y1="30" x2="80" y2="30" />
-                <rect x="40" y="60" width="50" height="50" />
-                <rect x="100" y="60" width="60" height="22" />
-                <rect x="100" y="88" width="60" height="22" />
-              </svg>
+              <div className="absolute inset-0 flex items-center justify-center p-10">
+                <div className="grid h-full w-full grid-cols-4 grid-rows-3 gap-2 border border-ink/20 p-3 opacity-70">
+                  <div className="col-span-4 border border-ink/20" />
+                  <div className="col-span-2 row-span-2 border border-ink/20" />
+                  <div className="col-span-2 border border-ink/20" />
+                  <div className="col-span-2 border border-ink/20" />
+                </div>
+              </div>
             )}
+            <span className="absolute left-4 top-4 border border-white/40 bg-ink/60 px-2 py-1 font-mono text-[10px] tracking-[0.14em] text-white backdrop-blur-sm">
+              0{index + 1}
+            </span>
           </div>
-          <h3 className="font-display text-xl font-bold leading-tight tracking-tight-2 text-ink">
-            {p.title}
-          </h3>
-          <p className="text-sm text-ink/70">{p.oneLiner}</p>
-          {p.isPlaceholder && (
-            <TechLabel tone="warn">{"// PLACEHOLDER — REPLACE"}</TechLabel>
-          )}
+
+          <div className="flex flex-col p-7 sm:p-9 md:col-span-7 md:p-10">
+            <div className="flex items-center justify-between gap-4">
+              <TechLabel tone="dark">{project.discipline}</TechLabel>
+              <TechLabel tone="dark">{project.year}</TechLabel>
+            </div>
+            <h2 className="mt-7 max-w-3xl text-balance font-display text-3xl font-extrabold leading-[1] tracking-tight-3 sm:text-4xl">
+              {project.title}
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/70">
+              {project.oneLiner}
+            </p>
+
+            <div className="mt-8 grid grid-cols-2 gap-5 border-y border-ink/15 py-5 sm:grid-cols-3">
+              {project.metrics.map((metric) => (
+                <div key={metric.label} className="last:hidden sm:last:block">
+                  <TechLabel tone="dark">{metric.label}</TechLabel>
+                  <p className="mt-1 text-sm font-semibold text-ink">{metric.value}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-auto flex items-end justify-between gap-4 pt-8">
+              <div>
+                <TechLabel tone="dark">CLIENT</TechLabel>
+                <p className="mt-1 font-display text-lg font-bold">{project.client}</p>
+              </div>
+              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink transition-transform duration-300 group-hover:translate-x-1">
+                Read case study →
+              </span>
+            </div>
+          </div>
         </Link>
       ))}
     </div>

@@ -7,12 +7,6 @@ type Props = FigureProps & {
   carrying?: boolean;
 };
 
-/**
- * A stick figure mid-stride: legs scissor about the hips and arms swing about
- * the shoulders (opposite phase) via the walk-* CSS classes. Pair it with a
- * `.walk-pace` parent to make it actually travel across the scene. With
- * `carrying`, the arms hold a beam overhead instead of swinging.
- */
 export function FigureWalking({
   size = 80,
   color = "currentColor",
@@ -42,14 +36,9 @@ export function FigureWalking({
       style={style}
       aria-hidden="true"
     >
-      {/* Beam carried overhead */}
       {carrying && <rect x={11} y={1} width={18} height={10} />}
-
-      {/* Head + spine */}
       <circle cx={20} cy={headCy} r={HEAD_R} />
       <line x1={20} y1={neckTop} x2={20} y2={hipY} />
-
-      {/* Arms */}
       {carrying ? (
         <>
           <line x1={20} y1={shoulderY} x2={15} y2={18} />
@@ -69,13 +58,17 @@ export function FigureWalking({
           </g>
         </>
       )}
-
-      {/* Legs — scissor about the hip */}
-      <g className="walk-leg-a" style={{ transformOrigin: `20px ${hipY}px` }}>
+      <g
+        className="walk-leg-a"
+        style={{ transformBox: "view-box", transformOrigin: `20px ${hipY}px` }}
+      >
         <line x1={20} y1={hipY} x2={18} y2={kneeY} />
         <line x1={18} y1={kneeY} x2={17} y2={footY} />
       </g>
-      <g className="walk-leg-b" style={{ transformOrigin: `20px ${hipY}px` }}>
+      <g
+        className="walk-leg-b"
+        style={{ transformBox: "view-box", transformOrigin: `20px ${hipY}px` }}
+      >
         <line x1={20} y1={hipY} x2={22} y2={kneeY} />
         <line x1={22} y1={kneeY} x2={23} y2={footY} />
       </g>

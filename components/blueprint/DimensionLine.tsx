@@ -24,13 +24,7 @@ export function DimensionLine({
   if (orientation === "vertical") {
     return (
       <div className={cn("flex h-full flex-col items-center", className)}>
-        <svg
-          viewBox="0 0 12 8"
-          width="12"
-          height="8"
-          aria-hidden
-          className="shrink-0"
-        >
+        <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden className="shrink-0">
           <line x1="0" y1="4" x2="12" y2="4" stroke={stroke} strokeWidth="1" />
           <line x1="6" y1="0" x2="6" y2="8" stroke={stroke} strokeWidth="1" />
         </svg>
@@ -48,13 +42,7 @@ export function DimensionLine({
             {label}
           </span>
         </div>
-        <svg
-          viewBox="0 0 12 8"
-          width="12"
-          height="8"
-          aria-hidden
-          className="shrink-0"
-        >
+        <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden className="shrink-0">
           <line x1="0" y1="4" x2="12" y2="4" stroke={stroke} strokeWidth="1" />
           <line x1="6" y1="0" x2="6" y2="8" stroke={stroke} strokeWidth="1" />
         </svg>
@@ -64,13 +52,7 @@ export function DimensionLine({
 
   return (
     <div className={cn("flex w-full items-center gap-3", className)}>
-      <svg
-        viewBox="0 0 8 12"
-        width="8"
-        height="12"
-        aria-hidden
-        className="shrink-0"
-      >
+      <svg viewBox="0 0 8 12" width="8" height="12" aria-hidden className="shrink-0">
         <line x1="4" y1="0" x2="4" y2="12" stroke={stroke} strokeWidth="1" />
         <line x1="0" y1="6" x2="8" y2="6" stroke={stroke} strokeWidth="1" />
       </svg>
@@ -97,13 +79,7 @@ export function DimensionLine({
           style={{ background: stroke }}
         />
       </div>
-      <svg
-        viewBox="0 0 8 12"
-        width="8"
-        height="12"
-        aria-hidden
-        className="shrink-0"
-      >
+      <svg viewBox="0 0 8 12" width="8" height="12" aria-hidden className="shrink-0">
         <line x1="4" y1="0" x2="4" y2="12" stroke={stroke} strokeWidth="1" />
         <line x1="0" y1="6" x2="8" y2="6" stroke={stroke} strokeWidth="1" />
       </svg>

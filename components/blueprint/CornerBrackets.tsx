@@ -25,12 +25,7 @@ export function CornerBrackets({
         className={cn("absolute -left-1 -top-1", stroke)}
         aria-hidden
       >
-        <polyline
-          points="0,14 0,0 14,0"
-          fill="none"
-          strokeWidth="1.5"
-          stroke="currentColor"
-        />
+        <polyline points="0,14 0,0 14,0" fill="none" strokeWidth="1.5" stroke="currentColor" />
       </svg>
       {/* TR */}
       <svg
@@ -40,12 +35,7 @@ export function CornerBrackets({
         className={cn("absolute -right-1 -top-1", stroke)}
         aria-hidden
       >
-        <polyline
-          points="0,0 14,0 14,14"
-          fill="none"
-          strokeWidth="1.5"
-          stroke="currentColor"
-        />
+        <polyline points="0,0 14,0 14,14" fill="none" strokeWidth="1.5" stroke="currentColor" />
       </svg>
       {/* BL */}
       <svg
@@ -55,12 +45,7 @@ export function CornerBrackets({
         className={cn("absolute -bottom-1 -left-1", stroke)}
         aria-hidden
       >
-        <polyline
-          points="0,0 0,14 14,14"
-          fill="none"
-          strokeWidth="1.5"
-          stroke="currentColor"
-        />
+        <polyline points="0,0 0,14 14,14" fill="none" strokeWidth="1.5" stroke="currentColor" />
       </svg>
       {/* BR */}
       <svg
@@ -70,12 +55,7 @@ export function CornerBrackets({
         className={cn("absolute -bottom-1 -right-1", stroke)}
         aria-hidden
       >
-        <polyline
-          points="0,14 14,14 14,0"
-          fill="none"
-          strokeWidth="1.5"
-          stroke="currentColor"
-        />
+        <polyline points="0,14 14,14 14,0" fill="none" strokeWidth="1.5" stroke="currentColor" />
       </svg>
       {children}
     </div>

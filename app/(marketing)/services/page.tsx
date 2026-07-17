@@ -1,75 +1,101 @@
-import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
 import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { TechLabel } from "@/components/blueprint/TechLabel";
-import { CornerBrackets } from "@/components/blueprint/CornerBrackets";
 import { ModuleStack } from "@/components/blueprint/ModuleStack";
 import { Pipeline } from "@/components/blueprint/Pipeline";
-import { SystemDiagram } from "@/components/blueprint/SystemDiagram";
+import { MediaPipelineScene } from "@/components/scenes/MediaPipelineScene";
 import { Button } from "@/components/ui/Button";
-import {
-  FigureCarrying,
-  FigurePushing,
-  FigurePointing,
-  FigureClimbing,
-  FigureStanding,
-  FigureSitting,
-  BreathingFigure,
-} from "@/components/figures";
 
 export const metadata = {
   title: "Services — Sudo Sapient",
   description:
-    "AI product development, AI automation, and AI media. Three disciplines, one studio — shipped to real users in 6–10 weeks.",
+    "AI product development, operational automation, and AI media systems delivered by a senior studio in focused 6–10 week builds.",
 };
 
 const services = [
   {
     index: "01",
-    code: "SVC.PROD",
-    title: "AI Product Development",
-    what:
-      "We design and build customer-facing AI features and full AI products. Agents, copilots, generative UX, RAG over your own data — all wired to the rest of your stack.",
-    who:
-      "Founders shipping AI as a product. Product teams adding their first real AI surface. Companies with private data that needs to talk back.",
-    use: [
-      "An in-product agent that ingests your docs and writes targeted help on the fly.",
-      "A copilot that drafts the parts of your workflow that everyone hates writing.",
-      "A retrieval system that answers from your private data with citations.",
+    code: "AI PRODUCT DEVELOPMENT",
+    problem:
+      "You have a valuable AI use case, but not the team to turn it into a product people can trust.",
+    title: "Ship the AI feature—not another prototype.",
+    summary:
+      "We take one high-value workflow from product definition through production. The result is a usable AI surface connected to your data, tools, and existing product.",
+    timeline: "6–10 weeks",
+    scope: "One production-ready product slice",
+    deliverables: [
+      "Product and interaction design",
+      "Model, retrieval, and tool architecture",
+      "Evaluation and guardrail suite",
+      "Production application and integrations",
+      "Telemetry, documentation, and handoff",
     ],
-    outcome: "A working AI feature in your product, shipped to real users in 6–10 weeks.",
+    examples: ["In-product agents", "Copilots", "Private-data retrieval", "Generative workflows"],
+    proof: {
+      client: "Jgsaw",
+      text: "A multi-tenant AI-native GTM control centre with 11 coupled intelligence and execution modules.",
+      href: "/work/jgsaw",
+    },
   },
   {
     index: "02",
-    code: "SVC.AUTO",
-    title: "AI Automation",
-    what:
-      "Workflows that used to need humans. We build typed pipelines: deterministic where it matters, LLM-routed where it pays. Audit trails by default.",
-    who:
-      "Ops, support, and back-office teams drowning in copy-paste. Founders who want to keep headcount flat as volume grows.",
-    use: [
-      "Inbound email triaged, summarised, and routed into your CRM with the right tags.",
-      "Vendor invoices read, reconciled, and posted to your ledger without a human in the routine path.",
-      "Contracts and docs parsed, classified, and shipped to the right person with a one-line summary.",
+    code: "AI AUTOMATION",
+    problem:
+      "Your team is spending expensive human time copying, classifying, checking, and routing routine work.",
+    title: "Remove repetitive work without creating an AI black box.",
+    summary:
+      "We build auditable operational systems: deterministic rules where correctness matters, model judgement where it adds value, and a clear human review path.",
+    timeline: "6–8 weeks",
+    scope: "One end-to-end operational workflow",
+    deliverables: [
+      "Workflow and exception mapping",
+      "Typed automation pipeline",
+      "Internal tool and approval controls",
+      "Audit trail, alerts, and dashboards",
+      "Runbook and owner training",
     ],
-    outcome: "An automation that runs every day with a dashboard you can trust.",
+    examples: [
+      "Email and ticket routing",
+      "Document processing",
+      "CRM operations",
+      "Back-office workflows",
+    ],
+    proof: {
+      client: "Typical engagement",
+      text: "Best when a stable, repeated workflow consumes 20+ team hours every week.",
+      href: "/contact",
+    },
   },
   {
     index: "03",
-    code: "SVC.MEDIA",
-    title: "AI Media",
-    what:
-      "Pipelines that produce on a cadence. Short films from raw audio. Editorial systems that draft, edit, and ship. Image and motion at scale, with a human in the loop only where it matters.",
-    who:
-      "Founders and operators who want to publish but won't. Media companies trying to do five times the volume without five times the team.",
-    use: [
-      "A weekly show generated from a founder's sales calls, with one approval step.",
-      "Podcast → multichannel: clips, essays, and posts produced from a single recording.",
-      "An editorial pipeline that briefs, drafts, edits, and ships pieces against a calendar.",
+    code: "AI MEDIA SYSTEMS",
+    problem:
+      "You need a consistent publishing cadence, but production is too slow, fragmented, or dependent on one person.",
+    title: "Turn source material into a repeatable publishing engine.",
+    summary:
+      "We design the production line around your voice and approval standards—from source ingestion and scripting to generation, review, and channel-ready output.",
+    timeline: "4–8 weeks",
+    scope: "One repeatable content pipeline",
+    deliverables: [
+      "Editorial workflow and style system",
+      "Script and generation pipeline",
+      "Human review and approval surface",
+      "Channel-specific output automation",
+      "Prompts, documentation, and handoff",
     ],
-    outcome: "A media engine that ships every week with under two hours of your time.",
+    examples: [
+      "Podcast repurposing",
+      "Short-form video",
+      "Editorial systems",
+      "Image and motion pipelines",
+    ],
+    proof: {
+      client: "SudoSapient media engine",
+      text: "A voice-note-to-Reel production line with one human approval step.",
+      href: "/work/be-pawsh",
+    },
   },
 ] as const;
 
@@ -83,192 +109,250 @@ export default function ServicesPage() {
             as="h1"
             index="S"
             eyebrow="SERVICES"
-            title="What you can hire us to build."
-            description="Three disciplines, three blueprints. Same studio, same cadence."
+            title="Three ways to put AI into production."
+            description="Focused builds for teams with a real workflow, a clear owner, and urgency to ship."
           />
+          <div className="mt-12 grid gap-px border border-white/20 bg-white/20 md:grid-cols-3">
+            {services.map((service) => (
+              <a
+                key={service.index}
+                href={`#service-${service.index}`}
+                className="group bg-blueprint p-5 transition-colors hover:bg-blueprint-deep"
+              >
+                <TechLabel>{service.index}</TechLabel>
+                <p className="mt-3 font-display text-xl font-bold tracking-tight-2">
+                  {service.code}
+                </p>
+                <p className="mt-2 text-sm text-white/60">
+                  {service.timeline} · {service.scope}
+                </p>
+              </a>
+            ))}
+          </div>
         </Container>
       </section>
 
-      <ServiceBlock svc={services[0]} flip={false}>
-        <div className="relative">
-          <CornerBrackets tone="light" className="px-6 py-8 sm:px-10 sm:py-10">
-            <ModuleStack
-              tone="light"
-              showDimensions
-              modules={[
-                { code: "S.01", label: "INTERFACE", meta: "ui · ux · chat" },
-                { code: "S.02", label: "PLANNER", meta: "tools · eval" },
-                { code: "S.03", label: "RETRIEVAL", meta: "your data" },
-              ]}
-            />
-          </CornerBrackets>
-          {/* Figures interacting with the stack */}
-          <div
-            className="fig-rise pointer-events-none absolute left-[-2%] bottom-[6%] text-white"
-            style={{ width: "10%", minWidth: 56, "--rise": "10px", "--rise-dur": "3s", animationDelay: "-0.5s" } as CSSProperties}
-          >
-            <BreathingFigure index={0} className="block w-full">
-              <FigureCarrying className="w-full" />
-            </BreathingFigure>
-          </div>
-          <div
-            className="fig-rise pointer-events-none absolute right-[4%] top-[20%] text-white"
-            style={{ width: "8%", minWidth: 48, "--rise": "36px", "--rise-dur": "5.2s", animationDelay: "-0.3s" } as CSSProperties}
-          >
-            <BreathingFigure index={1} className="block w-full">
-              <FigureClimbing className="w-full" />
-            </BreathingFigure>
-          </div>
-          <div
-            className="fig-rise pointer-events-none absolute right-[-2%] bottom-[-2%] text-white"
-            style={{ width: "10%", minWidth: 56, "--rise": "8px", "--rise-dur": "3.4s", animationDelay: "-1.5s" } as CSSProperties}
-          >
-            <BreathingFigure index={2} className="block w-full">
-              <FigureSitting className="w-full" />
-            </BreathingFigure>
-          </div>
-        </div>
-      </ServiceBlock>
+      <ProductService service={services[0]} />
+      <AutomationService service={services[1]} />
+      <MediaService service={services[2]} />
 
-      <ServiceBlock svc={services[1]} flip>
-        <div className="relative">
-          <CornerBrackets tone="light" className="px-6 py-12 sm:px-10 sm:py-14">
-            <Pipeline
-              tone="light"
-              segmentLabels={["1.0x", "1.5x", "1.0x"]}
-              nodes={[
-                { code: "A.01", label: "EMAIL", caption: "input" },
-                { code: "A.02", label: "RULE", caption: "deterministic" },
-                { code: "A.03", label: "LLM", caption: "judgement" },
-                { code: "A.04", label: "ROUTE", caption: "output" },
-              ]}
-            />
-          </CornerBrackets>
-          <div
-            className="fig-rise pointer-events-none absolute left-[3%] bottom-[-4%] text-white"
-            style={{ width: "9%", minWidth: 56, "--rise": "11px", "--rise-dur": "2.8s", animationDelay: "-0.9s" } as CSSProperties}
-          >
-            <BreathingFigure index={0} className="block w-full">
-              <FigurePushing className="w-full" />
-            </BreathingFigure>
+      <section className="bg-offwhite py-16 sm:py-24 md:py-28">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <TechLabel tone="dark">ENGAGEMENT FIT</TechLabel>
+              <h2 className="mt-5 text-balance font-display text-4xl font-extrabold leading-[0.95] tracking-tight-3 sm:text-5xl">
+                The right conditions produce better systems.
+              </h2>
+            </div>
+            <div className="grid gap-px bg-ink/15 sm:grid-cols-2 lg:col-span-7">
+              <FitPanel
+                title="Good fit"
+                items={[
+                  "A named business or user problem",
+                  "An internal owner who can make decisions",
+                  "Access to representative data and users",
+                  "A useful first release that fits inside 10 weeks",
+                ]}
+              />
+              <FitPanel
+                title="Not a good fit"
+                items={[
+                  "Open-ended staff augmentation",
+                  "A vague mandate to ‘add AI’ everywhere",
+                  "Research with no route to production",
+                  "Projects with no owner, data access, or launch path",
+                ]}
+              />
+            </div>
           </div>
-          <div
-            className="fig-rise pointer-events-none absolute right-[8%] bottom-[-4%] text-white"
-            style={{ width: "8%", minWidth: 52, "--rise": "9px", "--rise-dur": "3.2s", animationDelay: "-1.8s" } as CSSProperties}
-          >
-            <BreathingFigure index={1} className="block w-full">
-              <FigurePointing className="w-full" />
-            </BreathingFigure>
+          <div className="mt-12 flex flex-col items-start justify-between gap-6 border-t border-ink/20 pt-8 sm:flex-row sm:items-center">
+            <p className="max-w-2xl text-lg text-ink/70">
+              If the scope is still unclear, that is fine. Send us the workflow and the outcome you
+              need; we will tell you whether there is a focused first build.
+            </p>
+            <Button asChild variant="secondary" size="lg">
+              <Link href="/contact">Discuss the scope →</Link>
+            </Button>
           </div>
-        </div>
-      </ServiceBlock>
-
-      <ServiceBlock svc={services[2]} flip={false}>
-        <div className="relative">
-          <CornerBrackets tone="light" className="px-6 py-8 sm:px-10 sm:py-10">
-            <SystemDiagram
-              tone="light"
-              viewBoxW={600}
-              viewBoxH={260}
-              title="FIG. SVC.MEDIA · PIPELINE"
-              nodes={[
-                { id: "calls", x: 10, y: 50, label: "CALLS" },
-                { id: "diar", x: 28, y: 50, label: "DIARIZE" },
-                { id: "edit", x: 50, y: 50, label: "EDIT + GEN" },
-                { id: "film", x: 84, y: 22, label: "FILM" },
-                { id: "clips", x: 84, y: 50, label: "CLIPS" },
-                { id: "essay", x: 84, y: 78, label: "ESSAY" },
-              ]}
-              edges={[
-                { from: "calls", to: "diar" },
-                { from: "diar", to: "edit" },
-                { from: "edit", to: "film" },
-                { from: "edit", to: "clips" },
-                { from: "edit", to: "essay" },
-              ]}
-            />
-          </CornerBrackets>
-          <div
-            className="fig-rise pointer-events-none absolute right-[2%] bottom-[-4%] text-white"
-            style={{ width: "10%", minWidth: 60, "--rise": "9px", "--rise-dur": "3.6s", animationDelay: "-0.6s" } as CSSProperties}
-          >
-            <BreathingFigure index={0} className="block w-full">
-              <FigureStanding className="w-full" />
-            </BreathingFigure>
-          </div>
-          <div
-            className="fig-rise pointer-events-none absolute left-[6%] bottom-[-4%] text-white"
-            style={{ width: "10%", minWidth: 60, "--rise": "10px", "--rise-dur": "3s", animationDelay: "-2.1s" } as CSSProperties}
-          >
-            <BreathingFigure index={1} className="block w-full">
-              <FigurePointing className="w-full" />
-            </BreathingFigure>
-          </div>
-        </div>
-      </ServiceBlock>
+        </Container>
+      </section>
     </>
   );
 }
 
-function ServiceBlock({
-  svc,
-  flip,
-  children,
-}: {
-  svc: (typeof services)[number];
-  flip: boolean;
-  children: React.ReactNode;
-}) {
+type Service = (typeof services)[number];
+
+function ServiceIntro({ service }: { service: Service }) {
+  return (
+    <div>
+      <div className="flex items-center justify-between gap-4">
+        <TechLabel tone="dark">SERVICE_{service.index}</TechLabel>
+        <TechLabel tone="dark">{service.timeline}</TechLabel>
+      </div>
+      <p className="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-blueprint">
+        {service.problem}
+      </p>
+      <h2 className="mt-4 max-w-4xl text-balance font-display text-4xl font-extrabold leading-[0.95] tracking-tight-3 sm:text-5xl md:text-6xl">
+        {service.title}
+      </h2>
+      <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">{service.summary}</p>
+    </div>
+  );
+}
+
+function ProductService({ service }: { service: Service }) {
   return (
     <section
-      className={`relative overflow-hidden py-16 sm:py-24 md:py-28 ${
-        flip ? "bg-blueprint-deep" : "bg-blueprint"
-      } text-white`}
+      id={`service-${service.index}`}
+      className="scroll-mt-16 bg-offwhite py-16 sm:py-24 md:py-28"
     >
-      <GridBackground variant={flip ? "deep" : "blue"} />
-      <Container className="relative z-10 flex flex-col gap-10 sm:gap-12 md:gap-16">
-        <div className="flex flex-col gap-6">
-          <div className="flex items-center justify-between">
-            <TechLabel>{svc.code}</TechLabel>
-            <TechLabel>SECTION_{svc.index}</TechLabel>
+      <Container>
+        <ServiceIntro service={service} />
+        <div className="mt-12 grid gap-8 lg:grid-cols-12">
+          <div className="border border-ink/20 bg-[#eef1f5] p-6 sm:p-10 lg:col-span-7">
+            <ModuleStack
+              tone="dark"
+              showDimensions
+              modules={[
+                { code: "P.01", label: "INTERFACE", meta: "user workflow" },
+                { code: "P.02", label: "INTELLIGENCE", meta: "model · tools · evals" },
+                { code: "P.03", label: "DATA", meta: "retrieval · systems" },
+              ]}
+            />
           </div>
-          <h2 className="max-w-3xl font-display text-3xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-4xl md:text-5xl lg:text-6xl">
-            {svc.title}
-          </h2>
-        </div>
-
-        {children}
-
-        <div className="grid gap-8 sm:grid-cols-2 sm:gap-10 md:grid-cols-3">
-          <div className="flex flex-col gap-3">
-            <TechLabel>{"// WHAT IT IS"}</TechLabel>
-            <p className="text-base leading-relaxed text-white/85">{svc.what}</p>
-          </div>
-          <div className="flex flex-col gap-3">
-            <TechLabel>{"// WHO IT'S FOR"}</TechLabel>
-            <p className="text-base leading-relaxed text-white/85">{svc.who}</p>
-          </div>
-          <div className="flex flex-col gap-3">
-            <TechLabel>{"// OUTCOME"}</TechLabel>
-            <p className="text-base leading-relaxed text-white/85">{svc.outcome}</p>
-          </div>
-        </div>
-
-        <div className="grid gap-4 border-t border-white/20 pt-6 sm:grid-cols-2 sm:gap-6 sm:pt-8 md:grid-cols-3">
-          {svc.use.map((u, i) => (
-            <div key={i} className="flex gap-3">
-              <TechLabel>USE.{String(i + 1).padStart(2, "0")}</TechLabel>
-              <p className="text-sm text-white/85">{u}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-6">
-          <Button asChild variant="solid" size="lg">
-            <Link href="/contact">Start a Project</Link>
-          </Button>
+          <ServiceDetails service={service} className="lg:col-span-5" />
         </div>
       </Container>
     </section>
+  );
+}
+
+function AutomationService({ service }: { service: Service }) {
+  return (
+    <section
+      id={`service-${service.index}`}
+      className="scroll-mt-16 bg-[#eef1f5] py-16 sm:py-24 md:py-28"
+    >
+      <Container>
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
+          <div className="lg:col-span-6">
+            <ServiceIntro service={service} />
+          </div>
+          <div className="border border-ink/20 bg-offwhite p-6 sm:p-10 lg:col-span-6">
+            <Pipeline
+              tone="dark"
+              nodes={[
+                { code: "A.01", label: "INPUT", caption: "source" },
+                { code: "A.02", label: "RULE", caption: "deterministic" },
+                { code: "A.03", label: "MODEL", caption: "judgement" },
+                { code: "A.04", label: "REVIEW", caption: "audit" },
+              ]}
+            />
+          </div>
+        </div>
+        <ServiceDetails
+          service={service}
+          className="mt-10 grid gap-8 border-t border-ink/20 pt-8 lg:grid-cols-2"
+          horizontal
+        />
+      </Container>
+    </section>
+  );
+}
+
+function MediaService({ service }: { service: Service }) {
+  return (
+    <section
+      id={`service-${service.index}`}
+      className="scroll-mt-16 bg-offwhite py-16 sm:py-24 md:py-28"
+    >
+      <Container>
+        <ServiceIntro service={service} />
+        <div className="mt-12 grid gap-8 lg:grid-cols-12">
+          <ServiceDetails service={service} className="lg:order-1 lg:col-span-5" />
+          <div className="border border-white/15 bg-[#061225] p-2 sm:p-3 lg:order-2 lg:col-span-7">
+            <div className="aspect-[720/340] w-full">
+              <MediaPipelineScene className="h-full w-full" />
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+function ServiceDetails({
+  service,
+  className,
+  horizontal = false,
+}: {
+  service: Service;
+  className?: string;
+  horizontal?: boolean;
+}) {
+  return (
+    <div className={className}>
+      <div>
+        <TechLabel tone="dark">DELIVERABLES</TechLabel>
+        <ul className="mt-4 divide-y divide-ink/15 border-y border-ink/15">
+          {service.deliverables.map((item, index) => (
+            <li key={item} className="flex gap-4 py-3 text-sm text-ink/75">
+              <span className="font-mono text-[10px] text-blueprint">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={horizontal ? "" : "mt-8"}>
+        <div className="grid grid-cols-2 gap-4 border-b border-ink/15 pb-5">
+          <div>
+            <TechLabel tone="dark">TIMELINE</TechLabel>
+            <p className="mt-1 font-display text-xl font-bold">{service.timeline}</p>
+          </div>
+          <div>
+            <TechLabel tone="dark">SCOPE</TechLabel>
+            <p className="mt-1 text-sm font-medium leading-snug">{service.scope}</p>
+          </div>
+        </div>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {service.examples.map((item) => (
+            <span
+              key={item}
+              className="border border-ink/20 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-ink/70"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+        <Link
+          href={service.proof.href}
+          className="mt-6 block border-l-2 border-blueprint pl-4 transition-colors hover:border-warn"
+        >
+          <TechLabel tone="dark">PROOF · {service.proof.client}</TechLabel>
+          <p className="mt-2 text-sm leading-relaxed text-ink/70">
+            {service.proof.text} <span className="font-medium text-ink">View →</span>
+          </p>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function FitPanel({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div className="bg-offwhite p-6 sm:p-8">
+      <h3 className="font-display text-2xl font-bold tracking-tight-2">{title}</h3>
+      <ul className="mt-5 space-y-4">
+        {items.map((item) => (
+          <li key={item} className="flex gap-3 text-sm leading-relaxed text-ink/70">
+            <span className="mt-2 h-1.5 w-1.5 flex-none bg-blueprint" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

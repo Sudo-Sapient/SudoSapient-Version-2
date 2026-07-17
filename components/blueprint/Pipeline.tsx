@@ -52,9 +52,7 @@ export function Pipeline({
 
   // Distribute nodes evenly
   const xs = nodes.map((_, i) =>
-    nodes.length === 1
-      ? W / 2
-      : padX + ((W - padX * 2) * i) / (nodes.length - 1)
+    nodes.length === 1 ? W / 2 : padX + ((W - padX * 2) * i) / (nodes.length - 1)
   );
 
   return (
@@ -117,13 +115,14 @@ export function Pipeline({
                 ease: "easeOut",
               },
             })}
-            style={
-              mode === "framer"
-                ? { transformOrigin: `${xs[i]}px ${baseY}px` }
-                : undefined
-            }
+            style={mode === "framer" ? { transformOrigin: `${xs[i]}px ${baseY}px` } : undefined}
           >
-            <circle cx={xs[i]} cy={baseY} r="14" fill={stroke === "#FFFFFF" ? "#1E40AF" : "#FAFAFA"} />
+            <circle
+              cx={xs[i]}
+              cy={baseY}
+              r="14"
+              fill={stroke === "#FFFFFF" ? "#1E40AF" : "#FAFAFA"}
+            />
             <circle cx={xs[i]} cy={baseY} r="14" />
             <text
               x={xs[i]}

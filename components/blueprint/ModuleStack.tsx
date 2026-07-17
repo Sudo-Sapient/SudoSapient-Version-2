@@ -120,8 +120,12 @@ export function ModuleStack({
                 transition: { duration: 0.4, delay: startDelay + 0.9 + i * 0.1 },
               })}
             >
-              <polyline points={`${left + 4},${y + 14} ${left + 4},${y + 4} ${left + 14},${y + 4}`} />
-              <polyline points={`${right - 14},${y + 4} ${right - 4},${y + 4} ${right - 4},${y + 14}`} />
+              <polyline
+                points={`${left + 4},${y + 14} ${left + 4},${y + 4} ${left + 14},${y + 4}`}
+              />
+              <polyline
+                points={`${right - 14},${y + 4} ${right - 4},${y + 4} ${right - 4},${y + 14}`}
+              />
             </motion.g>
           );
         })}

@@ -48,9 +48,7 @@ export function SectionHeading({
         )}
       />
       {description && (
-        <p className={cn("max-w-2xl text-lg leading-relaxed", descColor)}>
-          {description}
-        </p>
+        <p className={cn("max-w-2xl text-lg leading-relaxed", descColor)}>{description}</p>
       )}
     </div>
   );

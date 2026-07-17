@@ -86,7 +86,7 @@ export function FooterWordmark() {
       {/* Readable base — sets the layout box. */}
       <span
         aria-hidden
-        className="block font-display font-semibold leading-[0.82] tracking-tight-2 text-white/30 text-[clamp(2.75rem,11.5vw,13rem)]"
+        className="block font-display text-[clamp(2.75rem,11.5vw,13rem)] font-semibold leading-[0.82] tracking-tight-2 text-white/30"
       >
         {WORD}
         <span className="text-warn/40">.</span>
@@ -95,7 +95,7 @@ export function FooterWordmark() {
       <span
         ref={brightRef}
         aria-hidden
-        className="pointer-events-none absolute inset-0 block bg-gradient-to-r from-white via-[#dbe4ff] to-warn bg-clip-text font-display font-semibold leading-[0.82] tracking-tight-2 text-transparent text-[clamp(2.75rem,11.5vw,13rem)] [-webkit-background-clip:text]"
+        className="pointer-events-none absolute inset-0 block bg-gradient-to-r from-white via-[#dbe4ff] to-warn bg-clip-text font-display text-[clamp(2.75rem,11.5vw,13rem)] font-semibold leading-[0.82] tracking-tight-2 text-transparent [-webkit-background-clip:text]"
       >
         {WORD}
         <span className="text-warn">.</span>

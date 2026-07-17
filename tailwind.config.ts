@@ -3,11 +3,7 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 const config: Config = {
   darkMode: ["class"],
-  content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./lib/**/*.{ts,tsx}",
-  ],
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
   theme: {
     container: {
       center: true,
@@ -50,7 +46,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-grotesk)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "Georgia", "ui-serif", "serif"],
+        display: ["var(--font-display)", "Arial Black", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       letterSpacing: {
@@ -63,8 +59,7 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       backgroundImage: {
-        "blueprint-grid":
-          "radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)",
+        "blueprint-grid": "radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)",
       },
       backgroundSize: {
         grid: "24px 24px",

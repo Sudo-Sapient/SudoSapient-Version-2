@@ -1,14 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { animate, stagger, useInView, useReducedMotion } from "framer-motion";
+import { useInView, useReducedMotion } from "framer-motion";
+import { gsap } from "gsap";
 import SplitType from "split-type";
 import { cn } from "@/lib/utils";
 
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
-
-const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/\\<>*+=:.#";
 
 type Variant = "rise" | "scramble" | "typewriter";
 
@@ -27,13 +26,10 @@ type Props = {
 };
 
 /**
- * Crisp, engineered text reveals built on Motion + split-type.
- *   rise       — chars stagger up + fade (section headings on scroll)
- *   scramble   — letters flicker through glyphs then resolve (hero / CAD decode)
- *   typewriter — types in char by char with a block caret (mono annotations)
- *
- * The real text is always in the DOM (SSR + no-JS safe) and exposed to AT via
- * aria-label; the visual node is aria-hidden. Reduced motion shows final text.
+ * Restrained editorial text reveals. Legacy variant names are retained for
+ * call-site compatibility, but noisy scrambling/typewriter effects are gone.
+ * Display text reveals by masked words; technical labels use one quiet fade.
+ * The real text remains in the DOM for SSR, no-JS, and assistive technology.
  */
 export function AnimatedText({
   text,
@@ -65,71 +61,40 @@ export function AnimatedText({
       return;
     }
 
-    // --- rise: split to chars, stagger fade + translate up ---
-    if (variant === "rise") {
-      const split = new SplitType(el, { types: "words,chars" });
-      const chars = split.chars ?? [];
-      if (!chars.length) return;
-      const controls = animate(
-        chars,
-        { opacity: [0, 1], y: [14, 0] },
-        {
-          duration: 0.45,
-          delay: stagger(speed, { startDelay: delay }),
-          ease: [0.22, 0.65, 0.3, 0.9],
-        }
+    // Technical annotations should feel precise, not theatrical.
+    if (variant === "typewriter") {
+      const tween = gsap.fromTo(
+        el,
+        { autoAlpha: 0, y: 5, letterSpacing: "0.22em" },
+        { autoAlpha: 1, y: 0, letterSpacing: "0.14em", duration: 0.7, delay, ease: "power3.out" }
       );
-      return () => {
-        controls.stop();
-        split.revert();
-      };
+      return () => tween.revert();
     }
 
-    // --- scramble: reveal left→right, flicker unresolved chars ---
-    if (variant === "scramble") {
-      const final = text;
-      const perChar = Math.max(speed, 0.018) * 1000;
-      let raf = 0;
-      const start = performance.now() + delay * 1000;
-      const tick = (now: number) => {
-        const elapsed = now - start;
-        if (elapsed < 0) {
-          el.textContent = "";
-          raf = requestAnimationFrame(tick);
-          return;
-        }
-        let out = "";
-        let done = true;
-        for (let i = 0; i < final.length; i++) {
-          if (final[i] === " ") {
-            out += " ";
-          } else if (elapsed >= i * perChar) {
-            out += final[i];
-          } else {
-            out += GLYPHS[(Math.random() * GLYPHS.length) | 0];
-            done = false;
-          }
-        }
-        el.textContent = out;
-        if (done) el.textContent = final;
-        else raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-      return () => cancelAnimationFrame(raf);
-    }
-
-    // --- typewriter: type char by char with a block caret ---
-    const step = Math.max(speed, 0.02) * 1000;
-    let i = 0;
-    let timer = 0;
-    const type = () => {
-      i += 1;
-      el.textContent = text.slice(0, i) + (i < text.length ? "█" : "");
-      if (i < text.length) timer = window.setTimeout(type, step);
+    // Hero and section display type: masked word reveal with a restrained
+    // cadence. No per-character bounce, random glyphs, or visual noise.
+    const split = new SplitType(el, { types: "lines,words" });
+    const lines = split.lines ?? [];
+    const words = split.words ?? [];
+    if (!words.length) return;
+    gsap.set(lines, { overflow: "hidden", paddingBottom: "0.08em", marginBottom: "-0.08em" });
+    const tween = gsap.fromTo(
+      words,
+      { yPercent: 115, autoAlpha: 0, rotate: 1.5, transformOrigin: "left bottom" },
+      {
+        yPercent: 0,
+        autoAlpha: 1,
+        rotate: 0,
+        duration: variant === "scramble" ? 0.95 : 0.78,
+        delay,
+        stagger: Math.min(Math.max(speed * 1.5, 0.035), 0.07),
+        ease: "power4.out",
+      }
+    );
+    return () => {
+      tween.revert();
+      split.revert();
     };
-    el.textContent = "";
-    timer = window.setTimeout(type, delay * 1000);
-    return () => window.clearTimeout(timer);
   }, [run, reduce, variant, text, delay, speed]);
 
   // `as` is polymorphic; pin an explicit prop shape so the tag's children/ref

@@ -6,38 +6,16 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/blueprint/SectionHeading";
-import { GridBackground } from "@/components/blueprint/GridBackground";
 import { TechLabel } from "@/components/blueprint/TechLabel";
-import { CornerBrackets } from "@/components/blueprint/CornerBrackets";
 import { SystemDiagram } from "@/components/blueprint/SystemDiagram";
 import { Button } from "@/components/ui/Button";
 import { projects } from "@/lib/projects";
+import { withBasePath } from "@/lib/site";
+import { WorkSiteCrew } from "@/components/scenes/WorkSiteCrew";
 
-// One system diagram per project — architecture, not generic rectangle.
-type DiagramSpec = Pick<
-  React.ComponentProps<typeof SystemDiagram>,
-  "title" | "nodes" | "edges"
->;
+type DiagramSpec = Pick<React.ComponentProps<typeof SystemDiagram>, "title" | "nodes" | "edges">;
 
 const projectDiagrams: Record<string, DiagramSpec> = {
-  mayaakars: {
-    title: "FIG. MK · PORTFOLIO PLATFORM",
-    nodes: [
-      { id: "brand", x: 10, y: 30, label: "BRAND" },
-      { id: "design", x: 10, y: 70, label: "DESIGN" },
-      { id: "cms", x: 40, y: 50, label: "CMS" },
-      { id: "site", x: 70, y: 50, label: "SITE" },
-      { id: "press", x: 92, y: 25, label: "PRESS", shape: "circle" },
-      { id: "intake", x: 92, y: 75, label: "INTAKE", shape: "circle" },
-    ],
-    edges: [
-      { from: "brand", to: "cms" },
-      { from: "design", to: "cms" },
-      { from: "cms", to: "site", label: "render" },
-      { from: "site", to: "press" },
-      { from: "site", to: "intake" },
-    ],
-  },
   jgsaw: {
     title: "FIG. JG · CONTEXT → MOTION",
     nodes: [
@@ -54,8 +32,8 @@ const projectDiagrams: Record<string, DiagramSpec> = {
       { from: "icp", to: "engine" },
       { from: "persona", to: "engine" },
       { from: "compete", to: "engine" },
-      { from: "engine", to: "deals", label: "deal" },
-      { from: "engine", to: "camp", label: "camp" },
+      { from: "engine", to: "deals" },
+      { from: "engine", to: "camp" },
       { from: "engine", to: "assets" },
       { from: "deals", to: "view" },
     ],
@@ -74,8 +52,8 @@ const projectDiagrams: Record<string, DiagramSpec> = {
     edges: [
       { from: "note", to: "script" },
       { from: "note", to: "style" },
-      { from: "script", to: "render", label: "beats" },
-      { from: "style", to: "render", label: "look" },
+      { from: "script", to: "render" },
+      { from: "style", to: "render" },
       { from: "render", to: "voice" },
       { from: "render", to: "post" },
       { from: "voice", to: "reel" },
@@ -85,91 +63,129 @@ const projectDiagrams: Record<string, DiagramSpec> = {
 };
 
 export function SelectedWork() {
+  const featured = projects.find((project) => project.featured) ?? projects[0];
+  const secondary = projects.filter((project) => project.slug !== featured.slug);
+
   return (
-    <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-32">
-      <GridBackground />
-      <Container className="relative z-10">
+    <section className="bg-offwhite py-16 text-ink sm:py-24 md:py-32">
+      <Container>
         <SectionHeading
+          tone="dark"
           index="02"
           eyebrow="SELECTED WORK"
-          title="What we've built."
-          description="A studio is only as serious as the systems on its shelf. Three from the last quarter."
+          title="Working systems, not concept decks."
+          description="A closer look at what we shipped, how it works, and what changed after launch."
         />
 
-        <div className="mt-12 grid gap-4 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-          {projects.map((p, i) => {
-            const diagram = projectDiagrams[p.slug];
+        <motion.article
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.55 }}
+          className="mt-12 grid overflow-hidden border border-ink/20 bg-white sm:mt-16 lg:grid-cols-12"
+        >
+          <Link
+            href={`/work/${featured.slug}`}
+            className="group relative min-h-[300px] overflow-hidden bg-ink lg:col-span-7 lg:min-h-[560px]"
+            aria-label={`Read the ${featured.client} case study`}
+          >
+            {featured.image ? (
+              <Image
+                src={withBasePath(featured.image)}
+                alt={`${featured.client} — ${featured.title}`}
+                fill
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+              />
+            ) : null}
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/65 via-transparent to-transparent" />
+            <WorkSiteCrew variant="featured" label={featured.client} />
+            <span className="absolute right-5 top-5 border border-white/50 bg-ink/30 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white backdrop-blur-sm">
+              Open case study →
+            </span>
+          </Link>
+
+          <div className="flex flex-col justify-between gap-10 p-7 sm:p-10 lg:col-span-5 lg:p-12">
+            <div>
+              <div className="flex items-center justify-between gap-4">
+                <TechLabel tone="dark">FEATURED · {featured.discipline}</TechLabel>
+                <TechLabel tone="dark">{featured.year}</TechLabel>
+              </div>
+              <h3 className="mt-8 text-balance font-display text-3xl font-extrabold leading-[1] tracking-tight-3 sm:text-4xl">
+                {featured.title}
+              </h3>
+              <p className="mt-5 text-base leading-relaxed text-ink/70">{featured.oneLiner}</p>
+            </div>
+
+            <div>
+              <div className="grid grid-cols-2 gap-5 border-y border-ink/15 py-5">
+                {featured.metrics.slice(0, 2).map((metric) => (
+                  <div key={metric.label}>
+                    <TechLabel tone="dark">{metric.label}</TechLabel>
+                    <p className="mt-1 font-display text-xl font-bold tracking-tight-2">
+                      {metric.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <Button asChild variant="secondary" size="lg" className="mt-7">
+                <Link href={`/work/${featured.slug}`}>Read {featured.client} →</Link>
+              </Button>
+            </div>
+          </div>
+        </motion.article>
+
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          {secondary.map((project, index) => {
+            const diagram = projectDiagrams[project.slug];
             return (
-              <motion.div
-                key={p.slug}
-                initial={{ opacity: 0, y: 12 }}
+              <motion.article
+                key={project.slug}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="group border border-ink/20 bg-white"
               >
-                <CornerBrackets
-                  tone="light"
-                  className="flex h-full flex-col gap-5 bg-blueprint p-6 sm:p-8"
-                >
-                  <div className="flex items-center justify-between">
-                    <TechLabel>{p.discipline.toUpperCase()}</TechLabel>
-                    <TechLabel>{p.year}</TechLabel>
-                  </div>
-
-                  <div className="relative aspect-[5/3] w-full overflow-hidden border border-white/20">
-                    {p.image ? (
+                <Link href={`/work/${project.slug}`} className="block">
+                  <div className="relative aspect-[16/9] overflow-hidden border-b border-ink/15 bg-[#eef1f5]">
+                    {project.image ? (
                       <Image
-                        src={p.image}
-                        alt={`${p.client} — ${p.title}`}
+                        src={withBasePath(project.image)}
+                        alt={`${project.client} — ${project.title}`}
                         fill
-                        sizes="(min-width: 768px) 33vw, 100vw"
-                        className="object-cover"
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                       />
-                    ) : (
-                      diagram && (
-                        <div className="h-full w-full p-3">
-                          <SystemDiagram
-                            {...diagram}
-                            tone="light"
-                            viewBoxW={400}
-                            viewBoxH={240}
-                          />
-                        </div>
-                      )
-                    )}
+                    ) : diagram ? (
+                      <div className="h-full w-full p-5 sm:p-8">
+                        <SystemDiagram {...diagram} tone="dark" viewBoxW={400} viewBoxH={240} />
+                      </div>
+                    ) : null}
+                    <WorkSiteCrew label={project.client} />
                   </div>
-
-                  <div className="flex flex-col gap-2">
-                    <h3 className="font-display text-xl font-bold leading-tight tracking-tight-2">
-                      {p.title}
+                  <div className="p-7 sm:p-8">
+                    <div className="flex items-center justify-between gap-4">
+                      <TechLabel tone="dark">{project.discipline}</TechLabel>
+                      <TechLabel tone="dark">{project.year}</TechLabel>
+                    </div>
+                    <h3 className="mt-5 font-display text-2xl font-bold leading-tight tracking-tight-2">
+                      {project.title}
                     </h3>
-                    <p className="text-sm text-white/70">{p.oneLiner}</p>
-                  </div>
-
-                  <div className="mt-auto flex items-center justify-between">
-                    <TechLabel className="text-white/60">{p.client}</TechLabel>
-                    <Link
-                      href={`/work/${p.slug}`}
-                      className="font-mono text-[12px] uppercase tracking-[0.18em] text-white/85 hover:text-white"
-                    >
-                      Read →
-                    </Link>
-                  </div>
-
-                  {p.isPlaceholder && (
-                    <span className="absolute right-2 top-2 border border-warn/60 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.2em] text-warn">
-                      PLACEHOLDER
+                    <p className="mt-3 text-sm leading-relaxed text-ink/70">{project.oneLiner}</p>
+                    <span className="mt-6 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-ink transition-transform duration-300 group-hover:translate-x-1">
+                      Read case study →
                     </span>
-                  )}
-                </CornerBrackets>
-              </motion.div>
+                  </div>
+                </Link>
+              </motion.article>
             );
           })}
         </div>
 
-        <div className="mt-12 flex">
-          <Button asChild variant="primary" size="lg">
-            <Link href="/work">All work →</Link>
+        <div className="mt-10 flex justify-end">
+          <Button asChild variant="secondary" size="lg">
+            <Link href="/work">View all work →</Link>
           </Button>
         </div>
       </Container>

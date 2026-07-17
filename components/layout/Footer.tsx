@@ -1,81 +1,99 @@
 import Link from "next/link";
 import { Container } from "./Container";
-import { TechLabel } from "@/components/blueprint/TechLabel";
-import { FooterWordmark } from "./FooterWordmark";
+import { FooterScene } from "./FooterScene";
+
+const links = [
+  { href: "/work", label: "Work" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
+];
 
 export function Footer() {
   const year = new Date().getFullYear();
+
   return (
-    <footer className="relative overflow-hidden border-t border-white/15 bg-blueprint-deep text-white">
-      <Container className="relative z-10 pb-8 pt-16 sm:pt-20">
-        {/* Eyebrow row */}
-        <div className="flex items-center justify-between">
-          <TechLabel>{"// AI PRODUCTS · AUTOMATION · MEDIA"}</TechLabel>
-          <Link
-            href="/contact"
-            className="font-mono text-[12px] uppercase tracking-[0.18em] text-white/70 transition-colors hover:text-white"
-          >
-            Start a Project →
-          </Link>
+    <footer className="relative overflow-hidden bg-[#0a1020] text-white">
+      <Container className="py-8 sm:py-9 lg:py-10">
+        <div className="grid gap-5 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-7">
+            <p className="max-w-4xl text-balance font-display text-4xl leading-[0.9] tracking-[-0.055em] sm:text-5xl">
+              Ready when
+              <span className="block text-warn">the problem is.</span>
+            </p>
+          </div>
+
+          <div className="flex flex-col items-start justify-end lg:col-span-5 lg:pb-1">
+            <p className="text-white/58 max-w-md text-base leading-relaxed">
+              Send us the workflow, the constraint, and what better should look like.
+            </p>
+            <Link
+              href="/contact"
+              className="group mt-4 inline-flex items-center border-b border-white/35 pb-1.5 font-display text-lg tracking-[-0.035em] transition-colors hover:border-warn hover:text-warn"
+            >
+              Start a project
+              <span className="ml-8 inline-block transition-transform duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+          </div>
         </div>
 
-        {/* The kinetic wordmark — the studio signature */}
-        <div className="mt-8 sm:mt-10">
-          <FooterWordmark />
+        <div className="mt-6 border-y border-white/10 bg-white/[0.015]">
+          <FooterScene />
         </div>
 
-        {/* Slim contact row */}
-        <div className="mt-10 grid gap-8 sm:grid-cols-2">
-          <FooterCol
-            label="STUDIO"
-            links={[
-              { href: "/work", label: "Work" },
-              { href: "/services", label: "Services" },
-              { href: "/about", label: "About" },
-            ]}
-          />
-          <FooterCol
-            label="CONTACT"
-            links={[
-              { href: "mailto:sudosapient@gmail.com", label: "sudosapient@gmail.com" },
-              { href: "mailto:hi@sudosapient.dev", label: "hi@sudosapient.dev" },
-              { href: "tel:+918050029848", label: "+91 80500 29848" },
-            ]}
-          />
-        </div>
+        <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <Link
+              href="/"
+              aria-label="Sudo Sapient home"
+              className="font-display text-2xl tracking-[-0.045em] text-white"
+            >
+              Sudo Sapient<span className="text-warn">.</span>
+            </Link>
+            <a
+              href="mailto:sudosapient@gmail.com"
+              className="text-white/42 mt-2 block text-xs transition-colors hover:text-white"
+            >
+              sudosapient@gmail.com
+            </a>
+          </div>
 
-        {/* Legal microrow */}
-        <div className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-white/10 pt-6 sm:flex-row sm:items-center">
-          <TechLabel>© {year} · SUDO SAPIENT · ALL RIGHTS RESERVED</TechLabel>
-          <TechLabel>BUILT BY HUMANS + MACHINES</TechLabel>
+          <div className="flex flex-col gap-5 sm:items-end">
+            <nav aria-label="Footer navigation">
+              <ul className="flex flex-wrap gap-x-6 gap-y-2">
+                {links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-white/55 transition-colors hover:text-white"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div className="text-white/28 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[9px] uppercase tracking-[0.14em]">
+              <span>© {year}</span>
+              <Link href="/privacy" className="transition-colors hover:text-white">
+                Privacy
+              </Link>
+              <Link href="/terms" className="transition-colors hover:text-white">
+                Terms
+              </Link>
+              <Link href="#top" className="transition-colors hover:text-warn">
+                Top ↑
+              </Link>
+            </div>
+          </div>
         </div>
       </Container>
-    </footer>
-  );
-}
 
-function FooterCol({
-  label,
-  links,
-}: {
-  label: string;
-  links: { href: string; label: string }[];
-}) {
-  return (
-    <div className="flex flex-col gap-3">
-      <TechLabel>{label}</TechLabel>
-      <ul className="flex flex-wrap gap-x-6 gap-y-2 sm:flex-col sm:gap-2">
-        {links.map((l) => (
-          <li key={l.href}>
-            <Link
-              href={l.href}
-              className="text-sm text-white/85 transition-colors hover:text-white"
-            >
-              {l.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-20 -right-16 h-48 w-48 rounded-full border border-white/[0.045] sm:h-64 sm:w-64"
+      />
+    </footer>
   );
 }

@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CornerBrackets } from "@/components/blueprint/CornerBrackets";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import { MascotFigure } from "@/components/figures/MascotFigure";
+import { withBasePath } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -175,7 +176,10 @@ export function TeamGrid({ members }: { members: TeamMember[] }) {
 
   return (
     <div ref={root} className="relative mt-12 sm:mt-14">
-      <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-12 md:grid-cols-4 lg:grid-cols-5">
+      <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.14em] text-white/60 lg:hidden">
+        Tap a portrait to read the bio.
+      </p>
+      <div className="grid grid-cols-1 gap-x-4 gap-y-8 min-[420px]:grid-cols-2 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-12 md:grid-cols-4 lg:grid-cols-5">
         {members.map((m, i) => {
           const open = openIndex === i;
           return (
@@ -190,20 +194,20 @@ export function TeamGrid({ members }: { members: TeamMember[] }) {
                   ref={(el) => {
                     cardRefs.current[i] = el;
                   }}
-                  className="flip-scene group block h-full w-full cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
+                  className="flip-scene group block h-full w-full cursor-pointer touch-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
                 >
                   <div className={cn("flip-card", open && "is-open")}>
                     {/* Front — the portrait */}
                     <div className="flip-face flip-front border border-white/30 bg-white/5">
                       <Image
-                        src={m.img}
+                        src={withBasePath(m.img)}
                         alt={`${m.name}, ${m.role} at Sudo Sapient`}
                         fill
                         sizes="(min-width: 1024px) 18vw, (min-width: 640px) 30vw, 45vw"
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       />
-                      <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center gap-1 bg-gradient-to-t from-blueprint/90 to-transparent pb-2 pt-6 font-mono text-[10px] uppercase tracking-wide text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        ▸ Open
+                      <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center gap-1 bg-gradient-to-t from-blueprint/90 to-transparent pb-2 pt-8 font-mono text-[10px] uppercase tracking-wide text-white opacity-100 transition-opacity duration-300 lg:opacity-0 lg:group-hover:opacity-100">
+                        {open ? "Tap to close" : "Tap for bio"}
                       </span>
                     </div>
 

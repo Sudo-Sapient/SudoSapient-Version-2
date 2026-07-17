@@ -26,12 +26,7 @@ type Props = {
  * GSAP's DrawSVGPlugin — head, spine, and limbs sketch themselves in, like a
  * blueprint being drawn. Respects prefers-reduced-motion.
  */
-export function AnimatedFigure({
-  children,
-  duration = 0.6,
-  stagger = 0.08,
-  className,
-}: Props) {
+export function AnimatedFigure({ children, duration = 0.6, stagger = 0.08, className }: Props) {
   const root = React.useRef<HTMLSpanElement>(null);
 
   useIsomorphicLayoutEffect(() => {

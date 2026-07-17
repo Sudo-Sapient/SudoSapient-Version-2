@@ -6,13 +6,10 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { Pipeline } from "@/components/blueprint/Pipeline";
+import { ProcessActor } from "@/components/scenes/ProcessActors";
 import { Shootable } from "@/components/interactive/Shootable";
-import {
-  FigureSitting,
-  FigureWriting,
-  FigurePushing,
-  FigurePointing,
-} from "@/components/figures";
+
+type ActorKind = "discover" | "prototype" | "build" | "ship";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
 
@@ -47,7 +44,7 @@ export function ProcessScene() {
     { code: "N.03", label: "BUILD", caption: "3–6 wk" },
     { code: "N.04", label: "SHIP", caption: "ongoing" },
   ];
-  const figures = [FigureSitting, FigureWriting, FigurePushing, FigurePointing];
+  const figureKinds: ActorKind[] = ["discover", "prototype", "build", "ship"];
 
   const scene = React.useRef<HTMLDivElement>(null);
   const pen = React.useRef<HTMLDivElement>(null);
@@ -64,20 +61,16 @@ export function ProcessScene() {
       const nodeEls = XS.map((_, i) => root.querySelector<SVGElement>(`[data-pl-node="${i}"]`));
       const tickEls = XS.map((_, i) => root.querySelector<SVGElement>(`[data-pl-tick="${i}"]`));
       const labelEls = XS.map((_, i) => root.querySelector<SVGElement>(`[data-pl-label="${i}"]`));
-      const figStrokes = figRefs.current.map((f) =>
-        f
-          ? Array.from(f.querySelectorAll<SVGElement>("line, circle, polyline, path")).filter(
-              (el) => !el.getAttribute("stroke-dasharray")
-            )
-          : []
-      );
+      const figEls = figRefs.current.filter(Boolean) as HTMLDivElement[];
 
       // Hide everything before first paint.
       if (spine) gsap.set(spine, { drawSVG: "0%" });
       nodeEls.forEach((n, i) => n && gsap.set(n, { scale: 0, svgOrigin: `${XS[i]} ${BASE_Y}` }));
       tickEls.forEach((t) => t && gsap.set(t, { opacity: 0 }));
       labelEls.forEach((l) => l && gsap.set(l, { opacity: 0, y: 6 }));
-      figStrokes.flat().forEach((s) => gsap.set(s, { drawSVG: "0%" }));
+      // Figures fade + rise in (never drawSVG — that fought their own motion and
+      // left them broken/floating).
+      figEls.forEach((f) => gsap.set(f, { autoAlpha: 0, y: 10 }));
       gsap.set(penEl, { left: PEN_START, opacity: 0 });
 
       const tl = gsap.timeline({
@@ -99,11 +92,15 @@ export function ProcessScene() {
       NODE_FR.forEach((fr, i) => {
         const at = fr * 0.92;
         if (nodeEls[i])
-          tl.to(nodeEls[i], { scale: 1, duration: 0.06, ease: "back.out(2)", svgOrigin: `${XS[i]} ${BASE_Y}` }, at);
+          tl.to(
+            nodeEls[i],
+            { scale: 1, duration: 0.06, ease: "back.out(2)", svgOrigin: `${XS[i]} ${BASE_Y}` },
+            at
+          );
         if (tickEls[i]) tl.to(tickEls[i], { opacity: 1, duration: 0.04 }, at);
         if (labelEls[i]) tl.to(labelEls[i], { opacity: 1, y: 0, duration: 0.08 }, at + 0.02);
-        if (figStrokes[i].length)
-          tl.to(figStrokes[i], { drawSVG: "100%", duration: 0.12, stagger: 0.012, ease: "none" }, at);
+        if (figRefs.current[i])
+          tl.to(figRefs.current[i], { autoAlpha: 1, y: 0, duration: 0.12, ease: "power2.out" }, at);
       });
 
       // Pen lifts off once it has reached the end.
@@ -115,7 +112,8 @@ export function ProcessScene() {
 
   return (
     <div ref={scene} className="relative w-full">
-      <div className="relative">
+      {/* Extra bottom room so the plotted figures stand clear below the pipeline. */}
+      <div className="relative pb-[13%]">
         <Pipeline
           nodes={nodes}
           tone="light"
@@ -138,24 +136,23 @@ export function ProcessScene() {
 
         {/* Figures at each node — plotted in by the scrub timeline (desktop). */}
         <div className="absolute inset-0 hidden md:block">
-          {figures.map((F, i) => (
+          {figureKinds.map((kind, i) => (
             <div
-              key={i}
+              key={kind}
               ref={(el) => {
                 figRefs.current[i] = el;
               }}
-              className="absolute text-white"
+              className="absolute bottom-0 text-white"
               style={{
                 left: `${(XS[i] / 900) * 100}%`,
-                top: "65%",
                 transform: "translateX(-50%)",
-                width: "10%",
-                minWidth: 56,
-                maxWidth: 84,
+                width: "9%",
+                minWidth: 52,
+                maxWidth: 78,
               }}
             >
               <Shootable className="block w-full">
-                <F className="w-full" />
+                <ProcessActor kind={kind} className="block w-full" />
               </Shootable>
             </div>
           ))}
@@ -164,16 +161,18 @@ export function ProcessScene() {
 
       {/* On mobile, render figures in a row below the pipeline */}
       <div className="mt-6 grid grid-cols-4 gap-2 sm:gap-3 md:hidden">
-        {figures.map((F, i) => (
+        {figureKinds.map((kind, i) => (
           <motion.div
-            key={i}
+            key={kind}
             initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 + i * 0.1, duration: 0.4 }}
-            className="flex justify-center text-white"
+            className="flex h-16 justify-center text-white"
           >
-            <F className="h-16 w-auto" />
+            <Shootable className="block h-full">
+              <ProcessActor kind={kind} className="h-full w-auto" />
+            </Shootable>
           </motion.div>
         ))}
       </div>

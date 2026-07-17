@@ -29,12 +29,7 @@ export function BlueprintFrame({
   const border = tone === "light" ? "border-white/40" : "border-ink/30";
   return (
     <div className={cn("relative", className)}>
-      <div
-        className={cn(
-          "grid grid-cols-4 border-b",
-          border
-        )}
-      >
+      <div className={cn("grid grid-cols-2 border-b sm:grid-cols-4", border)}>
         <Field label="SUBJECT" value={subject} tone={tone} span={2} />
         <Field label="TYPE" value={type} tone={tone} />
         <Field label="VERSION" value={`${version} · ${date}`} tone={tone} />
@@ -64,11 +59,12 @@ function Field({
       className={cn(
         "flex flex-col gap-1 border-r px-3 py-2 last:border-r-0",
         border,
-        span === 2 && "col-span-2"
+        span === 2 && "col-span-2",
+        "min-w-0"
       )}
     >
       <TechLabel tone={tone === "light" ? "light" : "dark"}>{label}</TechLabel>
-      <span className={cn("font-mono text-[13px]", text)}>{value}</span>
+      <span className={cn("break-words font-mono text-[11px] sm:text-[13px]", text)}>{value}</span>
     </div>
   );
 }

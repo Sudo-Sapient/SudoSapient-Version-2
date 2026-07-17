@@ -27,18 +27,28 @@
   }
 
   body {
-    @apply bg-offwhite text-ink font-sans;
+    @apply bg-offwhite font-sans text-ink;
     font-feature-settings: "ss01", "cv11";
+    /* Guard against accidental horizontal scroll from wide illustrated scenes. */
+    overflow-x: hidden;
+  }
+
+  :where(p, li) {
+    text-wrap: pretty;
+  }
+
+  :where(h1, h2, h3) {
+    text-wrap: balance;
   }
 
   ::selection {
-    background: #1E40AF;
-    color: #FFFFFF;
+    background: #1e40af;
+    color: #ffffff;
   }
 
   /* Visible keyboard focus site-wide — plain links have none otherwise. */
   a:focus-visible {
-    outline: 2px solid #FBBF24;
+    outline: 2px solid #fbbf24;
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -46,22 +56,14 @@
 
 @layer utilities {
   .blueprint-paper {
-    background-color: #1E40AF;
-    background-image: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.1) 1px,
-      transparent 1px
-    );
+    background-color: #1e40af;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 
   .blueprint-paper-deep {
-    background-color: #1E3A8A;
-    background-image: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.08) 1px,
-      transparent 1px
-    );
+    background-color: #1e3a8a;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 
@@ -103,42 +105,115 @@
  * walks). All limbs share --walk-dur so they stay in step.
  * ------------------------------------------------------------------ */
 @keyframes walk-leg-a {
-  0%, 100% { transform: rotate(22deg); }
-  50% { transform: rotate(-22deg); }
+  0%,
+  100% {
+    transform: rotate(22deg);
+  }
+  50% {
+    transform: rotate(-22deg);
+  }
 }
 @keyframes walk-leg-b {
-  0%, 100% { transform: rotate(-22deg); }
-  50% { transform: rotate(22deg); }
+  0%,
+  100% {
+    transform: rotate(-22deg);
+  }
+  50% {
+    transform: rotate(22deg);
+  }
 }
 @keyframes walk-arm-a {
-  0%, 100% { transform: rotate(-18deg); }
-  50% { transform: rotate(18deg); }
+  0%,
+  100% {
+    transform: rotate(-18deg);
+  }
+  50% {
+    transform: rotate(18deg);
+  }
 }
 @keyframes walk-arm-b {
-  0%, 100% { transform: rotate(18deg); }
-  50% { transform: rotate(-18deg); }
+  0%,
+  100% {
+    transform: rotate(18deg);
+  }
+  50% {
+    transform: rotate(-18deg);
+  }
 }
 @keyframes walk-bob {
-  0%, 50%, 100% { transform: translateY(0); }
-  25%, 75% { transform: translateY(-1.3px); }
+  0%,
+  50%,
+  100% {
+    transform: translateY(0);
+  }
+  25%,
+  75% {
+    transform: translateY(-1.3px);
+  }
 }
 @keyframes walk-pace {
-  0% { transform: translateX(0) scaleX(1); }
-  47% { transform: translateX(var(--walk-dist, 120px)) scaleX(1); }
-  50% { transform: translateX(var(--walk-dist, 120px)) scaleX(-1); }
-  97% { transform: translateX(0) scaleX(-1); }
-  100% { transform: translateX(0) scaleX(1); }
+  0% {
+    transform: translateX(0) scaleX(1);
+  }
+  47% {
+    transform: translateX(var(--walk-dist, 120px)) scaleX(1);
+  }
+  50% {
+    transform: translateX(var(--walk-dist, 120px)) scaleX(-1);
+  }
+  97% {
+    transform: translateX(0) scaleX(-1);
+  }
+  100% {
+    transform: translateX(0) scaleX(1);
+  }
 }
 
-.walk-leg-a { transform-box: view-box; animation: walk-leg-a var(--walk-dur, 0.9s) ease-in-out infinite; }
-.walk-leg-b { transform-box: view-box; animation: walk-leg-b var(--walk-dur, 0.9s) ease-in-out infinite; }
-.walk-arm-a { transform-box: view-box; animation: walk-arm-a var(--walk-dur, 0.9s) ease-in-out infinite; }
-.walk-arm-b { transform-box: view-box; animation: walk-arm-b var(--walk-dur, 0.9s) ease-in-out infinite; }
-.walk-bob { animation: walk-bob var(--walk-dur, 0.9s) ease-in-out infinite; }
-.walk-pace { animation: walk-pace var(--pace-dur, 7s) ease-in-out infinite; }
+.walk-leg-a {
+  transform-box: view-box;
+  transform-origin: 20px 38px;
+  animation: walk-leg-a var(--walk-dur, 0.9s) ease-in-out infinite;
+}
+.walk-leg-b {
+  transform-box: view-box;
+  transform-origin: 20px 38px;
+  animation: walk-leg-b var(--walk-dur, 0.9s) ease-in-out infinite;
+}
+.walk-arm-a {
+  transform-box: view-box;
+  transform-origin: 20px 16px;
+  animation: walk-arm-a var(--walk-dur, 0.9s) ease-in-out infinite;
+}
+.walk-arm-b {
+  transform-box: view-box;
+  transform-origin: 20px 16px;
+  animation: walk-arm-b var(--walk-dur, 0.9s) ease-in-out infinite;
+}
+.walk-bob {
+  animation: walk-bob var(--walk-dur, 0.9s) ease-in-out infinite;
+}
+.walk-pace {
+  animation: walk-pace var(--pace-dur, 7s) ease-in-out infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .walk-leg-a, .walk-leg-b, .walk-arm-a, .walk-arm-b, .walk-bob, .walk-pace {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+  .walk-leg-a,
+  .walk-leg-b,
+  .walk-arm-a,
+  .walk-arm-b,
+  .walk-bob,
+  .walk-pace {
     animation: none !important;
     transform: none !important;
   }
@@ -150,20 +225,89 @@
  * stick-figure animation, never a wobble. Frame A is the resting frame
  * (shown when motion is off); B/C start hidden. --flip-dur sets tempo.
  * ------------------------------------------------------------------ */
-@keyframes flip-a { 0% { opacity: 1; } 50% { opacity: 0; } }
-@keyframes flip-b { 0% { opacity: 0; } 50% { opacity: 1; } }
-.flip-a { animation: flip-a var(--flip-dur, 0.9s) step-end infinite; }
-.flip-b { opacity: 0; animation: flip-b var(--flip-dur, 0.9s) step-end infinite; }
+@keyframes flip-a {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes flip-b {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.flip-a {
+  animation: flip-a var(--flip-dur, 0.9s) step-end infinite;
+}
+.flip-b {
+  opacity: 0;
+  animation: flip-b var(--flip-dur, 0.9s) step-end infinite;
+}
 
-@keyframes flip3-a { 0% { opacity: 1; } 33.34% { opacity: 0; } }
-@keyframes flip3-b { 0% { opacity: 0; } 33.34% { opacity: 1; } 66.67% { opacity: 0; } }
-@keyframes flip3-c { 0% { opacity: 0; } 66.67% { opacity: 1; } }
-.flip3-a { animation: flip3-a var(--flip-dur, 1.2s) step-end infinite; }
-.flip3-b { opacity: 0; animation: flip3-b var(--flip-dur, 1.2s) step-end infinite; }
-.flip3-c { opacity: 0; animation: flip3-c var(--flip-dur, 1.2s) step-end infinite; }
+@keyframes flip3-a {
+  0% {
+    opacity: 1;
+  }
+  33.34% {
+    opacity: 0;
+  }
+}
+@keyframes flip3-b {
+  0% {
+    opacity: 0;
+  }
+  33.34% {
+    opacity: 1;
+  }
+  66.67% {
+    opacity: 0;
+  }
+}
+@keyframes flip3-c {
+  0% {
+    opacity: 0;
+  }
+  66.67% {
+    opacity: 1;
+  }
+}
+.flip3-a {
+  animation: flip3-a var(--flip-dur, 1.2s) step-end infinite;
+}
+.flip3-b {
+  opacity: 0;
+  animation: flip3-b var(--flip-dur, 1.2s) step-end infinite;
+}
+.flip3-c {
+  opacity: 0;
+  animation: flip3-c var(--flip-dur, 1.2s) step-end infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .flip-a, .flip-b, .flip3-a, .flip3-b, .flip3-c { animation: none !important; }
+  .flip-a,
+  .flip-b,
+  .flip3-a,
+  .flip3-b,
+  .flip3-c {
+    animation: none !important;
+  }
+}
+
+/* Authored legal SVG scenes: freeze all SMIL/animateTransform when the user
+ * prefers reduced motion so the composition still reads as a still diagram. */
+.legal-scene {
+  aspect-ratio: 640 / 400;
+}
+@media (prefers-reduced-motion: reduce) {
+  .legal-scene animate,
+  .legal-scene animateTransform {
+    animation: none !important;
+  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -171,7 +315,9 @@
  * back, pre-rotated so it reads upright once the card flips over its
  * horizontal axis (a hinged "lid"). Reduced motion flips instantly.
  * ------------------------------------------------------------------ */
-.flip-scene { perspective: 1100px; }
+.flip-scene {
+  perspective: 1100px;
+}
 .flip-card {
   position: relative;
   height: 100%;
@@ -179,7 +325,9 @@
   transform-style: preserve-3d;
   transition: transform 600ms cubic-bezier(0.22, 0.65, 0.3, 0.9);
 }
-.flip-card.is-open { transform: rotateX(180deg); }
+.flip-card.is-open {
+  transform: rotateX(180deg);
+}
 .flip-face {
   position: absolute;
   inset: 0;
@@ -187,10 +335,14 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-.flip-back { transform: rotateX(180deg); }
+.flip-back {
+  transform: rotateX(180deg);
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .flip-card { transition: none; }
+  .flip-card {
+    transition: none;
+  }
 }
 
 /* Hide the native cursor while the blueprint cursor is active (fine pointers

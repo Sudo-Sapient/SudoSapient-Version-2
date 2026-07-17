@@ -16,80 +16,63 @@ export function Hero() {
     <section className="relative isolate overflow-hidden bg-blueprint text-white">
       <GridBackground />
       <BlueprintCanvas reveal={false} />
-      <Container className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col py-12 sm:py-16 md:py-20">
-        {/* The composed scene: focal ModuleStack + active figures */}
-        <div className="relative grid items-center gap-8 sm:gap-10 lg:grid-cols-12">
-          <div className="relative lg:col-span-7">
-            <HeroScene />
-          </div>
+      <Container className="relative z-10 flex min-h-[calc(100dvh-4rem)] flex-col justify-center py-14 sm:py-20 md:py-24">
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="flex flex-col gap-6 lg:col-span-7">
+            <TechLabel>
+              <AnimatedText
+                as="span"
+                variant="typewriter"
+                trigger="load"
+                delay={0.25}
+                text="// AI PRODUCTS · AUTOMATION · MEDIA"
+              />
+            </TechLabel>
 
-          <div className="flex flex-col gap-6 lg:col-span-5">
             <AnimatedText
               as="h1"
               variant="scramble"
               trigger="load"
-              delay={0.5}
+              delay={0.4}
               speed={0.018}
-              text="We build AI systems that automate, create, and scale."
-              className="font-display text-3xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-4xl md:text-5xl lg:text-6xl"
+              text="Production AI systems, shipped in weeks."
+              className="max-w-4xl text-balance font-display text-4xl font-extrabold leading-[0.92] tracking-tight-3 sm:text-5xl md:text-6xl lg:text-7xl"
             />
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
-              className="flex flex-col gap-3"
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.72, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-2xl text-lg leading-relaxed text-white/80 sm:text-xl"
             >
-              <TechLabel>
-                <AnimatedText
-                  as="span"
-                  variant="typewriter"
-                  trigger="load"
-                  delay={1.0}
-                  text="// AI PRODUCTS · AUTOMATION · MEDIA"
-                />
-              </TechLabel>
-              <p className="max-w-md text-lg text-white/80">
-                An AI studio for founders and product teams who want to ship AI
-                products without hiring a full AI team.
-              </p>
-            </motion.div>
+              We design and build AI products, operational automation, and media systems for
+              founders and product teams—without the time and cost of hiring a full AI team.
+            </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1, duration: 0.5 }}
+              transition={{ delay: 0.88, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-wrap items-center gap-4"
             >
               <Button asChild variant="solid" size="lg">
-                <Link href="/contact">Start a Project</Link>
+                <Link href="/contact">Discuss a build</Link>
               </Button>
               <Button asChild variant="ghost" size="lg">
-                <Link href="/work">See the work →</Link>
+                <Link href="/work">See shipped work →</Link>
               </Button>
             </motion.div>
           </div>
-        </div>
 
-        {/* Bottom dimension callouts along the base */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.5 }}
-          className="mt-10 flex items-center justify-between border-t border-white/30 pt-3"
-        >
-          <TechLabel>
-            <AnimatedText
-              as="span"
-              variant="typewriter"
-              trigger="load"
-              delay={1.3}
-              text="FIG. 01 — HOMEPAGE HERO"
-            />
-          </TechLabel>
-          <TechLabel>SCALE 1:1</TechLabel>
-          <TechLabel className="hidden sm:inline-block">SHEET 01 / 05</TechLabel>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mx-auto w-full max-w-xl lg:col-span-5"
+          >
+            <HeroScene />
+          </motion.div>
+        </div>
       </Container>
     </section>
   );

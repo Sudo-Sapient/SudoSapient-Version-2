@@ -118,11 +118,7 @@ type Props = {
   reveal?: boolean;
 };
 
-export function BlueprintCanvas({
-  className,
-  interactive = true,
-  reveal = true,
-}: Props) {
+export function BlueprintCanvas({ className, interactive = true, reveal = true }: Props) {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {

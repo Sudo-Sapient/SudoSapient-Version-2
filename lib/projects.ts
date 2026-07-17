@@ -36,8 +36,8 @@ export const projects: Project[] = [
       "Jgsaw's customers now read the room before every sales standup. Updating Brand World or Competitive Intel ripples into the Asset Playbook and Campaign Builder instantly — strategy and execution stay in lockstep instead of drifting apart. The engine hit its live deal-tracking milestone the week of May 11, 2026.",
     metrics: [
       { label: "INTELLIGENCE MODULES", value: "6" },
-      { label: "MOTION MODULES", value: "5" },
-      { label: "BUILD TIME", value: "3 months" },
+      { label: "EXECUTION MODULES", value: "5" },
+      { label: "DELIVERY WINDOW", value: "12 weeks" },
     ],
     isPlaceholder: false,
     image: "/case-studies/jgsaw.jpeg",
@@ -57,9 +57,9 @@ export const projects: Project[] = [
     outcome:
       "Concept-to-finished cut dropped from days to hours, so the page jumps on viral trends the same hour they break. The entrepreneur runs a consistent posting cadence with no filming, no editor, and no studio — just the production engine, the references they care about, and a single approval step.",
     metrics: [
-      { label: "TURNAROUND", value: "Hours, not days" },
-      { label: "CADENCE", value: "High-volume / ongoing" },
-      { label: "HUMAN STEPS", value: "1 approval" },
+      { label: "PRODUCTION TIME", value: "Hours" },
+      { label: "CAMERA / EDIT BAY", value: "Not required" },
+      { label: "HUMAN REVIEW", value: "1 approval" },
     ],
     isPlaceholder: false,
   },
@@ -78,9 +78,9 @@ export const projects: Project[] = [
     outcome:
       "Mayaakars moved from traditional outreach to a digital-first brand in weeks. The portfolio launched with the firm's full catalogue and a backend ready to scale as new projects ship — credibility intact, distribution finally unblocked, inquiries now landing in one inbox instead of five.",
     metrics: [
-      { label: "TURNAROUND", value: "Record time" },
-      { label: "SCOPE", value: "End-to-end" },
-      { label: "DELIVERABLE", value: "Site + brand + portfolio" },
+      { label: "DELIVERY", value: "Brand + website" },
+      { label: "CONTENT SYSTEM", value: "Portfolio CMS" },
+      { label: "LEAD ROUTING", value: "Single intake" },
     ],
     isPlaceholder: false,
     featured: true,

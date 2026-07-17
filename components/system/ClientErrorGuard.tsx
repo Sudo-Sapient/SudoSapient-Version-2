@@ -19,12 +19,41 @@ import * as React from "react";
  */
 
 const CHUNK_RE =
-  /(ChunkLoadError|Loading chunk [\w-]+ failed|Loading CSS chunk|Failed to fetch dynamically imported module|error loading dynamically imported module)/i;
+  /(ChunkLoadError|Loading chunk [\w-]+ failed|Loading CSS chunk|Failed to fetch dynamically imported module|error loading dynamically imported module|React Client Manifest|__webpack_modules__\[moduleId\] is not a function|Failed to find Server Action|app-pages-browser)/i;
 const RO_RE = /ResizeObserver loop/i;
 const RELOAD_KEY = "ss:chunk-recovered";
+const LAST_BUILD_KEY = "ss:last-build";
 
 export function ClientErrorGuard() {
   React.useEffect(() => {
+    // In development, a route can compile against a different manifest after a
+    // large edit. Detect the changed Next build id before client navigation has
+    // a chance to hydrate stale chunks, then refresh exactly once.
+    const buildId = document.querySelector<HTMLScriptElement>("script#__NEXT_DATA__")?.textContent
+      ? (() => {
+          try {
+            return JSON.parse(
+              document.querySelector<HTMLScriptElement>("script#__NEXT_DATA__")!.textContent!
+            ).buildId as string | undefined;
+          } catch {
+            return undefined;
+          }
+        })()
+      : undefined;
+
+    if (buildId) {
+      try {
+        const previousBuild = sessionStorage.getItem(LAST_BUILD_KEY);
+        sessionStorage.setItem(LAST_BUILD_KEY, buildId);
+        if (previousBuild && previousBuild !== buildId) {
+          window.location.reload();
+          return;
+        }
+      } catch {
+        /* storage can be blocked */
+      }
+    }
+
     const recoverFromStaleChunks = () => {
       try {
         if (sessionStorage.getItem(RELOAD_KEY)) return; // already tried — don't loop
@@ -50,6 +79,8 @@ export function ClientErrorGuard() {
       const msg = ee?.message || ee?.error?.message || "";
 
       if (CHUNK_RE.test(msg)) {
+        e.preventDefault?.();
+        e.stopImmediatePropagation?.();
         recoverFromStaleChunks();
         return;
       }
@@ -75,7 +106,10 @@ export function ClientErrorGuard() {
     const onRejection = (e: PromiseRejectionEvent) => {
       const reason = e?.reason as { message?: string } | string | undefined;
       const msg = typeof reason === "string" ? reason : reason?.message || "";
-      if (CHUNK_RE.test(msg)) recoverFromStaleChunks();
+      if (CHUNK_RE.test(msg)) {
+        e.preventDefault?.();
+        recoverFromStaleChunks();
+      }
     };
 
     // Capture phase so resource (script/link/img) errors, which don't bubble,

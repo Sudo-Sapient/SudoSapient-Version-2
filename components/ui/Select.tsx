@@ -16,7 +16,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-12 w-full items-center justify-between border border-white/40 bg-transparent px-4 text-base text-white data-[placeholder]:text-white/40 focus:border-white focus:outline-none focus:ring-0",
+      "flex h-12 w-full items-center justify-between border border-white/40 bg-transparent px-4 text-base text-white focus:border-white focus:outline-none focus:ring-0 data-[placeholder]:text-white/40",
       className
     )}
     {...props}
@@ -79,11 +79,4 @@ const SelectItem = React.forwardRef<
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
-export {
-  Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-};
+export { Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectItem };

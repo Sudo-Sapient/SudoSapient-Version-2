@@ -4,31 +4,25 @@ import * as React from "react";
 import { gsap } from "gsap";
 import { motion } from "framer-motion";
 import { FigureWaving, FigureWalking } from "@/components/figures";
+import { withBasePath } from "@/lib/site";
 
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
 
+const VIDEO_SOURCE = withBasePath("/media/studio-reel.mp4");
+
 type Props = {
-  /** Driven by hover/focus of the "Start a Project" CTA — triggers a wave. */
+  /** Driven by hover/focus of the social links. */
   waving?: boolean;
 };
 
-/**
- * Final-CTA scene: a partially-built crate labeled "YOUR PROJECT" with
- * FigureWaving on the left, FigureStanding on the right, and FigureCarrying
- * arriving from below.
- *
- * The waving figure acknowledges the CTA: it waves its forearm (pivoting about
- * the elbow — the one joint the pose is drawn around, so it never "breaks") and
- * leans a touch toward the button on hover/focus, plus one wave when it first
- * scrolls into view. Reduced motion: it just stays in its authored pose.
- */
 export function FinalCtaScene({ waving = false }: Props) {
   const figure = React.useRef<HTMLDivElement>(null);
+  const video = React.useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = React.useState(true);
   const lean = React.useRef<HTMLDivElement>(null);
   const reduced = React.useRef(false);
 
-  // Plays a single, self-resolving wave on the forearm group (ends at 0°).
   const playWave = React.useCallback(() => {
     const arm = figure.current?.querySelector<SVGGElement>("[data-wave-forearm]");
     if (!arm || reduced.current) return;
@@ -41,7 +35,6 @@ export function FinalCtaScene({ waving = false }: Props) {
       .to(arm, { rotation: 0, svgOrigin: "28 8", duration: 0.26, ease: "power1.inOut" });
   }, []);
 
-  // One greeting wave shortly after the scene mounts/settles.
   useIsomorphicLayoutEffect(() => {
     reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced.current) return;
@@ -52,7 +45,6 @@ export function FinalCtaScene({ waving = false }: Props) {
     return () => ctx.revert();
   }, [playWave]);
 
-  // React to the CTA hover/focus state.
   React.useEffect(() => {
     if (reduced.current) return;
     const el = lean.current;
@@ -60,64 +52,113 @@ export function FinalCtaScene({ waving = false }: Props) {
     if (waving) playWave();
   }, [waving, playWave]);
 
+  const toggleSound = () => {
+    const player = video.current;
+    if (!player) return;
+    player.muted = !player.muted;
+    setMuted(player.muted);
+    void player.play();
+  };
+
   return (
     <div className="relative h-72 w-full sm:h-80 md:h-96">
-      {/* The crate / focal structure */}
+      {/* Local, web-optimized playback starts immediately and stays framed by the monitor. */}
+      <div className="absolute left-[18.75%] top-[20%] z-[1] h-[45%] w-[62.5%] overflow-hidden bg-[#07110d] shadow-[0_0_35px_rgba(70,255,150,0.08)]">
+        <video
+          ref={video}
+          src={VIDEO_SOURCE}
+          title="Sudo Sapient studio reel"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          onCanPlay={(event) => void event.currentTarget.play()}
+          className="h-full w-full bg-[#07110d] object-cover"
+        />
+        <button
+          type="button"
+          onClick={toggleSound}
+          className="absolute bottom-2 right-2 z-10 border border-white/45 bg-[#07110d]/85 px-2 py-1 font-mono text-[7px] uppercase tracking-[0.14em] text-white transition-colors hover:border-warn hover:text-warn focus-visible:outline focus-visible:outline-2 focus-visible:outline-warn"
+        >
+          {muted ? "Sound on" : "Mute"}
+        </button>
+      </div>
+
       <svg
         viewBox="0 0 480 320"
         fill="none"
         stroke="#FFFFFF"
         strokeWidth="1.25"
-        className="absolute inset-0 h-full w-full"
+        className="pointer-events-none absolute inset-0 z-[2] h-full w-full"
         aria-hidden
       >
         <text
           x="240"
-          y="36"
+          y="31"
           textAnchor="middle"
           style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
-          fontSize="11"
+          fontSize="10"
           letterSpacing="2"
           fill="#FFFFFF"
           stroke="none"
           opacity="0.7"
         >
-          FIG. NEXT — YOUR PROJECT
+          FIG. SOCIAL — STUDIO SIGNAL
         </text>
 
         <motion.g
-          initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
+          initial={{ opacity: 0, pathLength: 0 }}
+          whileInView={{ opacity: 1, pathLength: 1 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.85, ease: "easeOut" }}
         >
-          <rect x="120" y="80" width="240" height="160" />
-          <line x1="120" y1="140" x2="360" y2="140" />
-          <line x1="240" y1="80" x2="240" y2="240" />
+          <rect x="78" y="52" width="324" height="180" rx="5" strokeWidth="3" />
+          {/* Four bezel rails frame the video without placing an opaque panel over it. */}
+          <path
+            d="M80 54h320v10H80zM80 208h320v22H80zM80 64h10v144H80zM390 64h10v144h-10z"
+            fill="#09101c"
+            stroke="none"
+          />
+          <rect
+            x="90"
+            y="64"
+            width="300"
+            height="144"
+            rx="2"
+            stroke="#FFFFFF"
+            strokeOpacity=".5"
+            strokeWidth="2"
+          />
+          <path
+            d="M154 232h172M174 232l-14 31M306 232l14 31M142 263h40M298 263h40"
+            strokeWidth="3"
+          />
+          <path d="M402 91h12v101h-12" opacity=".38" />
         </motion.g>
 
         <motion.g
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.4, delay: 0.6 }}
+          transition={{ duration: 0.4, delay: 0.7 }}
         >
-          <polyline points="116,96 116,80 132,80" />
-          <polyline points="348,80 364,80 364,96" />
-          <polyline points="116,224 116,240 132,240" />
-          <polyline points="348,240 364,240 364,224" />
-        </motion.g>
-
-        <motion.g
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.4, delay: 0.9 }}
-        >
-          <text x="180" y="116" textAnchor="middle" style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }} fontSize="11" fill="#FFFFFF" stroke="none">SPEC: TBD</text>
-          <text x="300" y="116" textAnchor="middle" style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }} fontSize="11" fill="#FFFFFF" stroke="none">SCOPE: TBD</text>
-          <text x="180" y="190" textAnchor="middle" style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }} fontSize="11" fill="#FFFFFF" stroke="none">TEAM: SUDO</text>
-          <text x="300" y="190" textAnchor="middle" style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }} fontSize="11" fill="#FFFFFF" stroke="none">START: WK 1</text>
+          <circle cx="384" cy="220" r="3.5" fill="#FBBF24" stroke="#FBBF24" />
+          <circle cx="370" cy="220" r="2.5" />
+          <path d="M94 218h38M94 224h24" opacity=".42" />
+          <text
+            x="238"
+            y="248"
+            textAnchor="middle"
+            style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
+            fontSize="7"
+            letterSpacing="1.4"
+            fill="#FFFFFF"
+            stroke="none"
+            opacity=".52"
+          >
+            SUDO / BROADCAST MONITOR 01
+          </text>
         </motion.g>
 
         <motion.line
@@ -133,13 +174,12 @@ export function FinalCtaScene({ waving = false }: Props) {
         <line x1="20" y1="286" x2="460" y2="286" opacity="0.5" />
       </svg>
 
-      {/* Waver — greets by the crate (sways idly, full wave on CTA hover) */}
       <motion.div
         initial={{ opacity: 0, x: -6 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ delay: 1.0, duration: 0.5 }}
-        className="absolute left-[1%] bottom-[8%] text-white"
+        className="absolute bottom-[8%] left-[1%] z-[3] text-white"
         style={{ width: "18%", minWidth: 72 }}
       >
         <div ref={lean}>
@@ -149,9 +189,8 @@ export function FinalCtaScene({ waving = false }: Props) {
         </div>
       </motion.div>
 
-      {/* Carrying walker — paces the site delivering a beam */}
       <div
-        className="walk-pace pointer-events-none absolute bottom-[3%] left-[6%] text-white"
+        className="walk-pace pointer-events-none absolute bottom-[3%] left-[6%] z-[3] text-white"
         style={
           {
             width: "15%",
@@ -165,10 +204,8 @@ export function FinalCtaScene({ waving = false }: Props) {
           <FigureWalking carrying className="w-full" />
         </span>
       </div>
-
-      {/* Supervisor walker — paces the other stretch, out of step */}
       <div
-        className="walk-pace pointer-events-none absolute bottom-[1%] left-[52%] text-white"
+        className="walk-pace pointer-events-none absolute bottom-[1%] left-[52%] z-[3] text-white"
         style={
           {
             width: "13%",

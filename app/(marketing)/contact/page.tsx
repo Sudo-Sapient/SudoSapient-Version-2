@@ -28,9 +28,9 @@ export default function ContactPage() {
                 Tell us what you want to build.
               </h1>
               <p className="text-white/80">
-                Four fields. We&rsquo;ll come back within a working day with whether
-                we&rsquo;re the right studio for it, and if so, what a first sprint
-                would look like.
+                Give us the problem, the context, and what a useful first release should achieve.
+                We&rsquo;ll reply within one working day with whether we&rsquo;re the right studio
+                and what the first sprint could look like.
               </p>
               <div className="mt-2 grid grid-cols-2 gap-3 border-t border-white/20 pt-4">
                 <Metadatum label="RESPONSE" value="< 24 HRS" />

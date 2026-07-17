@@ -17,11 +17,7 @@ export function TechLabel({
   ...props
 }: Props) {
   const toneClass =
-    tone === "light"
-      ? "text-white/80"
-      : tone === "warn"
-      ? "text-warn"
-      : "text-ink/70";
+    tone === "light" ? "text-white/80" : tone === "warn" ? "text-warn" : "text-ink/70";
   return (
     <Tag
       className={cn(

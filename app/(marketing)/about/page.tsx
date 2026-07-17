@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import { TeamGrid } from "@/components/sections/TeamGrid";
 import { AnimatedFigure } from "@/components/figures/AnimatedFigure";
+import { Shootable } from "@/components/interactive/Shootable";
 import {
   FigureMeasuring,
   FigureClimbing,
@@ -83,22 +84,16 @@ export default function AboutPage() {
       <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-28">
         <GridBackground />
         <Container className="relative z-10">
-          <SectionHeading
-            as="h1"
-            index="A"
-            eyebrow="ABOUT"
-            title="A studio for shipping AI."
-          />
+          <SectionHeading as="h1" index="A" eyebrow="ABOUT" title="A studio for shipping AI." />
           <div className="mt-12 grid max-w-4xl gap-6 text-lg leading-relaxed text-white/85">
             <p>
-              Sudo Sapient is a small AI studio. We&rsquo;re a team of engineers,
-              designers, and operators who&rsquo;d rather build a working system in
-              six weeks than write a six-month plan.
+              Sudo Sapient is a small AI studio. We&rsquo;re a team of engineers, designers, and
+              operators who&rsquo;d rather build a working system in six weeks than write a
+              six-month plan.
             </p>
             <p>
-              We work with founders and product teams who want AI to be more than
-              a feature flag — who want it to ship in their product, run their
-              operations, and produce their media.
+              We work with founders and product teams who want AI to be more than a feature flag —
+              who want it to ship in their product, run their operations, and produce their media.
             </p>
           </div>
         </Container>
@@ -150,9 +145,11 @@ export default function AboutPage() {
               <div key={d.n} className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
                   <TechLabel tone="dark">{d.n}</TechLabel>
-                  <AnimatedFigure className="inline-block text-ink">
-                    <d.Figure size={60} />
-                  </AnimatedFigure>
+                  <Shootable className="inline-block">
+                    <AnimatedFigure className="inline-block text-ink">
+                      <d.Figure size={60} />
+                    </AnimatedFigure>
+                  </Shootable>
                 </div>
                 <div className="h-px w-full bg-ink/30" />
                 <h3 className="font-display text-2xl font-bold tracking-tight-2 text-ink">
@@ -196,13 +193,13 @@ function Card({
     <div className="flex flex-col gap-4 bg-offwhite p-6 sm:p-8 md:p-10">
       <div className="flex items-center justify-between">
         <TechLabel tone="dark">{code}</TechLabel>
-        <AnimatedFigure className="inline-block text-ink">
-          <Figure size={64} />
-        </AnimatedFigure>
+        <Shootable className="inline-block">
+          <AnimatedFigure className="inline-block text-ink">
+            <Figure size={64} />
+          </AnimatedFigure>
+        </Shootable>
       </div>
-      <h3 className="font-display text-2xl font-bold tracking-tight-2 text-ink">
-        {title}
-      </h3>
+      <h3 className="font-display text-2xl font-bold tracking-tight-2 text-ink">{title}</h3>
       <p className="text-base leading-relaxed text-ink/75">{body}</p>
     </div>
   );

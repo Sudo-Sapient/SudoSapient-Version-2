@@ -21,6 +21,40 @@ Open `http://localhost:3000`.
 - `npm run lint` — run ESLint
 - `npm run lint:fix` — auto-fix lint issues where possible
 - `npm run typecheck` — TypeScript validation
+- `npm run format` — format the codebase with Prettier
+- `npm run format:check` — verify formatting without writing (use in CI)
+- `npm run test` — run the test suite once (Vitest)
+- `npm run test:watch` — run tests in watch mode
+- `npm run validate` — typecheck + lint + test + build (run before every deploy)
+
+## Before deploying
+
+Always run the full gate:
+
+```bash
+npm run validate
+```
+
+This runs TypeScript, ESLint, the test suite, and a production build in sequence.
+If any step fails, do not deploy.
+
+## Testing
+
+Tests use **Vitest** + **Testing Library** (jsdom environment).
+
+- Test files live next to the code they cover as `*.test.ts` / `*.test.tsx`.
+- `vitest.config.ts` and `vitest.setup.ts` hold the configuration and DOM stubs
+  (e.g. a `matchMedia` polyfill so motion-gated components render in tests).
+- Current coverage: `lib/utils`, `lib/projects` data integrity, and a component
+  render smoke test (`components/blueprint/TechLabel`). Add tests beside new
+  pure utilities and data sources first — animation-heavy scenes are validated
+  by the build and manual QA rather than unit tests.
+
+## Formatting
+
+**Prettier** (with `prettier-plugin-tailwindcss` for class sorting) is the
+source of truth for formatting. Config is in `.prettierrc.json`; ignore rules in
+`.prettierignore`. Run `npm run format` before committing.
 
 ## Stack
 
@@ -44,7 +78,6 @@ app/
     work/[slug]/page.tsx
     layout.tsx
     page.tsx
-  api/contact/route.ts
   globals.css
   layout.tsx
 
@@ -78,17 +111,18 @@ archive/             # reference-only material, excluded from the app build
 - `/services` — services page
 - `/work` — work index
 - `/work/[slug]` — individual case studies
-- `/contact` — project intake page
-- `/api/contact` — form submission endpoint
+- `/contact` — project intake page (opens a pre-filled Gmail draft)
 
 ## Where content lives
 
 ### 1) Case studies
+
 All project and case study content currently lives in:
 
 - `lib/projects.ts`
 
 That file controls:
+
 - work index cards
 - selected work section on the home page
 - featured case study on the home page
@@ -97,6 +131,7 @@ That file controls:
 If a new developer needs to add or edit a project, start there first.
 
 ### 2) Homepage section composition
+
 The homepage order is defined in:
 
 - `app/(marketing)/page.tsx`
@@ -106,6 +141,7 @@ The actual section implementations are in:
 - `components/sections/`
 
 ### 3) Layout shell
+
 Shared navigation and footer are defined in:
 
 - `app/(marketing)/layout.tsx`
@@ -113,19 +149,15 @@ Shared navigation and footer are defined in:
 - `components/layout/Footer.tsx`
 
 ### 4) Contact form
+
 The UI is here:
 
 - `components/sections/ContactForm.tsx`
 
-The API handler is here:
-
-- `app/api/contact/route.ts`
-
-Note: the current API route validates input and logs submissions server-side. It is not yet connected to an email provider.
-
-A starter env template is available at:
-
-- `.env.example`
+Submitting the form opens a pre-filled Gmail compose window addressed to
+`sudosapient@gmail.com`. The site does not submit form data to an API, store
+submissions, or require deployment environment variables. Update the recipient
+constant in that component if the studio inbox changes.
 
 ## Asset notes
 
@@ -133,10 +165,9 @@ A starter env template is available at:
 - Raw/high-resolution source images are currently stored in `case-study-sources/`.
 - The top-level `archive/` folder holds reference-only material (e.g. the figure-library sandbox) and is intentionally excluded from the app's TypeScript and ESLint configs. See `archive/README.md`.
 
-## Handover notes
+## Handover and deployment notes
 
-See:
+- `docs/HANDOFF.md` — architecture, content editing, animation conventions, and maintenance notes
+- `docs/DEPLOYMENT.md` — required environment variables, release gate, host setup, post-deploy QA, and rollback
 
-- `docs/HANDOFF.md`
-
-That file explains how to take over the project, update content, and avoid the most likely mistakes.
+Read both before the first production deployment.
