@@ -13,7 +13,12 @@ export function FooterScene() {
 
   React.useLayoutEffect(() => {
     const el = root.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (
+      !el ||
+      window.matchMedia("(max-width: 639px)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
 
     const ctx = gsap.context(() => {
       const q = (selector: string) => el.querySelector(selector);

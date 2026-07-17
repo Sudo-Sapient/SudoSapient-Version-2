@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "./Container";
 import { FooterScene } from "./FooterScene";
+import { MobileFooterLaunch } from "./MobileFooterLaunch";
 
 const links = [
   { href: "/work", label: "Work" },
@@ -38,11 +39,14 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 border-y border-white/10 bg-white/[0.015]">
+        <div className="mt-6 border-y border-white/10 bg-white/[0.015] sm:hidden">
+          <MobileFooterLaunch />
+        </div>
+        <div className="mt-6 hidden border-y border-white/10 bg-white/[0.015] sm:block">
           <FooterScene />
         </div>
 
-        <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mt-5 flex flex-col gap-6 sm:mt-4 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
           <div>
             <Link
               href="/"
@@ -60,8 +64,8 @@ export function Footer() {
           </div>
 
           <div className="flex flex-col gap-5 sm:items-end">
-            <nav aria-label="Footer navigation">
-              <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            <nav aria-label="Footer navigation" className="w-full sm:w-auto">
+              <ul className="grid grid-cols-3 gap-x-5 gap-y-3 sm:flex sm:flex-wrap sm:gap-x-6 sm:gap-y-2">
                 {links.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -74,7 +78,7 @@ export function Footer() {
                 ))}
               </ul>
             </nav>
-            <div className="text-white/28 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[9px] uppercase tracking-[0.14em]">
+            <div className="sm:text-white/28 flex w-full items-center justify-between gap-3 border-t border-white/10 pt-4 font-mono text-[9px] uppercase tracking-[0.12em] text-white/35 sm:w-auto sm:justify-start sm:border-0 sm:pt-0 sm:tracking-[0.14em]">
               <span>© {year}</span>
               <Link href="/privacy" className="transition-colors hover:text-white">
                 Privacy
