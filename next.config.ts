@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
 const isGitHubPages = process.env.GITHUB_PAGES === "true";
-const repositoryName = "SudoSapient-Version-2";
-const basePath = isGitHubPages ? `/${repositoryName}` : "";
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -16,15 +14,15 @@ const securityHeaders = [
 
 const baseConfig: NextConfig = {
   reactStrictMode: true,
+
+  // GitHub Pages still needs a static export
   output: isGitHubPages ? "export" : undefined,
-  basePath,
-  assetPrefix: basePath || undefined,
-  trailingSlash: isGitHubPages,
+
+  // NO repository base path when using a custom domain
+  trailingSlash: true,
+
   images: {
     unoptimized: isGitHubPages,
-  },
-  env: {
-    NEXT_PUBLIC_BASE_PATH: basePath,
   },
 };
 
