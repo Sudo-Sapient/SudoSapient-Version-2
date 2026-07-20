@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { TechLabel } from "@/components/blueprint/TechLabel";
@@ -44,12 +44,63 @@ const testimonials = [
   },
 ] as const;
 
+const motionTransition = { duration: 0.34, ease: [0.16, 1, 0.3, 1] } as const;
+
 export function Testimonials() {
   const [active, setActive] = React.useState(0);
   const current = testimonials[active];
+  const reduceMotion = useReducedMotion();
+  const mobileTabRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
+  const desktopTabRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
 
-  const selectRelative = (direction: number) => {
-    setActive((value) => (value + direction + testimonials.length) % testimonials.length);
+  const selectRelative = (direction: number, focus = false) => {
+    setActive((value) => {
+      const next = (value + direction + testimonials.length) % testimonials.length;
+      if (focus) {
+        window.requestAnimationFrame(() => {
+          const visibleTabs = window.matchMedia("(min-width: 1024px)").matches
+            ? desktopTabRefs.current
+            : mobileTabRefs.current;
+          visibleTabs[next]?.focus();
+          visibleTabs[next]?.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "center",
+          });
+        });
+      }
+      return next;
+    });
+  };
+
+  const focusTab = (index: number) => {
+    const visibleTabs = window.matchMedia("(min-width: 1024px)").matches
+      ? desktopTabRefs.current
+      : mobileTabRefs.current;
+    visibleTabs[index]?.focus();
+    visibleTabs[index]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  };
+
+  const handleTabKey = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      event.preventDefault();
+      selectRelative(1, true);
+    }
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      event.preventDefault();
+      selectRelative(-1, true);
+    }
+    if (event.key === "Home") {
+      event.preventDefault();
+      setActive(0);
+      window.requestAnimationFrame(() => focusTab(0));
+    }
+    if (event.key === "End") {
+      event.preventDefault();
+      const last = testimonials.length - 1;
+      setActive(last);
+      window.requestAnimationFrame(() => focusTab(last));
+    }
   };
 
   return (
@@ -66,41 +117,47 @@ export function Testimonials() {
           description="Five people who trusted us with products, automations, and media systems that had to work outside the pitch deck."
         />
 
-        <div className="border-ink/18 mt-12 border-y sm:mt-16 lg:grid lg:grid-cols-12">
-          <div className="border-ink/18 relative min-h-[430px] overflow-hidden border-b bg-white px-6 py-8 sm:px-10 sm:py-10 lg:col-span-7 lg:min-h-[510px] lg:border-b-0 lg:border-r lg:px-12 lg:py-12">
+        <div className="border-ink/18 mt-10 border-y sm:mt-16 lg:grid lg:grid-cols-12">
+          <div
+            id="active-testimonial"
+            role="tabpanel"
+            aria-live="polite"
+            aria-label={`Testimonial from ${current.name} at ${current.company}`}
+            className="border-ink/18 relative overflow-hidden border-b bg-white px-5 py-6 sm:px-10 sm:py-10 lg:col-span-7 lg:min-h-[510px] lg:border-b-0 lg:border-r lg:px-12 lg:py-12 lg:pb-36"
+          >
             <div className="flex items-center justify-between gap-4">
               <TechLabel tone="dark">FEATURED TESTIMONIAL</TechLabel>
               <TechLabel tone="dark">{String(active + 1).padStart(2, "0")} / 05</TechLabel>
             </div>
 
-            <div className="mt-10 max-w-2xl sm:mt-14">
-              <span aria-hidden className="font-display text-6xl leading-none text-warn">
+            <div className="mt-7 max-w-2xl sm:mt-12 lg:mt-14">
+              <span aria-hidden className="block h-10 font-display text-6xl leading-none text-warn">
                 “
               </span>
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.blockquote
                   key={current.name}
-                  initial={{ opacity: 0, y: 14 }}
+                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-                  className="-mt-2 text-balance font-display text-2xl font-bold leading-[1.2] tracking-[-0.035em] text-ink sm:text-3xl lg:text-[2.15rem]"
+                  exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+                  transition={reduceMotion ? { duration: 0 } : motionTransition}
+                  className="text-pretty font-display text-[1.35rem] font-bold leading-[1.24] tracking-[-0.03em] text-ink min-[390px]:text-[1.45rem] sm:text-3xl lg:text-[2.15rem]"
                 >
                   {current.quote}
                 </motion.blockquote>
               </AnimatePresence>
             </div>
 
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={`${current.name}-credit`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                className="absolute bottom-8 left-6 sm:bottom-10 sm:left-10 lg:bottom-12 lg:left-12"
+                initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduceMotion ? undefined : { opacity: 0 }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.24 }}
+                className="border-ink/12 mt-7 border-t pt-5 lg:absolute lg:bottom-12 lg:left-12 lg:mt-0 lg:border-0 lg:pt-0"
               >
-                <p className="font-display text-xl font-bold tracking-[-0.035em] text-ink">
+                <p className="font-display text-lg font-bold tracking-[-0.03em] text-ink sm:text-xl">
                   {current.name}
                 </p>
                 <TechLabel tone="dark">
@@ -110,20 +167,27 @@ export function Testimonials() {
             </AnimatePresence>
           </div>
 
-          <div className="relative bg-[#eef1f5] p-6 sm:p-8 lg:col-span-5 lg:p-10">
+          <div className="relative bg-[#eef1f5] px-5 py-5 sm:p-8 lg:col-span-5 lg:p-10">
             <div className="flex items-center justify-between gap-4 border-b border-ink/15 pb-4">
-              <TechLabel tone="dark">SELECT A VOICE</TechLabel>
-              <div className="flex gap-2">
+              <div>
+                <TechLabel tone="dark">SELECT A VOICE</TechLabel>
+                <p className="mt-1.5 text-xs leading-relaxed text-ink/50 lg:hidden">
+                  Tap a client to change the story.
+                </p>
+              </div>
+              <div className="flex shrink-0 gap-2">
                 <button
+                  type="button"
                   onClick={() => selectRelative(-1)}
-                  className="flex h-9 w-9 items-center justify-center border border-ink/25 text-ink transition-colors hover:border-ink hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                  className="flex h-10 w-10 items-center justify-center border border-ink/25 text-ink transition-colors hover:border-ink hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:translate-y-px"
                   aria-label="Previous testimonial"
                 >
                   ←
                 </button>
                 <button
+                  type="button"
                   onClick={() => selectRelative(1)}
-                  className="flex h-9 w-9 items-center justify-center border border-ink/25 text-ink transition-colors hover:border-ink hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                  className="flex h-10 w-10 items-center justify-center border border-ink/25 text-ink transition-colors hover:border-ink hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:translate-y-px"
                   aria-label="Next testimonial"
                 >
                   →
@@ -131,27 +195,68 @@ export function Testimonials() {
               </div>
             </div>
 
-            <div role="tablist" aria-label="Testimonials" className="mt-3">
+            <div
+              role="tablist"
+              aria-label="Testimonials"
+              className="-mx-5 flex snap-x snap-mandatory gap-2 overflow-x-auto px-5 pb-2 pt-4 [scrollbar-width:none] sm:-mx-8 sm:px-8 lg:hidden [&::-webkit-scrollbar]:hidden"
+            >
               {testimonials.map((testimonial, index) => {
                 const selected = index === active;
                 return (
                   <button
                     key={testimonial.name}
+                    ref={(node) => {
+                      mobileTabRefs.current[index] = node;
+                    }}
+                    id={`testimonial-tab-${index}`}
+                    type="button"
                     role="tab"
                     aria-selected={selected}
                     aria-controls="active-testimonial"
                     tabIndex={selected ? 0 : -1}
                     onClick={() => setActive(index)}
-                    onKeyDown={(event) => {
-                      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-                        event.preventDefault();
-                        selectRelative(1);
-                      }
-                      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-                        event.preventDefault();
-                        selectRelative(-1);
-                      }
+                    onKeyDown={handleTabKey}
+                    className={`min-h-[5.25rem] w-[8.5rem] shrink-0 snap-center border p-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${
+                      selected
+                        ? "border-ink bg-ink text-white"
+                        : "border-ink/15 bg-white/55 text-ink"
+                    }`}
+                  >
+                    <span
+                      className={`block font-mono text-[9px] tracking-[0.15em] ${selected ? "text-warn" : "text-ink/35"}`}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="mt-2 block text-pretty font-display text-[0.95rem] font-bold leading-[1.05] tracking-[-0.025em]">
+                      {testimonial.name}
+                    </span>
+                    <span
+                      className={`mt-1.5 block font-mono text-[8px] uppercase tracking-[0.11em] ${selected ? "text-white/55" : "text-ink/45"}`}
+                    >
+                      {testimonial.company}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div role="tablist" aria-label="Testimonials" className="mt-3 hidden lg:block">
+              {testimonials.map((testimonial, index) => {
+                const selected = index === active;
+                return (
+                  <button
+                    key={testimonial.name}
+                    ref={(node) => {
+                      desktopTabRefs.current[index] = node;
                     }}
+                    id={`testimonial-tab-desktop-${index}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    aria-controls="active-testimonial"
+                    tabIndex={selected ? 0 : -1}
+                    onClick={() => setActive(index)}
+                    onKeyDown={handleTabKey}
                     className="border-ink/12 group grid w-full grid-cols-[2.5rem_1fr_auto] items-center gap-3 border-b py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ink"
                   >
                     <span
@@ -177,7 +282,7 @@ export function Testimonials() {
               })}
             </div>
 
-            <div className="mt-8 border-l-2 border-warn/60 pl-4">
+            <div className="mt-8 hidden border-l-2 border-warn/60 pl-4 lg:block">
               <p className="max-w-[20rem] font-mono text-[9px] uppercase leading-relaxed tracking-[0.13em] text-ink/45">
                 Choose a client to read their full testimonial and project context.
               </p>
