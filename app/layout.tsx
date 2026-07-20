@@ -4,7 +4,7 @@ import "./globals.css";
 import { BlueprintCursor } from "@/components/cursor/BlueprintCursor";
 import { ClientErrorGuard } from "@/components/system/ClientErrorGuard";
 
-// Wide industrial display face: blunt, modern, and more ownable than the previous editorial serif.
+// Wide industrial display face
 const display = Archivo_Black({
   subsets: ["latin"],
   weight: "400",
@@ -12,14 +12,14 @@ const display = Archivo_Black({
   display: "swap",
 });
 
-// Calm grotesque for long-form readability and interface copy.
+// Calm grotesque for readability
 const grotesk = Archivo({
   subsets: ["latin"],
   variable: "--font-grotesk",
   display: "swap",
 });
 
-// Technical annotation face for labels and blueprint metadata.
+// Technical annotation font
 const mono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -27,10 +27,8 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const siteUrl =
-  process.env.GITHUB_PAGES === "true"
-    ? "https://sudo-sapient.github.io/SudoSapient-Version-2/"
-    : "https://sudosapient.dev";
+// ✅ Always use your custom domain
+const siteUrl = "https://sudosapient.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -44,11 +42,12 @@ export const metadata: Metadata = {
     title: "Sudo Sapient",
     description:
       "An AI studio that builds AI products, AI automation, and AI media. Working systems in weeks, not quarters.",
-    type: "website",
+    url: siteUrl,
     siteName: "Sudo Sapient",
+    type: "website",
     images: [
       {
-        url: "/opengraph-image",
+        url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
         alt: "Sudo Sapient — production AI systems, shipped in weeks",
@@ -59,7 +58,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sudo Sapient",
     description: "Production AI systems, shipped in weeks.",
-    images: ["/opengraph-image"],
+    images: [`${siteUrl}/opengraph-image`],
+  },
+  alternates: {
+    canonical: siteUrl,
   },
 };
 
@@ -69,7 +71,11 @@ export const viewport: Viewport = {
   themeColor: "#0f172a",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
