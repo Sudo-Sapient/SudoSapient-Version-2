@@ -43,7 +43,7 @@ export function SectionHeading({
         trigger="inView"
         text={title}
         className={cn(
-          "max-w-4xl font-display text-4xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-5xl md:text-6xl",
+          "max-w-3xl text-balance font-display text-3xl font-extrabold leading-[1] tracking-tight-2 sm:text-4xl md:text-5xl",
           titleColor
         )}
       />

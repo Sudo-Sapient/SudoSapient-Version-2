@@ -50,6 +50,7 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
                 src={withBasePath(project.image)}
                 alt={`${project.client} — ${project.title}`}
                 fill
+                priority={index === 0}
                 sizes="(min-width: 768px) 42vw, 100vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
               />

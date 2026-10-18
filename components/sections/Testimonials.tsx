@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { TechLabel } from "@/components/blueprint/TechLabel";
+import { RiveScene } from "@/components/motion/RiveScene";
 
 const testimonials = [
   {
@@ -12,39 +13,40 @@ const testimonials = [
       "Sudo Sapient took a workflow that depended on repetitive manual coordination and turned it into an automation our team can actually operate. They understood the edge cases and stayed focused on what would save us time in practice.",
     name: "Kishan",
     company: "Shipzy",
-    discipline: "AI Automation",
+    discipline: "Operations",
   },
   {
     quote:
       "They helped us turn an ambitious AI product idea into something clear, usable, and ready for real customers. The team moved quickly without treating product experience or reliability as an afterthought.",
     name: "Bhopal",
     company: "Taamul",
-    discipline: "AI Product",
+    discipline: "Product",
   },
   {
     quote:
       "Sudo Sapient worked with us like a product team, not an outsourced development shop. They challenged assumptions early, made the AI useful inside the workflow, and shipped a product that felt considered from the first release.",
     name: "Puneet",
     company: "Jgsaw",
-    discipline: "AI Product",
+    discipline: "Product",
   },
   {
     quote:
       "They built an AI media workflow that gave us speed without flattening the creative process. We can produce more consistently while retaining control over the voice, visual direction, and final output.",
     name: "Yatin",
     company: "Fabplay",
-    discipline: "AI Media",
+    discipline: "Content",
   },
   {
     quote:
       "The team translated a complex operational idea into a focused AI product our people could understand and use. They were thoughtful about the workflow, the edge cases, and what needed to be dependable from day one.",
     name: "Venkateswaran",
     company: "Vencuts",
-    discipline: "AI Product",
+    discipline: "Product",
   },
 ] as const;
 
 const motionTransition = { duration: 0.34, ease: [0.16, 1, 0.3, 1] } as const;
+const TURN_MS = 9500; // one speaker's turn in testimonials.riv
 
 export function Testimonials() {
   const [active, setActive] = React.useState(0);
@@ -52,6 +54,28 @@ export function Testimonials() {
   const reduceMotion = useReducedMotion();
   const mobileTabRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
   const desktopTabRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
+  const stageRef = React.useRef<HTMLDivElement>(null);
+  const [inView, setInView] = React.useState(false);
+  // Speakers rotate on their own until the visitor picks one; then it's theirs.
+  const [auto, setAuto] = React.useState(true);
+  const stopAuto = () => setAuto(false);
+  const speaker = React.useMemo(() => ({ speaker: active }), [active]);
+
+  React.useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
+      threshold: 0.5,
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    if (!auto || reduceMotion || !inView) return;
+    const t = window.setTimeout(() => setActive((a) => (a + 1) % testimonials.length), TURN_MS);
+    return () => window.clearTimeout(t);
+  }, [active, auto, reduceMotion, inView]);
 
   const selectRelative = (direction: number, focus = false) => {
     setActive((value) => {
@@ -141,11 +165,35 @@ export function Testimonials() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
                   transition={reduceMotion ? { duration: 0 } : motionTransition}
-                  className="text-pretty font-display text-[1.35rem] font-bold leading-[1.24] tracking-[-0.03em] text-ink min-[390px]:text-[1.45rem] sm:text-3xl lg:text-[2.15rem]"
+                  className="text-pretty text-xl font-medium leading-[1.4] tracking-[-0.015em] text-ink sm:text-2xl"
                 >
                   {current.quote}
                 </motion.blockquote>
               </AnimatePresence>
+            </div>
+
+            {/* The podium: the selected client walks up and speaks; the others clap. */}
+            <div ref={stageRef} className="mt-8 sm:mt-10">
+              <RiveScene
+                className="hidden md:block"
+                src="/rive/testimonials.riv"
+                artboard="Desktop"
+                stateMachine="Podium"
+                inputs={speaker}
+                frameClassName="aspect-[680/170] w-full"
+                ariaLabel={`${current.name} from ${current.company} speaking at the podium`}
+                fallback={null}
+              />
+              <RiveScene
+                className="md:hidden"
+                src="/rive/testimonials.riv"
+                artboard="Mobile"
+                stateMachine="Podium"
+                inputs={speaker}
+                frameClassName="aspect-[340/170] w-full"
+                ariaLabel={`${current.name} from ${current.company} speaking at the podium`}
+                fallback={null}
+              />
             </div>
 
             <AnimatePresence mode="wait" initial={false}>
@@ -167,7 +215,11 @@ export function Testimonials() {
             </AnimatePresence>
           </div>
 
-          <div className="relative bg-[#eef1f5] px-5 py-5 sm:p-8 lg:col-span-5 lg:p-10">
+          <div
+            className="relative bg-[#eef1f5] px-5 py-5 sm:p-8 lg:col-span-5 lg:p-10"
+            onPointerDownCapture={stopAuto}
+            onKeyDownCapture={stopAuto}
+          >
             <div className="flex items-center justify-between gap-4 border-b border-ink/15 pb-4">
               <div>
                 <TechLabel tone="dark">SELECT A VOICE</TechLabel>

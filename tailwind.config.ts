@@ -48,6 +48,7 @@ const config: Config = {
         sans: ["var(--font-grotesk)", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "Arial Black", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
       },
       letterSpacing: {
         "tight-2": "-0.02em",

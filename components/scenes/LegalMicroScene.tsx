@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 
 export type MicroKind =
@@ -284,10 +286,22 @@ const meta: Record<MicroKind, { label: string; note: string }> = {
 };
 
 export function LegalMicroScene({ kind }: { kind: MicroKind }) {
+  const ref = React.useRef<SVGSVGElement>(null);
+  React.useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      ref.current?.pauseAnimations();
+    }
+  }, []);
   const { label, note } = meta[kind];
   return (
     <div className="relative overflow-hidden">
-      <svg viewBox="0 0 150 110" className="w-full" role="img" aria-label={`${label}. ${note}`}>
+      <svg
+        ref={ref}
+        viewBox="0 0 150 110"
+        className="w-full"
+        role="img"
+        aria-label={`${label}. ${note}`}
+      >
         <g opacity="0.35" stroke={LINE} strokeWidth="0.5">
           {Array.from({ length: 9 }).map((_, i) => (
             <line key={i} x1={i * 18} y1="0" x2={i * 18} y2="110" opacity="0.3" />

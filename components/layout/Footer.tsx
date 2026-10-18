@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Container } from "./Container";
 import { FooterScene } from "./FooterScene";
 import { MobileFooterLaunch } from "./MobileFooterLaunch";
+import { CTA_LABEL } from "@/lib/site";
+import { RiveScene } from "@/components/motion/RiveScene";
 
 const links = [
   { href: "/work", label: "Work" },
@@ -25,13 +27,13 @@ export function Footer() {
 
           <div className="flex flex-col items-start justify-end lg:col-span-5 lg:pb-1">
             <p className="text-white/58 max-w-md text-base leading-relaxed">
-              Send us the workflow, the constraint, and what better should look like.
+              Tell us how the company runs today and what AI-native should look like.
             </p>
             <Link
               href="/contact"
               className="group mt-4 inline-flex items-center border-b border-white/35 pb-1.5 font-display text-lg tracking-[-0.035em] transition-colors hover:border-warn hover:text-warn"
             >
-              Start a project
+              {CTA_LABEL}
               <span className="ml-8 inline-block transition-transform duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1">
                 →
               </span>
@@ -40,10 +42,24 @@ export function Footer() {
         </div>
 
         <div className="mt-6 border-y border-white/10 bg-white/[0.015] sm:hidden">
-          <MobileFooterLaunch />
+          <RiveScene
+            src="/rive/footer.riv"
+            artboard="Mobile"
+            stateMachine="Launch"
+            frameClassName="aspect-[3/4] w-full"
+            ariaLabel="The crew builds and launches a rocket"
+            fallback={<MobileFooterLaunch />}
+          />
         </div>
         <div className="mt-6 hidden border-y border-white/10 bg-white/[0.015] sm:block">
-          <FooterScene />
+          <RiveScene
+            src="/rive/footer.riv"
+            artboard="Desktop"
+            stateMachine="Launch"
+            frameClassName="aspect-[4/1] w-full"
+            ariaLabel="The crew builds and launches a rocket"
+            fallback={<FooterScene />}
+          />
         </div>
 
         <div className="mt-5 flex flex-col gap-6 sm:mt-4 sm:flex-row sm:items-end sm:justify-between sm:gap-4">

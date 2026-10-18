@@ -4,7 +4,8 @@ import * as React from "react";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
-import { TechLabel } from "@/components/blueprint/TechLabel";
+import { Button } from "@/components/ui/Button";
+import { CTA_LABEL } from "@/lib/site";
 import { FinalCtaScene } from "@/components/scenes/FinalCtaScene";
 import { AnimatedText } from "@/components/motion/AnimatedText";
 
@@ -23,18 +24,26 @@ export function FinalCTA() {
       <Container className="relative z-10">
         <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-12">
           <div className="flex flex-col gap-6 lg:col-span-7">
-            <TechLabel>SECTION_05 — SOCIALS</TechLabel>
             <AnimatedText
               as="h2"
               variant="rise"
               trigger="inView"
-              text="Find us online."
-              className="font-display text-4xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-5xl md:text-6xl lg:text-7xl"
+              text="Start with one conversation."
+              className="text-balance font-display text-3xl font-extrabold leading-[1] tracking-tight-2 sm:text-4xl md:text-5xl"
             />
             <p className="max-w-xl text-lg text-white/80">
-              Follow the studio, see what we are making, or reach us directly.
+              Thirty minutes on how your company runs today. You leave with the first three places
+              AI would pay back, whether or not we work together.
             </p>
-            <div className="border-white/18 bg-white/18 grid max-w-2xl gap-px border sm:grid-cols-2">
+            <div>
+              <Button asChild variant="solid" size="lg">
+                <Link href="/contact">{CTA_LABEL}</Link>
+              </Button>
+            </div>
+            <div
+              aria-label="Other ways to reach us"
+              className="border-white/18 bg-white/18 mt-4 grid max-w-2xl gap-px border sm:grid-cols-2"
+            >
               <Link
                 href="https://www.instagram.com/sudo.sapient/?hl=en"
                 target="_blank"
@@ -43,8 +52,8 @@ export function FinalCTA() {
                 className="group flex min-h-20 items-center justify-between bg-blueprint px-5 py-4 transition-colors hover:bg-white hover:text-blueprint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
               >
                 <span>
-                  <span className="block font-mono text-[9px] uppercase tracking-[0.16em] opacity-50">
-                    01 / Instagram
+                  <span className="block font-mono text-[11px] uppercase tracking-[0.12em] opacity-75">
+                    Instagram
                   </span>
                   <span className="mt-1 block font-display text-xl tracking-[-0.035em]">
                     @sudo.sapient
@@ -62,8 +71,8 @@ export function FinalCTA() {
                 className="group flex min-h-20 items-center justify-between bg-blueprint px-5 py-4 transition-colors hover:bg-white hover:text-blueprint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
               >
                 <span>
-                  <span className="block font-mono text-[9px] uppercase tracking-[0.16em] opacity-50">
-                    02 / LinkedIn
+                  <span className="block font-mono text-[11px] uppercase tracking-[0.12em] opacity-75">
+                    LinkedIn
                   </span>
                   <span className="mt-1 block font-display text-xl tracking-[-0.035em]">
                     Sudo Sapient
@@ -79,8 +88,8 @@ export function FinalCTA() {
                 className="group flex min-h-20 items-center justify-between bg-blueprint px-5 py-4 transition-colors hover:bg-white hover:text-blueprint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
               >
                 <span>
-                  <span className="block font-mono text-[9px] uppercase tracking-[0.16em] opacity-50">
-                    03 / Email
+                  <span className="block font-mono text-[11px] uppercase tracking-[0.12em] opacity-75">
+                    Email
                   </span>
                   <span className="mt-1 block text-sm sm:text-base">sudosapient@gmail.com</span>
                 </span>
@@ -94,11 +103,11 @@ export function FinalCTA() {
                 className="group flex min-h-20 items-center justify-between bg-blueprint px-5 py-4 transition-colors hover:bg-white hover:text-blueprint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
               >
                 <span>
-                  <span className="block font-mono text-[9px] uppercase tracking-[0.16em] opacity-50">
-                    04 / Phone
+                  <span className="block font-mono text-[11px] uppercase tracking-[0.12em] opacity-75">
+                    Phone
                   </span>
                   <span className="mt-1 block font-display text-xl tracking-[-0.035em]">
-                    80500 29848
+                    +91 80500 29848
                   </span>
                 </span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">

@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Archivo_Black, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, Archivo_Black, IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { BlueprintCursor } from "@/components/cursor/BlueprintCursor";
 import { ClientErrorGuard } from "@/components/system/ClientErrorGuard";
+import { MotionPrefs } from "@/components/system/MotionPrefs";
 
 // Wide industrial display face
 const display = Archivo_Black({
@@ -20,6 +21,15 @@ const grotesk = Archivo({
 });
 
 // Technical annotation font
+// Editorial serif for statement lines (section 1).
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
 const mono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -57,7 +67,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Sudo Sapient",
-    description: "Production AI systems, shipped in weeks.",
+    description:
+      "Make your company AI-native. Sudo Sapient embeds with your team and rebuilds operations, products, and content around AI.",
     images: [`${siteUrl}/opengraph-image`],
   },
   alternates: {
@@ -71,21 +82,19 @@ export const viewport: Viewport = {
   themeColor: "#0f172a",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${display.variable} ${grotesk.variable} ${mono.variable}`}
+      className={`${display.variable} ${grotesk.variable} ${mono.variable} ${serif.variable}`}
     >
       <body id="top">
         <ClientErrorGuard />
-        {children}
-        <BlueprintCursor />
+        <MotionPrefs>
+          {children}
+          <BlueprintCursor />
+        </MotionPrefs>
       </body>
     </html>
   );

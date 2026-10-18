@@ -32,7 +32,7 @@ type Props = {
  * and an optional meta line in mono on the right. The whole stack draws in via
  * staggered stroke animation.
  *
- * The hero homepage uses three modules: PRODUCT / AUTOMATION / MEDIA.
+ * The hero homepage uses three modules: OPERATIONS / PRODUCT / CONTENT.
  */
 export function ModuleStack({
   modules,
@@ -194,7 +194,7 @@ export function ModuleStack({
               stroke="none"
               transform={`rotate(-90, 26, ${(top + bottom) / 2})`}
             >
-              {modules.length}.0x
+              AI-NATIVE
             </text>
           </motion.g>
         )}

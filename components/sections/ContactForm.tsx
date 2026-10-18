@@ -13,67 +13,48 @@ import {
   SelectValue,
 } from "@/components/ui/Select";
 import { TechLabel } from "@/components/blueprint/TechLabel";
-import { withBasePath } from "@/lib/site";
+import { CTA_LABEL, withBasePath } from "@/lib/site";
+import { ContactSuccessScene } from "@/components/scenes/ContactSuccessScene";
 
 const RECIPIENT = "sudosapient@gmail.com";
 const BUDGETS = ["<$10k", "$10–25k", "$25–50k", "$50k+", "Not sure"];
 const TIMELINES = ["As soon as possible", "Within 1 month", "1–3 months", "3+ months", "Exploring"];
 
-function composeGmailUrl({
-  name,
-  email,
-  company,
-  website,
-  project,
-  budget,
-  timeline,
-}: Record<string, string>) {
-  const body = [
-    `Name: ${name}`,
-    `Email: ${email}`,
-    `Company: ${company || "Not provided"}`,
-    `Website: ${website || "Not provided"}`,
-    `Budget: ${budget || "Not provided"}`,
-    `Timeline: ${timeline || "Not provided"}`,
-    "",
-    "What I want to build:",
-    project,
-  ].join("\n");
+// Formspree form ID (https://formspree.io). Without it the form falls back to email.
+const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
 
-  const query = new URLSearchParams({
-    view: "cm",
-    fs: "1",
-    to: RECIPIENT,
-    su: `New project enquiry — ${company || name}`,
-    body,
-  });
-
-  return `https://mail.google.com/mail/?${query.toString()}`;
-}
+type Status = "idle" | "sending" | "sent" | "error";
 
 export function ContactForm() {
-  const [opened, setOpened] = React.useState(false);
+  const [status, setStatus] = React.useState<Status>("idle");
   const [budget, setBudget] = React.useState<string | undefined>();
   const [timeline, setTimeline] = React.useState<string | undefined>();
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const url = composeGmailUrl({
-      name: String(data.get("name") ?? ""),
-      email: String(data.get("email") ?? ""),
-      company: String(data.get("company") ?? ""),
-      website: String(data.get("website") ?? ""),
-      project: String(data.get("project") ?? ""),
-      budget: budget ?? "",
-      timeline: timeline ?? "",
-    });
+    data.set("budget", budget ?? "Not provided");
+    data.set("timeline", timeline ?? "Not provided");
+    data.set("_subject", `New transformation enquiry — ${data.get("company") || data.get("name")}`);
 
-    // This runs directly from the submit interaction, so browsers allow the
-    // compose tab. The visible fallback below covers restrictive popup settings.
-    window.open(url, "_blank", "noopener,noreferrer");
-    setOpened(true);
+    if (!FORMSPREE_ID) {
+      setStatus("error");
+      return;
+    }
+    setStatus("sending");
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      setStatus(res.ok ? "sent" : "error");
+    } catch {
+      setStatus("error");
+    }
   }
+
+  if (status === "sent") return <ContactSuccessScene />;
 
   return (
     <motion.form
@@ -109,12 +90,12 @@ export function ContactForm() {
         </Field>
       </div>
 
-      <Field name="project" label="WHAT DO YOU WANT TO BUILD?">
+      <Field name="project" label="WHAT SHOULD AI CHANGE?">
         <Textarea
           name="project"
           required
           minLength={20}
-          placeholder="What is the problem, who is it for, and what should be true when the first version ships?"
+          placeholder="How does the company run today, where does work pile up, and what would AI-native look like for you?"
         />
       </Field>
 
@@ -151,8 +132,8 @@ export function ContactForm() {
 
       <div className="flex flex-col items-start justify-between gap-4 border-t border-white/20 pt-5 sm:flex-row sm:items-center">
         <p className="max-w-sm text-xs leading-relaxed text-white/55">
-          Your details are added to a draft addressed to Sudo Sapient. We do not store this form on
-          the website. See our{" "}
+          Your details go straight to the Sudo Sapient team and are used only to reply to you. See
+          our{" "}
           <a
             href={withBasePath("/privacy/")}
             className="underline decoration-white/40 underline-offset-2 hover:text-white"
@@ -161,18 +142,18 @@ export function ContactForm() {
           </a>
           .
         </p>
-        <Button type="submit" variant="solid" size="lg">
-          Open Gmail →
+        <Button type="submit" variant="solid" size="lg" disabled={status === "sending"}>
+          {status === "sending" ? "Sending…" : `${CTA_LABEL} →`}
         </Button>
       </div>
 
-      {opened && (
-        <p role="status" aria-live="polite" className="text-sm leading-relaxed text-white/75">
-          Gmail compose opened in a new tab. If it did not open, email{" "}
+      {status === "error" && (
+        <p role="alert" className="text-sm leading-relaxed text-white">
+          The form could not be sent. Email us directly at{" "}
           <a href={`mailto:${RECIPIENT}`} className="underline underline-offset-2">
             {RECIPIENT}
-          </a>
-          .
+          </a>{" "}
+          and we will reply within one working day.
         </p>
       )}
     </motion.form>

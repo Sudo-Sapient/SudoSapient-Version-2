@@ -9,7 +9,9 @@ import { BlueprintCanvas } from "@/components/blueprint/BlueprintCanvas";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import { Button } from "@/components/ui/Button";
 import { HeroScene } from "@/components/scenes/HeroScene";
+import { RiveScene } from "@/components/motion/RiveScene";
 import { AnimatedText } from "@/components/motion/AnimatedText";
+import { CTA_LABEL } from "@/lib/site";
 
 export function Hero() {
   return (
@@ -25,7 +27,7 @@ export function Hero() {
                 variant="typewriter"
                 trigger="load"
                 delay={0.25}
-                text="// AI PRODUCTS · AUTOMATION · MEDIA"
+                text="// AI TRANSFORMATION"
               />
             </TechLabel>
 
@@ -35,7 +37,7 @@ export function Hero() {
               trigger="load"
               delay={0.4}
               speed={0.018}
-              text="Production AI systems, shipped in weeks."
+              text="Make your company AI-native."
               className="max-w-4xl text-balance font-display text-4xl font-extrabold leading-[0.92] tracking-tight-3 sm:text-5xl md:text-6xl lg:text-7xl"
             />
 
@@ -45,8 +47,8 @@ export function Hero() {
               transition={{ delay: 0.72, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-2xl text-lg leading-relaxed text-white/80 sm:text-xl"
             >
-              We design and build AI products, operational automation, and media systems for
-              founders and product teams—without the time and cost of hiring a full AI team.
+              We embed with your team, find where AI actually pays, and rebuild your operations,
+              products, and content around it—then hand it to your people to run.
             </motion.p>
 
             <motion.div
@@ -56,10 +58,10 @@ export function Hero() {
               className="flex flex-wrap items-center gap-4"
             >
               <Button asChild variant="solid" size="lg">
-                <Link href="/contact">Discuss a build</Link>
+                <Link href="/contact">{CTA_LABEL}</Link>
               </Button>
               <Button asChild variant="ghost" size="lg">
-                <Link href="/work">See shipped work →</Link>
+                <Link href="/work">See transformations →</Link>
               </Button>
             </motion.div>
           </div>
@@ -70,7 +72,13 @@ export function Hero() {
             transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="relative mx-auto w-full max-w-xl lg:col-span-5"
           >
-            <HeroScene />
+            <RiveScene
+              src="/rive/hero.riv"
+              animation="loop"
+              frameClassName="aspect-[4/3] w-full"
+              ariaLabel="A worker pushes a boulder of paperwork up a hill until AI turns the hill into an escalator and he rides up with a coffee"
+              fallback={<HeroScene />}
+            />
           </motion.div>
         </div>
       </Container>

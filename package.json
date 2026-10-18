@@ -13,11 +13,22 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate": "npm run typecheck && npm run lint && npm run test && npm run build"
+    "validate": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "rive:footer": "node scripts/rive/footer.mjs",
+    "postinstall": "cp node_modules/@rive-app/canvas/rive.wasm public/rive/rive.wasm",
+    "rive:transform": "node scripts/rive/transform.mjs",
+    "rive:climber": "node scripts/rive/climber.mjs",
+    "rive:hero": "node scripts/rive/hero.mjs",
+    "rive:testimonials": "node scripts/rive/testimonials.mjs",
+    "rive:strike": "node scripts/rive/strike.mjs"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.2",
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.1",
+    "@rive-app/react-canvas": "^4.36.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
@@ -29,7 +40,8 @@
     "react-dom": "^19.0.0",
     "split-type": "^0.3.4",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
@@ -37,6 +49,7 @@
     "@types/node": "^22.10.7",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
+    "@types/three": "^0.186.0",
     "@vitejs/plugin-react": "^6.0.3",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.18.0",
@@ -45,6 +58,7 @@
     "postcss": "^8.5.1",
     "prettier": "^3.9.5",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "rive-mcp-server": "^0.6.1",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3",
     "vitest": "^4.1.10"

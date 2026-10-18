@@ -36,7 +36,7 @@ export default function Image() {
             maxWidth: 980,
           }}
         >
-          Production AI systems, shipped in weeks.
+          Make your company AI-native.
         </div>
         <div style={{ marginTop: 34, fontSize: 27, color: "rgba(255,255,255,.75)" }}>
           AI products · automation · media systems

@@ -44,9 +44,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   const currentIndex = projects.findIndex((item) => item.slug === project.slug);
   const nextProject = projects[(currentIndex + 1) % projects.length];
   const Figure =
-    project.discipline === "AI Product"
+    project.discipline === "Product"
       ? FigureCarrying
-      : project.discipline === "AI Automation"
+      : project.discipline === "Operations"
         ? FigureClimbing
         : project.discipline === "Web & Brand"
           ? FigureMeasuring

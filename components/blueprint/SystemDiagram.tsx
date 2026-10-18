@@ -30,6 +30,8 @@ type Props = {
   viewBoxH?: number;
   /** Optional title rendered top-left, mono. */
   title?: string;
+  /** Amber pulses travel along every edge, showing the system running. */
+  flow?: boolean;
 };
 
 /**
@@ -45,6 +47,7 @@ export function SystemDiagram({
   viewBoxW = 400,
   viewBoxH = 240,
   title,
+  flow = false,
 }: Props) {
   const stroke = tone === "light" ? "#FFFFFF" : "#0F172A";
   const textColor = tone === "light" ? "fill-white" : "fill-ink";
@@ -104,6 +107,21 @@ export function SystemDiagram({
               }}
             >
               <line x1={x1} y1={y1} x2={x2} y2={y2} />
+              {flow && (
+                <motion.circle
+                  r={3}
+                  fill="#FBBF24"
+                  stroke="none"
+                  initial={{ cx: x1, cy: y1, opacity: 0 }}
+                  animate={{ cx: [x1, x2], cy: [y1, y2], opacity: [0, 1, 1, 0] }}
+                  transition={{
+                    duration: 1.6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: startDelay + 1.4 + i * 0.22,
+                  }}
+                />
+              )}
               {e.label && (
                 <text
                   x={cx}

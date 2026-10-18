@@ -11,7 +11,7 @@ import { SystemDiagram } from "@/components/blueprint/SystemDiagram";
 import { Button } from "@/components/ui/Button";
 import { projects } from "@/lib/projects";
 import { withBasePath } from "@/lib/site";
-import { WorkSiteCrew } from "@/components/scenes/WorkSiteCrew";
+import { Callouts, type Callout } from "@/components/blueprint/Callouts";
 
 type DiagramSpec = Pick<React.ComponentProps<typeof SystemDiagram>, "title" | "nodes" | "edges">;
 
@@ -62,6 +62,42 @@ const projectDiagrams: Record<string, DiagramSpec> = {
   },
 };
 
+// Annotations point at real parts of each product screenshot (% coordinates).
+const projectCallouts: Record<string, Callout[]> = {
+  jgsaw: [
+    { at: [24, 64], label: [16, 84], text: "Intelligence layer · 6 modules" },
+    { at: [41, 53], label: [44, 80], text: "Execution layer · 5 modules" },
+    { at: [72, 36], label: [70, 12], text: "Brand World feeds every module" },
+  ],
+  mayaakars: [
+    { at: [50, 5], label: [27, 16], text: "Brand + website" },
+    { at: [50, 55], label: [50, 88], text: "Portfolio CMS" },
+    { at: [96.5, 5], label: [84, 24], text: "Single intake" },
+  ],
+};
+
+// Native image proportions, so callout % coordinates land on the right pixels.
+const imageAspect: Record<string, string> = { jgsaw: "1600 / 900", mayaakars: "1600 / 809" };
+
+function Shot({
+  slug,
+  src,
+  alt,
+  sizes,
+}: {
+  slug: string;
+  src: string;
+  alt: string;
+  sizes: string;
+}) {
+  return (
+    <div className="relative w-full" style={{ aspectRatio: imageAspect[slug] ?? "16 / 9" }}>
+      <Image src={withBasePath(src)} alt={alt} fill sizes={sizes} className="object-cover" />
+      {projectCallouts[slug] && <Callouts items={projectCallouts[slug]} />}
+    </div>
+  );
+}
+
 export function SelectedWork() {
   const featured = projects.find((project) => project.featured) ?? projects[0];
   const secondary = projects.filter((project) => project.slug !== featured.slug);
@@ -73,8 +109,8 @@ export function SelectedWork() {
           tone="dark"
           index="02"
           eyebrow="SELECTED WORK"
-          title="Working systems, not concept decks."
-          description="A closer look at what we shipped, how it works, and what changed after launch."
+          title="Transformations in production."
+          description="What we changed inside each company, how it works, and what it does today."
         />
 
         <motion.article
@@ -82,30 +118,27 @@ export function SelectedWork() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55 }}
-          className="mt-12 grid overflow-hidden border border-ink/20 bg-white sm:mt-16 lg:grid-cols-12"
+          className="mt-12 overflow-hidden border border-ink/20 bg-white sm:mt-16"
         >
           <Link
             href={`/work/${featured.slug}`}
-            className="group relative min-h-[300px] overflow-hidden bg-ink lg:col-span-7 lg:min-h-[560px]"
+            className="group relative block overflow-hidden bg-blueprint"
             aria-label={`Read the ${featured.client} case study`}
           >
-            {featured.image ? (
-              <Image
-                src={withBasePath(featured.image)}
+            {featured.image && (
+              <Shot
+                slug={featured.slug}
+                src={featured.image}
                 alt={`${featured.client} — ${featured.title}`}
-                fill
                 sizes="(min-width: 1024px) 60vw, 100vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
               />
-            ) : null}
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/65 via-transparent to-transparent" />
-            <WorkSiteCrew variant="featured" label={featured.client} />
+            )}
             <span className="absolute right-5 top-5 border border-white/50 bg-ink/30 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white backdrop-blur-sm">
               Open case study →
             </span>
           </Link>
 
-          <div className="flex flex-col justify-between gap-10 p-7 sm:p-10 lg:col-span-5 lg:p-12">
+          <div className="grid gap-10 p-7 sm:p-10 lg:grid-cols-2 lg:gap-14 lg:p-12">
             <div>
               <div className="flex items-center justify-between gap-4">
                 <TechLabel tone="dark">FEATURED · {featured.discipline}</TechLabel>
@@ -117,17 +150,32 @@ export function SelectedWork() {
               <p className="mt-5 text-base leading-relaxed text-ink/70">{featured.oneLiner}</p>
             </div>
 
-            <div>
-              <div className="grid grid-cols-2 gap-5 border-y border-ink/15 py-5">
-                {featured.metrics.slice(0, 2).map((metric) => (
-                  <div key={metric.label}>
-                    <TechLabel tone="dark">{metric.label}</TechLabel>
-                    <p className="mt-1 font-display text-xl font-bold tracking-tight-2">
-                      {metric.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
+            <div className="flex flex-col justify-between">
+              {projectDiagrams[featured.slug] ? (
+                <div className="border-y border-ink/15 py-5">
+                  <TechLabel tone="dark">How it works</TechLabel>
+                  <SystemDiagram
+                    {...projectDiagrams[featured.slug]}
+                    title={undefined}
+                    tone="dark"
+                    flow
+                    className="mt-3"
+                    viewBoxW={420}
+                    viewBoxH={200}
+                  />
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-5 border-y border-ink/15 py-5">
+                  {featured.metrics.slice(0, 2).map((metric) => (
+                    <div key={metric.label}>
+                      <TechLabel tone="dark">{metric.label}</TechLabel>
+                      <p className="mt-1 font-display text-xl font-bold tracking-tight-2">
+                        {metric.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
               <Button asChild variant="secondary" size="lg" className="mt-7">
                 <Link href={`/work/${featured.slug}`}>Read {featured.client} →</Link>
               </Button>
@@ -148,21 +196,21 @@ export function SelectedWork() {
                 className="group border border-ink/20 bg-white"
               >
                 <Link href={`/work/${project.slug}`} className="block">
-                  <div className="relative aspect-[16/9] overflow-hidden border-b border-ink/15 bg-[#eef1f5]">
+                  <div
+                    className={`relative flex aspect-[16/9] items-center overflow-hidden border-b border-ink/15 ${project.image ? "bg-black" : "bg-[#eef1f5]"}`}
+                  >
                     {project.image ? (
-                      <Image
-                        src={withBasePath(project.image)}
+                      <Shot
+                        slug={project.slug}
+                        src={project.image}
                         alt={`${project.client} — ${project.title}`}
-                        fill
                         sizes="(min-width: 768px) 50vw, 100vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                       />
                     ) : diagram ? (
                       <div className="h-full w-full p-5 sm:p-8">
                         <SystemDiagram {...diagram} tone="dark" viewBoxW={400} viewBoxH={240} />
                       </div>
                     ) : null}
-                    <WorkSiteCrew label={project.client} />
                   </div>
                   <div className="p-7 sm:p-8">
                     <div className="flex items-center justify-between gap-4">

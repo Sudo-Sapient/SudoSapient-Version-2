@@ -358,3 +358,18 @@
     cursor: auto !important;
   }
 }
+
+/* Hero figures: a slow hoist, as if each rides its own rig. Each figure sets
+   --rise / --rise-dur inline. `translate` keeps it clear of GSAP's transforms;
+   reduced motion is covered by the global kill-switch above. */
+.fig-rise {
+  animation: fig-rise var(--rise-dur, 4s) cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+@keyframes fig-rise {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 calc(var(--rise, 8px) * -1);
+  }
+}

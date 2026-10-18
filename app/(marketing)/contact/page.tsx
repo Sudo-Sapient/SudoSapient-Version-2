@@ -5,9 +5,9 @@ import { TechLabel } from "@/components/blueprint/TechLabel";
 import { BlueprintFrame } from "@/components/blueprint/BlueprintFrame";
 
 export const metadata = {
-  title: "Start a Project — Sudo Sapient",
+  title: "Start your transformation — Sudo Sapient",
   description:
-    "Tell us what you want to build. We reply within a working day with whether we're the right studio for it and what a first sprint looks like.",
+    "Tell us how your company runs today. We reply within a working day with whether we're the right studio for it and what a first sprint looks like.",
 };
 
 export default function ContactPage() {
@@ -17,7 +17,7 @@ export default function ContactPage() {
       <Container className="relative z-10">
         <BlueprintFrame
           subject="PROJECT INTAKE FORM"
-          type="START · A · PROJECT"
+          type="START · TRANSFORMATION"
           version="V1.0"
           date="2026"
         >
@@ -25,12 +25,12 @@ export default function ContactPage() {
             <div className="flex flex-col gap-6 lg:col-span-5">
               <TechLabel>{"// SPEC SHEET"}</TechLabel>
               <h1 className="font-display text-3xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-4xl md:text-5xl">
-                Tell us what you want to build.
+                Tell us how your company runs today.
               </h1>
               <p className="text-white/80">
-                Give us the problem, the context, and what a useful first release should achieve.
-                We&rsquo;ll reply within one working day with whether we&rsquo;re the right studio
-                and what the first sprint could look like.
+                Give us the context: your teams, where work piles up, and what AI-native would mean
+                for you. We&rsquo;ll reply within one working day with whether we&rsquo;re the right
+                partner and what an audit would cover.
               </p>
               <div className="mt-2 grid grid-cols-2 gap-3 border-t border-white/20 pt-4">
                 <Metadatum label="RESPONSE" value="< 24 HRS" />

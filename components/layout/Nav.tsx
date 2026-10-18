@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { withBasePath } from "@/lib/site";
+import { CTA_LABEL, withBasePath } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Container } from "./Container";
 import { Button } from "@/components/ui/Button";
@@ -120,7 +120,7 @@ export function Nav() {
             );
           })}
           <Button asChild variant="primary" size="sm">
-            <Link href="/contact">Start a Project</Link>
+            <Link href="/contact">{CTA_LABEL}</Link>
           </Button>
         </nav>
 
@@ -194,7 +194,7 @@ export function Nav() {
               ))}
               <Button asChild variant="primary" size="default" className="mt-5 self-start">
                 <Link href="/contact" onClick={() => setOpen(false)}>
-                  Start a Project
+                  {CTA_LABEL}
                 </Link>
               </Button>
             </Container>

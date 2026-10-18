@@ -84,7 +84,7 @@ export default function AboutPage() {
       <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-28">
         <GridBackground />
         <Container className="relative z-10">
-          <SectionHeading as="h1" index="A" eyebrow="ABOUT" title="A studio for shipping AI." />
+          <SectionHeading as="h1" index="A" eyebrow="ABOUT" title="We make companies AI-native." />
           <div className="mt-12 grid max-w-4xl gap-6 text-lg leading-relaxed text-white/85">
             <p>
               Sudo Sapient is a small AI studio. We&rsquo;re a team of engineers, designers, and

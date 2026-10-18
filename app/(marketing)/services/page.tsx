@@ -109,8 +109,8 @@ export default function ServicesPage() {
             as="h1"
             index="S"
             eyebrow="SERVICES"
-            title="Three ways to put AI into production."
-            description="Focused builds for teams with a real workflow, a clear owner, and urgency to ship."
+            title="Three fronts of an AI transformation."
+            description="Operations, product, and content—each one a working system your team owns at the end."
           />
           <div className="mt-12 grid gap-px border border-white/20 bg-white/20 md:grid-cols-3">
             {services.map((service) => (

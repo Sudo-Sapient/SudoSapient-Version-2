@@ -8,6 +8,7 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { Pipeline } from "@/components/blueprint/Pipeline";
 import { ProcessActor } from "@/components/scenes/ProcessActors";
 import { Shootable } from "@/components/interactive/Shootable";
+import { STAGES } from "@/lib/site";
 
 type ActorKind = "discover" | "prototype" | "build" | "ship";
 
@@ -38,12 +39,11 @@ const PEN_END = `${(XS[XS.length - 1] / 900) * 100}%`;
  * layout.
  */
 export function ProcessScene() {
-  const nodes = [
-    { code: "N.01", label: "DISCOVER", caption: "1 wk" },
-    { code: "N.02", label: "PROTOTYPE", caption: "2 wk" },
-    { code: "N.03", label: "BUILD", caption: "3–6 wk" },
-    { code: "N.04", label: "SHIP", caption: "ongoing" },
-  ];
+  const nodes = STAGES.map((s) => ({
+    code: s.n,
+    label: s.title.toUpperCase(),
+    caption: s.time.toLowerCase(),
+  }));
   const figureKinds: ActorKind[] = ["discover", "prototype", "build", "ship"];
 
   const scene = React.useRef<HTMLDivElement>(null);
@@ -118,7 +118,7 @@ export function ProcessScene() {
           nodes={nodes}
           tone="light"
           mode="manual"
-          segmentLabels={["1.0x", "2.0x", "3.0x"]}
+          segmentLabels={["first win", "roll out", "hand over"]}
         />
 
         {/* The plotter pen — rides the spine, scrubbed to scroll. */}

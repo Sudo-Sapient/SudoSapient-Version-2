@@ -3,7 +3,7 @@ export type Project = {
   title: string;
   client: string;
   year: string;
-  discipline: "AI Product" | "AI Automation" | "AI Media" | "Web & Brand";
+  discipline: "Product" | "Operations" | "Content" | "Web & Brand";
   oneLiner: string;
   problem: string;
   approach: string;
@@ -25,7 +25,7 @@ export const projects: Project[] = [
     title: "An AI-native GTM engine with one source of truth.",
     client: "Jgsaw",
     year: "2026",
-    discipline: "AI Product",
+    discipline: "Product",
     oneLiner:
       "A B2B 'Control Center' where Core Context — ICP, personas, competitors, brand world — drives every deal, campaign, and asset.",
     problem:
@@ -40,6 +40,7 @@ export const projects: Project[] = [
       { label: "DELIVERY WINDOW", value: "12 weeks" },
     ],
     isPlaceholder: false,
+    featured: true,
     image: "/case-studies/jgsaw.jpeg",
   },
   {
@@ -47,7 +48,7 @@ export const projects: Project[] = [
     title: "SudoSapient — voice note in, Reel out.",
     client: "SudoSapient",
     year: "2026",
-    discipline: "AI Media",
+    discipline: "Content",
     oneLiner:
       "A single-call production line that turns a reference link or a voice note into a finished, platform-ready short — no camera, no edit bay.",
     problem:
@@ -83,7 +84,6 @@ export const projects: Project[] = [
       { label: "LEAD ROUTING", value: "Single intake" },
     ],
     isPlaceholder: false,
-    featured: true,
     image: "/case-studies/mayaakars.jpeg",
     externalUrl: "https://www.mayaakars.com/",
   },

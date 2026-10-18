@@ -45,6 +45,21 @@ export function FinalCtaScene({ waving = false }: Props) {
     return () => ctx.revert();
   }, [playWave]);
 
+  // Load and play the reel only while it is near the viewport.
+  React.useEffect(() => {
+    const player = video.current;
+    if (!player || reduced.current) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) void player.play().catch(() => {});
+        else player.pause();
+      },
+      { rootMargin: "200px" }
+    );
+    io.observe(player);
+    return () => io.disconnect();
+  }, []);
+
   React.useEffect(() => {
     if (reduced.current) return;
     const el = lean.current;
@@ -68,12 +83,10 @@ export function FinalCtaScene({ waving = false }: Props) {
           ref={video}
           src={VIDEO_SOURCE}
           title="Sudo Sapient studio reel"
-          autoPlay
           muted
           loop
           playsInline
-          preload="auto"
-          onCanPlay={(event) => void event.currentTarget.play()}
+          preload="none"
           className="h-full w-full bg-[#07110d] object-cover"
         />
         <button
