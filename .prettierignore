@@ -6,3 +6,6 @@ public
 archive
 case-study-sources
 *.tsbuildinfo
+
+# design tool cache
+.impeccable
