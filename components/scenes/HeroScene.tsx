@@ -25,7 +25,7 @@ const SETTLE = TRAVEL + 0.7;
  *
  * On load a thin amber drafting guide descends the scene. As its Y crosses each
  * element, that element draws itself in (DrawSVG), so the whole composition —
- * the OPERATIONS/PRODUCT/CONTENT stack and the four figures — appears to be
+ * the OPERATIONS/AGENTS/CONTENT stack and the four figures — appears to be
  * plotted top-to-bottom by a single pen. The guide retracts and the scene is
  * left crisp and static, after which the crew starts an almost-imperceptible
  * breathing idle. Poses never move; only the stroke reveal + guide animate.
@@ -107,7 +107,7 @@ export function HeroScene() {
       <ModuleStack
         modules={[
           { code: "M.01", label: "OPERATIONS" },
-          { code: "M.02", label: "PRODUCT" },
+          { code: "M.02", label: "AGENTS" },
           { code: "M.03", label: "CONTENT" },
         ]}
         tone="light"

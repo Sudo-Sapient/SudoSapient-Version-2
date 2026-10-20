@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 export type Module = {
   code: string; // "M.01"
-  label: string; // "PRODUCT"
+  label: string; // "AGENTS"
   meta?: string; // "agents · copilots · RAG"
   width?: number; // 0-1 fraction of container width, default 1
 };
@@ -32,7 +32,7 @@ type Props = {
  * and an optional meta line in mono on the right. The whole stack draws in via
  * staggered stroke animation.
  *
- * The hero homepage uses three modules: OPERATIONS / PRODUCT / CONTENT.
+ * The hero homepage uses three modules: OPERATIONS / AGENTS / CONTENT.
  */
 export function ModuleStack({
   modules,

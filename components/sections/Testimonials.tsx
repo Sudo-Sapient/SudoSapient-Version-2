@@ -3,45 +3,51 @@
 import * as React from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
-import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import { RiveScene } from "@/components/motion/RiveScene";
 
 const testimonials = [
   {
     quote:
-      "Sudo Sapient took a workflow that depended on repetitive manual coordination and turned it into an automation our team can actually operate. They understood the edge cases and stayed focused on what would save us time in practice.",
-    name: "Kishan",
+      "We were running logistics on calls, spreadsheets and endless follow ups. Sudo Sapient sat with our ops team, learned how a shipment really moves, and automated the busywork around it. Our people now spend the day on exceptions, not data entry.",
+    name: "Kishen",
     company: "Shipzy",
-    discipline: "Operations",
+    discipline: "Logistics",
   },
   {
     quote:
-      "They helped us turn an ambitious AI product idea into something clear, usable, and ready for real customers. The team moved quickly without treating product experience or reliability as an afterthought.",
-    name: "Bhopal",
+      "They automated our credit engine, so decisions that took days of manual checks now run on their own with a clear trail. Then they did the same for hiring and built us an ATS that screens and moves candidates without the back and forth.",
+    name: "Bhoopal",
     company: "Taamul",
-    discipline: "Product",
+    discipline: "Finance",
   },
   {
     quote:
-      "Sudo Sapient worked with us like a product team, not an outsourced development shop. They challenged assumptions early, made the AI useful inside the workflow, and shipped a product that felt considered from the first release.",
+      "We wanted our go to market work to run itself. Sudo Sapient automated Jgsaw from research to outreach, and it now does in minutes what used to eat our whole week.",
     name: "Puneet",
     company: "Jgsaw",
-    discipline: "Product",
+    discipline: "Go to market",
   },
   {
     quote:
-      "They built an AI media workflow that gave us speed without flattening the creative process. We can produce more consistently while retaining control over the voice, visual direction, and final output.",
+      "They installed an AI music curator that picks and sequences tracks the way our team would. What used to be hours of listening and sorting now happens on its own, and it still sounds like us.",
     name: "Yatin",
     company: "Fabplay",
-    discipline: "Content",
+    discipline: "Music",
   },
   {
     quote:
-      "The team translated a complex operational idea into a focused AI product our people could understand and use. They were thoughtful about the workflow, the edge cases, and what needed to be dependable from day one.",
-    name: "Venkateswaran",
+      "Sudo Sapient automated the way my media agency runs, from briefs to edits to delivery. We take on more clients with the same team, and nobody is stuck doing the repetitive parts anymore.",
+    name: "Venkateshwaran",
     company: "Vencuts",
-    discipline: "Product",
+    discipline: "Media",
+  },
+  {
+    quote:
+      "We have done several projects together and every one took real work off our plate. They did not just automate tasks, they changed how our whole AI agency runs day to day.",
+    name: "Yogi",
+    company: "AI agency",
+    discipline: "Multiple projects",
   },
 ] as const;
 
@@ -133,13 +139,14 @@ export function Testimonials() {
       className="scroll-mt-20 overflow-hidden bg-offwhite pb-16 pt-4 sm:pb-24 md:pb-32"
     >
       <Container>
-        <SectionHeading
-          tone="dark"
-          index="04"
-          eyebrow="TESTIMONIALS"
-          title="Real outcomes. Built together."
-          description="Five people who trusted us with products, automations, and media systems that had to work outside the pitch deck."
-        />
+        <TechLabel tone="dark">Testimonials</TechLabel>
+        <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+          Real outcomes. Built together.
+        </h2>
+        <p className="mt-4 max-w-xl text-lg text-ink/70">
+          Six teams who let us into how their business really runs, and what changed once we
+          automated it.
+        </p>
 
         <div className="border-ink/18 mt-10 border-y sm:mt-16 lg:grid lg:grid-cols-12">
           <div
@@ -151,7 +158,10 @@ export function Testimonials() {
           >
             <div className="flex items-center justify-between gap-4">
               <TechLabel tone="dark">FEATURED TESTIMONIAL</TechLabel>
-              <TechLabel tone="dark">{String(active + 1).padStart(2, "0")} / 05</TechLabel>
+              <TechLabel tone="dark">
+                {String(active + 1).padStart(2, "0")} /{" "}
+                {String(testimonials.length).padStart(2, "0")}
+              </TechLabel>
             </div>
 
             <div className="mt-7 max-w-2xl sm:mt-12 lg:mt-14">
@@ -234,7 +244,18 @@ export function Testimonials() {
                   className="flex h-10 w-10 items-center justify-center border border-ink/25 text-ink transition-colors hover:border-ink hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:translate-y-px"
                   aria-label="Previous testimonial"
                 >
-                  ←
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 16 16"
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M10 3 5 8l5 5" />
+                  </svg>
                 </button>
                 <button
                   type="button"
@@ -242,7 +263,18 @@ export function Testimonials() {
                   className="flex h-10 w-10 items-center justify-center border border-ink/25 text-ink transition-colors hover:border-ink hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:translate-y-px"
                   aria-label="Next testimonial"
                 >
-                  →
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 16 16"
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="m6 3 5 5-5 5" />
+                  </svg>
                 </button>
               </div>
             </div>
@@ -275,7 +307,7 @@ export function Testimonials() {
                     }`}
                   >
                     <span
-                      className={`block font-mono text-[9px] tracking-[0.15em] ${selected ? "text-warn" : "text-ink/35"}`}
+                      className={`block font-mono text-[11px] tracking-[0.15em] ${selected ? "text-warn" : "text-ink/60"}`}
                     >
                       {String(index + 1).padStart(2, "0")}
                     </span>
@@ -283,7 +315,7 @@ export function Testimonials() {
                       {testimonial.name}
                     </span>
                     <span
-                      className={`mt-1.5 block font-mono text-[8px] uppercase tracking-[0.11em] ${selected ? "text-white/55" : "text-ink/45"}`}
+                      className={`mt-1.5 block font-mono text-[11px] uppercase tracking-[0.11em] ${selected ? "text-white/75" : "text-ink/65"}`}
                     >
                       {testimonial.company}
                     </span>
@@ -312,7 +344,7 @@ export function Testimonials() {
                     className="border-ink/12 group grid w-full grid-cols-[2.5rem_1fr_auto] items-center gap-3 border-b py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ink"
                   >
                     <span
-                      className={`font-mono text-[10px] tracking-[0.16em] transition-colors ${selected ? "text-warn" : "text-ink/35"}`}
+                      className={`font-mono text-[11px] tracking-[0.16em] transition-colors ${selected ? "text-warn" : "text-ink/60"}`}
                     >
                       {String(index + 1).padStart(2, "0")}
                     </span>
@@ -322,7 +354,7 @@ export function Testimonials() {
                       >
                         {testimonial.name}
                       </span>
-                      <span className="text-ink/42 mt-1 block font-mono text-[9px] uppercase tracking-[0.13em]">
+                      <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.13em] text-ink/65">
                         {testimonial.company} · {testimonial.discipline}
                       </span>
                     </span>
@@ -335,7 +367,7 @@ export function Testimonials() {
             </div>
 
             <div className="mt-8 hidden border-l-2 border-warn/60 pl-4 lg:block">
-              <p className="max-w-[20rem] font-mono text-[9px] uppercase leading-relaxed tracking-[0.13em] text-ink/45">
+              <p className="max-w-[20rem] font-mono text-[11px] uppercase leading-relaxed tracking-[0.13em] text-ink/65">
                 Choose a client to read their full testimonial and project context.
               </p>
             </div>

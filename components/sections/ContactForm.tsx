@@ -17,8 +17,14 @@ import { CTA_LABEL, withBasePath } from "@/lib/site";
 import { ContactSuccessScene } from "@/components/scenes/ContactSuccessScene";
 
 const RECIPIENT = "sudosapient@gmail.com";
-const BUDGETS = ["<$10k", "$10–25k", "$25–50k", "$50k+", "Not sure"];
-const TIMELINES = ["As soon as possible", "Within 1 month", "1–3 months", "3+ months", "Exploring"];
+const BUDGETS = ["<$10k", "$10k to $25k", "$25k to $50k", "$50k+", "Not sure"];
+const TIMELINES = [
+  "As soon as possible",
+  "Within 1 month",
+  "1 to 3 months",
+  "3+ months",
+  "Exploring",
+];
 
 // Formspree form ID (https://formspree.io). Without it the form falls back to email.
 const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
@@ -35,7 +41,7 @@ export function ContactForm() {
     const data = new FormData(e.currentTarget);
     data.set("budget", budget ?? "Not provided");
     data.set("timeline", timeline ?? "Not provided");
-    data.set("_subject", `New transformation enquiry — ${data.get("company") || data.get("name")}`);
+    data.set("_subject", `New transformation enquiry: ${data.get("company") || data.get("name")}`);
 
     if (!FORMSPREE_ID) {
       setStatus("error");
@@ -143,7 +149,7 @@ export function ContactForm() {
           .
         </p>
         <Button type="submit" variant="solid" size="lg" disabled={status === "sending"}>
-          {status === "sending" ? "Sending…" : `${CTA_LABEL} →`}
+          {status === "sending" ? "Sending…" : CTA_LABEL}
         </Button>
       </div>
 

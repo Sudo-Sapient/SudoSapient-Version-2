@@ -9,30 +9,20 @@ export function withBasePath(path: string) {
 /** One primary action, worded the same everywhere. */
 export const CTA_LABEL = "Start your transformation";
 
-/** The transformation journey. Process cards and ProcessScene both render from this. */
+/** The transformation journey (Audit, Pilot, Scale, Embed), shown on the Services page. */
 export const STAGES = [
-  {
-    n: "01",
-    title: "Audit",
-    time: "1 week",
-    body: "We sit with your teams, map how work actually flows, and find where AI pays back first.",
-  },
-  {
-    n: "02",
-    title: "Pilot",
-    time: "2 weeks",
-    body: "One working system on your real data, in front of real users—not a clickable theatre demo.",
-  },
+  { n: "01", title: "Audit", time: "2 weeks", body: "We walk your workflow before we touch it." },
+  { n: "02", title: "Pilot", time: "2 weeks", body: "One fix, live, proven with your team." },
   {
     n: "03",
     title: "Scale",
-    time: "3–6 weeks",
-    body: "We roll it across operations, product, and content with evals, guardrails, and telemetry.",
+    time: "3 to 6 weeks",
+    body: "We roll out what works, one workflow at a time.",
   },
   {
     n: "04",
     title: "Embed",
     time: "Ongoing",
-    body: "Your people learn to run, extend, and own it. AI becomes how the company works, not a project.",
+    body: "Your team learns to run it and it stays yours.",
   },
 ] as const;

@@ -12,14 +12,19 @@ const PHRASES = ["copy and paste.", "chase follow-ups.", "type up reports.", "so
 const FPS = 60;
 const CYCLE = 240; // 4s per phrase
 const CH = 20; // artboard units per monospace character; the box is 17ch wide
+// The overlay sits on the phrase's bottom edge and is 2.2em tall (1em ≈ 33 units):
+// the letters fill the bottom em, the figures stand on top of them like a ledge.
 const W = 17 * CH,
-  H = 120;
-const LINE_Y = 62; // the strike sits on the phrase's mid-height (artboard centre ≈ text centre)
-const S = 0.72; // figure scale: small enough to stand on the text line
+  H = 74;
+const LINE_Y = 59; // strike: mid-letter
+const WALK_Y = 42; // the tops of the letters, where the figures stand
+const S = 0.53; // figure scale: about one letter-height tall
+const PAPER = "#EEF1F5";
 
-const k = makeKit(LINE_Y, { line: BLUE, paper: "#EEF1F5" });
-const agentKit = makeKit(LINE_Y, { line: AMBER, paper: "#EEF1F5" });
-const { shapes, line, key, figure, pose, walk } = k;
+const k = makeKit(WALK_Y, { line: "#0F172A", paper: PAPER });
+const agentKit = makeKit(WALK_Y, { line: AMBER, paper: PAPER });
+const { shapes, line, key, figure, pose, reach, walk } = k;
+const TIP = 14; // pencil tip, in the pencil man's own (unscaled) units
 
 PHRASES.forEach((p, i) =>
   line(
@@ -34,17 +39,25 @@ PHRASES.forEach((p, i) =>
   )
 );
 
-figure("pen", -30);
-// The pencil, held low so its tip rides the strike line.
+figure("pen", -30, { halo: PAPER });
+// A giant pencil: from his hand down to mid-letter, where its tip draws the strike.
 line(
   "pencil",
   [
-    { x: 0, y: 6 },
-    { x: 0, y: 20 },
+    { x: 10, y: -26 },
+    { x: TIP, y: (LINE_Y - WALK_Y) / S },
   ],
-  { parent: "pen_faR", stroke: { color: AMBER, thickness: 3.2, cap: "round" } }
+  { parent: "pen", stroke: { color: AMBER, thickness: 4, cap: "round" } }
 );
-agentKit.figure("agent", W + 30, { halo: BLUE });
+line(
+  "pencilTip",
+  [
+    { x: TIP - 1, y: (LINE_Y - WALK_Y) / S - 4 },
+    { x: TIP, y: (LINE_Y - WALK_Y) / S },
+  ],
+  { parent: "pen", stroke: { color: "#0F172A", thickness: 4, cap: "round" } }
+);
+agentKit.figure("agent", 0, { halo: BLUE });
 agentKit.shapes.push({
   id: "parcel",
   type: "rect",
@@ -58,14 +71,10 @@ agentKit.shapes.push({
   fill: { color: AMBER },
 });
 
-for (const [kit, id] of [
-  [k, "pen"],
-  [agentKit, "agent"],
-])
-  for (const p of ["scaleX", "scaleY"]) kit.key(id, p, [[0, S, "hold"]]);
+for (const p of ["scaleX", "scaleY"]) key("pen", p, [[0, S, "hold"]]);
 
 const STAND = { uaL: 12, faL: -6, uaR: -12, faR: 6, thL: 4, shL: 0, thR: -4, shR: 0, lean: 0 };
-const DRAW = { ...STAND, uaR: -30, faR: -10, lean: 8 }; // pencil down, leaning into it
+const DRAW = { ...STAND, ...reach("pen", "R", 10, -26), lean: 6 }; // gripping the pencil
 const GRAB = { ...STAND, uaL: 40, faL: 50, lean: -10 };
 const CARRY = { ...STAND, uaL: 60, faL: 70 };
 
@@ -75,8 +84,10 @@ PHRASES.forEach((p, i) => {
   const drawFrames = p.length * 4;
   // Pencil man walks on, strikes the phrase, hops off.
   key("pen", "opacity", [[s, 1, "hold"]]);
-  walk("pen", s, s + 20, -30, 0);
-  walk("pen", s + 20, s + 20 + drawFrames, 0, end);
+  // Offset by the pencil reach so the tip, not his feet, starts and ends the strike.
+  const off = TIP * S;
+  walk("pen", s, s + 20, -30, -off);
+  walk("pen", s + 20, s + 20 + drawFrames, -off, end - off);
   for (let t = s + 26; t < s + 20 + drawFrames; t += 12) pose("pen", t, DRAW);
   key(`strike${i}`, "trimEnd", [
     [0, 0, "hold"],
@@ -97,21 +108,29 @@ PHRASES.forEach((p, i) => {
   ]);
   pose("pen", s + 22 + drawFrames, STAND);
 
-  // The agent walks in, picks the task up, and carries it away.
-  const meet = end + 26;
+  // The AI agent pops up on the last letters, grabs the task, and pops away with it.
+  const at = end - 18;
+  agentKit.key("agent", "x", [[s, at, "hold"]]);
+  for (const prop of ["scaleX", "scaleY"])
+    agentKit.key("agent", prop, [
+      [s, 0, "hold"],
+      [s + 118, 0, "hold"],
+      [s + 130, S * 1.15, "ease-out-back"],
+      [s + 136, S, "ease-out"],
+      [s + 196, S, "hold"],
+      [s + 210, 0, "ease-in-back"],
+    ]);
   agentKit.pose("agent", s, STAND);
-  agentKit.walk("agent", s + 96, s + 140, W + 30, meet);
-  agentKit.pose("agent", s + 146, GRAB, "ease-out-back");
+  agentKit.pose("agent", s + 140, STAND);
+  agentKit.pose("agent", s + 148, GRAB, "ease-out-back");
   agentKit.key("parcel", "opacity", [
     [s, 0, "hold"],
-    [s + 150, 0, "hold"],
-    [s + 152, 1, "hold"],
-    [s + 214, 1, "hold"],
-    [s + 216, 0, "hold"],
+    [s + 152, 0, "hold"],
+    [s + 154, 1, "hold"],
+    [s + 208, 1, "hold"],
+    [s + 210, 0, "hold"],
   ]);
-  agentKit.pose("agent", s + 156, CARRY);
-  agentKit.walk("agent", s + 160, s + 214, meet, W + 30);
-  agentKit.pose("agent", s + 216, CARRY);
+  agentKit.pose("agent", s + 160, CARRY);
   agentKit.pose("agent", s + CYCLE - 1, STAND);
 });
 key("pen", "opacity", [[PHRASES.length * CYCLE, 1, "hold"]]);

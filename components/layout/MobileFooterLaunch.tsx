@@ -157,7 +157,7 @@ export function MobileFooterLaunch() {
           </g>
         </g>
       </svg>
-      <p className="absolute inset-x-0 bottom-1 text-center font-mono text-[8px] uppercase tracking-[0.15em] text-white/35">
+      <p className="absolute inset-x-0 bottom-1 text-center font-mono text-[11px] uppercase tracking-[0.15em] text-white/60">
         Build carefully. Launch confidently.
       </p>
     </div>

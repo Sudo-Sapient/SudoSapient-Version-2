@@ -38,7 +38,7 @@ export function Hero() {
               delay={0.4}
               speed={0.018}
               text="Make your company AI-native."
-              className="max-w-4xl text-balance font-display text-4xl font-extrabold leading-[0.92] tracking-tight-3 sm:text-5xl md:text-6xl lg:text-7xl"
+              className="max-w-4xl text-balance font-serif text-5xl leading-[0.98] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-8xl"
             />
 
             <motion.p
@@ -47,8 +47,8 @@ export function Hero() {
               transition={{ delay: 0.72, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-2xl text-lg leading-relaxed text-white/80 sm:text-xl"
             >
-              We embed with your team, find where AI actually pays, and rebuild your operations,
-              products, and content around it—then hand it to your people to run.
+              We sit with your team, learn how the work really gets done, and automate the busywork
+              with AI agents. Then we hand it over for your people to run.
             </motion.p>
 
             <motion.div
@@ -61,7 +61,7 @@ export function Hero() {
                 <Link href="/contact">{CTA_LABEL}</Link>
               </Button>
               <Button asChild variant="ghost" size="lg">
-                <Link href="/work">See transformations →</Link>
+                <Link href="/work">See transformations</Link>
               </Button>
             </motion.div>
           </div>

@@ -48,7 +48,7 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
             {project.image ? (
               <Image
                 src={withBasePath(project.image)}
-                alt={`${project.client} — ${project.title}`}
+                alt={`${project.client}, ${project.title}`}
                 fill
                 priority={index === 0}
                 sizes="(min-width: 768px) 42vw, 100vw"
@@ -96,7 +96,7 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
                 <p className="mt-1 font-display text-lg font-bold">{project.client}</p>
               </div>
               <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink transition-transform duration-300 group-hover:translate-x-1">
-                Read case study →
+                Read case study
               </span>
             </div>
           </div>

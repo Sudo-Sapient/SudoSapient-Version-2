@@ -33,7 +33,7 @@ export function Pillars() {
       <Container>
         <h2 className="max-w-5xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] text-ink sm:text-6xl md:text-7xl lg:text-[5.25rem]">
           Stop paying people to{" "}
-          <span className="relative mt-4 block w-[17ch] whitespace-nowrap font-mono text-[0.6em] font-medium tracking-normal text-blueprint">
+          <span className="relative mt-[0.9em] block w-[17ch] whitespace-nowrap font-mono text-[0.6em] font-medium tracking-normal text-blueprint">
             <span
               className={cn(
                 "transition-opacity duration-300",
@@ -43,10 +43,10 @@ export function Pillars() {
             >
               {PHRASES[index]}
             </span>
-            {/* The stickman strikes the phrase; the amber agent carries it off. */}
+            {/* Anchored to the phrase's bottom edge: the figures stand on the letters, the pencil strikes mid-letter. */}
             <RiveScene
-              className="pointer-events-none absolute left-0 top-1/2 w-full -translate-y-1/2"
-              frameClassName="aspect-[340/120] w-full"
+              className="pointer-events-none absolute bottom-0 left-0 w-full"
+              frameClassName="aspect-[340/74] w-full"
               src="/rive/strike.riv"
               animation="loop"
               onAdvance={onAdvance}
@@ -63,7 +63,7 @@ export function Pillars() {
           href="#how-we-transform"
           className="mt-6 inline-flex items-center gap-3 border-b border-ink/40 pb-1 font-mono text-[12px] uppercase tracking-[0.16em] text-ink transition-colors hover:border-blueprint hover:text-blueprint"
         >
-          See how it works <span aria-hidden>→</span>
+          See how it works
         </a>
       </Container>
     </section>

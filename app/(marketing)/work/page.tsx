@@ -4,9 +4,9 @@ import { WorkGrid } from "@/components/sections/WorkGrid";
 import { projects } from "@/lib/projects";
 
 export const metadata = {
-  title: "Work — Sudo Sapient",
+  title: "Work | Sudo Sapient",
   description:
-    "Selected systems Sudo Sapient has shipped — AI products, automation, and media builds delivered in 4–10 weeks.",
+    "Selected work: the AI agents and automations Sudo Sapient has built and handed over to our clients.",
 };
 
 export default function WorkIndexPage() {
@@ -19,7 +19,7 @@ export default function WorkIndexPage() {
             index="W"
             eyebrow="ALL WORK"
             title="Systems we've shipped."
-            description="Each one a working slice of what an AI studio can do in 4–10 weeks."
+            description="Each one a working system we built, tested with the team and handed over."
           />
         </Container>
       </section>

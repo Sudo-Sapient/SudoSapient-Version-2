@@ -47,11 +47,11 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "An AI studio that builds AI products, AI automation, and AI media. Working systems in weeks, not quarters.",
+    "We learn how your team really works, then build the AI agents and automations that make it faster, easier and more profitable.",
   openGraph: {
     title: "Sudo Sapient",
     description:
-      "An AI studio that builds AI products, AI automation, and AI media. Working systems in weeks, not quarters.",
+      "We learn how your team really works, then build the AI agents and automations that make it faster, easier and more profitable.",
     url: siteUrl,
     siteName: "Sudo Sapient",
     type: "website",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Sudo Sapient — production AI systems, shipped in weeks",
+        alt: "Sudo Sapient, AI transformation for your company",
       },
     ],
   },
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sudo Sapient",
     description:
-      "Make your company AI-native. Sudo Sapient embeds with your team and rebuilds operations, products, and content around AI.",
+      "AI transformation for your company. Sudo Sapient sits with your team and automates the busywork with AI agents.",
     images: [`${siteUrl}/opengraph-image`],
   },
   alternates: {

@@ -5,7 +5,7 @@ import { TechLabel } from "@/components/blueprint/TechLabel";
 import { BlueprintFrame } from "@/components/blueprint/BlueprintFrame";
 
 export const metadata = {
-  title: "Start your transformation — Sudo Sapient",
+  title: "Start your transformation | Sudo Sapient",
   description:
     "Tell us how your company runs today. We reply within a working day with whether we're the right studio for it and what a first sprint looks like.",
 };

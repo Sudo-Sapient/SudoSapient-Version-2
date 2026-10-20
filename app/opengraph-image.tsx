@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const dynamic = "force-static";
-export const alt = "Sudo Sapient — production AI systems, shipped in weeks";
+export const alt = "Sudo Sapient, AI transformation for your company";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -39,7 +39,7 @@ export default function Image() {
           Make your company AI-native.
         </div>
         <div style={{ marginTop: 34, fontSize: 27, color: "rgba(255,255,255,.75)" }}>
-          AI products · automation · media systems
+          AI agents · workflow automation · AI transformation
         </div>
       </div>
       <div
@@ -52,7 +52,7 @@ export default function Image() {
         }}
       >
         <span>sudosapient.dev</span>
-        <span>6–10 week focused builds</span>
+        <span>Audit, pilot, then scale</span>
       </div>
     </div>,
     size

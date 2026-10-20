@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { projects, getProject } from "./projects";
 
-const DISCIPLINES = ["Product", "Operations", "Content", "Web & Brand"];
+const DISCIPLINES = ["AI agents", "Operations", "Content", "Web & Brand"];
 
 describe("projects data", () => {
   it("has at least one project", () => {

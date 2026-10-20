@@ -56,7 +56,9 @@ export function ContactSuccessScene() {
       <h2 className="font-display text-3xl font-extrabold leading-tight tracking-tight-2 text-white sm:text-4xl">
         We&rsquo;ll reply within one working day.
       </h2>
-      <p className="text-white/80">In the meantime, anything urgent — sudosapient@gmail.com.</p>
+      <p className="text-white/80">
+        In the meantime, for anything urgent, email sudosapient@gmail.com.
+      </p>
     </motion.div>
   );
 }

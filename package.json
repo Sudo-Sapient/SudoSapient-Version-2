@@ -20,7 +20,11 @@
     "rive:climber": "node scripts/rive/climber.mjs",
     "rive:hero": "node scripts/rive/hero.mjs",
     "rive:testimonials": "node scripts/rive/testimonials.mjs",
-    "rive:strike": "node scripts/rive/strike.mjs"
+    "rive:strike": "node scripts/rive/strike.mjs",
+    "rive:portfolio": "node scripts/rive/portfolio.mjs",
+    "rive:services": "node scripts/rive/services.mjs",
+    "rive:about": "node scripts/rive/about.mjs",
+    "rive:cta": "node scripts/rive/cta.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

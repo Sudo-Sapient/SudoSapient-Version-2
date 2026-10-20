@@ -22,8 +22,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = getProject(slug);
-  if (!project) return { title: "Case study — Sudo Sapient" };
-  const title = `${project.title} — Sudo Sapient`;
+  if (!project) return { title: "Case study | Sudo Sapient" };
+  const title = `${project.title} | Sudo Sapient`;
   return {
     title,
     description: project.oneLiner,
@@ -44,7 +44,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   const currentIndex = projects.findIndex((item) => item.slug === project.slug);
   const nextProject = projects[(currentIndex + 1) % projects.length];
   const Figure =
-    project.discipline === "Product"
+    project.discipline === "AI agents"
       ? FigureCarrying
       : project.discipline === "Operations"
         ? FigureClimbing
@@ -60,7 +60,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             href="/work"
             className="mb-6 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-white/65 transition-colors hover:text-white"
           >
-            ← All work
+            All work
           </Link>
           <BlueprintFrame
             subject={project.client.toUpperCase()}
@@ -96,7 +96,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   >
                     <Image
                       src={withBasePath(project.image)}
-                      alt={`${project.client} — ${project.title}`}
+                      alt={`${project.client}, ${project.title}`}
                       fill
                       priority
                       sizes="(min-width: 1024px) 1200px, 100vw"
@@ -106,7 +106,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 ) : (
                   <Image
                     src={withBasePath(project.image)}
-                    alt={`${project.client} — ${project.title}`}
+                    alt={`${project.client}, ${project.title}`}
                     fill
                     priority
                     sizes="(min-width: 1024px) 1200px, 100vw"
@@ -182,7 +182,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <div className="lg:col-span-4 lg:text-right">
               <Button asChild variant="secondary" size="lg">
                 <Link href={`/contact?project=${encodeURIComponent(project.discipline)}`}>
-                  Discuss a similar build →
+                  Discuss a similar build
                 </Link>
               </Button>
             </div>
@@ -193,8 +193,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               href={`/work/${nextProject.slug}`}
               className="group max-w-2xl font-display text-2xl font-bold leading-tight tracking-tight-2 text-ink transition-colors hover:text-blueprint sm:text-right"
             >
-              {nextProject.title}{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+              {nextProject.title}
             </Link>
           </div>
         </Container>

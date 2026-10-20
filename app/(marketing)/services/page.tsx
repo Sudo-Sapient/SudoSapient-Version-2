@@ -1,354 +1,280 @@
-import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
-import { SectionHeading } from "@/components/blueprint/SectionHeading";
 import { TechLabel } from "@/components/blueprint/TechLabel";
-import { ModuleStack } from "@/components/blueprint/ModuleStack";
-import { Pipeline } from "@/components/blueprint/Pipeline";
-import { MediaPipelineScene } from "@/components/scenes/MediaPipelineScene";
-import { Button } from "@/components/ui/Button";
+import { RiveScene } from "@/components/motion/RiveScene";
+import { STAGES } from "@/lib/site";
+import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export const metadata = {
-  title: "Services — Sudo Sapient",
+  title: "Services | Sudo Sapient",
   description:
-    "AI product development, operational automation, and AI media systems delivered by a senior studio in focused 6–10 week builds.",
+    "We learn how your team really works, then build the AI agents and automations that make the work faster, easier and more profitable.",
 };
 
 const services = [
   {
-    index: "01",
-    code: "AI PRODUCT DEVELOPMENT",
-    problem:
-      "You have a valuable AI use case, but not the team to turn it into a product people can trust.",
-    title: "Ship the AI feature—not another prototype.",
-    summary:
-      "We take one high-value workflow from product definition through production. The result is a usable AI surface connected to your data, tools, and existing product.",
-    timeline: "6–10 weeks",
-    scope: "One production-ready product slice",
-    deliverables: [
-      "Product and interaction design",
-      "Model, retrieval, and tool architecture",
-      "Evaluation and guardrail suite",
-      "Production application and integrations",
-      "Telemetry, documentation, and handoff",
+    artboard: "Agent",
+    title: "AI agents",
+    line: "Software that does the work your team keeps doing by hand.",
+    examples: [
+      "Sorting and answering the inbox",
+      "Chasing follow ups and updating the CRM",
+      "Pulling data out of documents",
     ],
-    examples: ["In-product agents", "Copilots", "Private-data retrieval", "Generative workflows"],
-    proof: {
-      client: "Jgsaw",
-      text: "A multi-tenant AI-native GTM control centre with 11 coupled intelligence and execution modules.",
-      href: "/work/jgsaw",
-    },
+    change: "Hours of busywork a week go back to your team.",
+    alt: "An amber stickman agent walks along carrying a parcel.",
   },
   {
-    index: "02",
-    code: "AI AUTOMATION",
-    problem:
-      "Your team is spending expensive human time copying, classifying, checking, and routing routine work.",
-    title: "Remove repetitive work without creating an AI black box.",
-    summary:
-      "We build auditable operational systems: deterministic rules where correctness matters, model judgement where it adds value, and a clear human review path.",
-    timeline: "6–8 weeks",
-    scope: "One end-to-end operational workflow",
-    deliverables: [
-      "Workflow and exception mapping",
-      "Typed automation pipeline",
-      "Internal tool and approval controls",
-      "Audit trail, alerts, and dashboards",
-      "Runbook and owner training",
-    ],
+    artboard: "Flow",
+    title: "Workflow automation",
+    line: "Your tools, finally talking to each other.",
     examples: [
-      "Email and ticket routing",
-      "Document processing",
-      "CRM operations",
-      "Back-office workflows",
+      "Leads flowing straight into the CRM",
+      "Invoices and reports that build themselves",
+      "Approvals reaching the right person",
     ],
-    proof: {
-      client: "Typical engagement",
-      text: "Best when a stable, repeated workflow consumes 20+ team hours every week.",
-      href: "/contact",
-    },
+    change: "Fewer handoffs, fewer mistakes, faster turnaround.",
+    alt: "Two stickmen pass a box from one to the other.",
   },
   {
-    index: "03",
-    code: "AI MEDIA SYSTEMS",
-    problem:
-      "You need a consistent publishing cadence, but production is too slow, fragmented, or dependent on one person.",
-    title: "Turn source material into a repeatable publishing engine.",
-    summary:
-      "We design the production line around your voice and approval standards—from source ingestion and scripting to generation, review, and channel-ready output.",
-    timeline: "4–8 weeks",
-    scope: "One repeatable content pipeline",
-    deliverables: [
-      "Editorial workflow and style system",
-      "Script and generation pipeline",
-      "Human review and approval surface",
-      "Channel-specific output automation",
-      "Prompts, documentation, and handoff",
-    ],
+    artboard: "Button",
+    title: "AI in your software",
+    line: "Smart features your customers will actually use.",
     examples: [
-      "Podcast repurposing",
-      "Short-form video",
-      "Editorial systems",
-      "Image and motion pipelines",
+      "An assistant inside your app",
+      "Search and answers over your own data",
+      "Smart suggestions where people need them",
     ],
-    proof: {
-      client: "SudoSapient media engine",
-      text: "A voice-note-to-Reel production line with one human approval step.",
-      href: "/work/be-pawsh",
-    },
+    change: "Software that does more for every customer.",
+    alt: "A stickman presses a big amber button.",
   },
-] as const;
+];
+
+const fit = {
+  good: [
+    "You have a team doing the same work every day",
+    "Someone owns the problem and can make calls",
+    "You want a working system, not a strategy deck",
+  ],
+  bad: [
+    "You want AI because everyone else has it",
+    "Nobody has time to work with us for a few weeks",
+    "You need a full in house dev team for years",
+  ],
+};
+
+// Draft answers: review before launch.
+const faqs = [
+  {
+    q: "Is our data safe?",
+    a: "Your data stays in your accounts wherever we can manage it. We sign an NDA before the audit, only touch what the workflow needs, and never use it to train anything.",
+  },
+  {
+    q: "Will this replace my team?",
+    a: "No. We take away the repetitive parts so your people spend their time on the work that needs a person. Most teams get busier with better work, not smaller.",
+  },
+  {
+    q: "Do we have to change our tools?",
+    a: "Usually not. We build around what you already use, like your inbox, CRM, spreadsheets and internal apps, and only suggest something new when it clearly pays off.",
+  },
+  {
+    q: "How fast will we see results?",
+    a: "The audit takes about two weeks. The first pilot is live with your team around two weeks after that.",
+  },
+  {
+    q: "Who owns what you build?",
+    a: "You do. The code, the prompts and the accounts are yours, and we train your team to run it without us.",
+  },
+];
+
+function Stickman({
+  artboard,
+  alt,
+  className = "w-28",
+}: {
+  artboard: string;
+  alt: string;
+  className?: string;
+}) {
+  return (
+    <RiveScene
+      className={className}
+      src="/rive/services.riv"
+      artboard={artboard}
+      animation="loop"
+      frameClassName="aspect-[140/110] w-full"
+      ariaLabel={alt}
+      fallback={null}
+    />
+  );
+}
 
 export default function ServicesPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-28">
         <GridBackground />
-        <Container className="relative z-10">
-          <SectionHeading
-            as="h1"
-            index="S"
-            eyebrow="SERVICES"
-            title="Three fronts of an AI transformation."
-            description="Operations, product, and content—each one a working system your team owns at the end."
-          />
-          <div className="mt-12 grid gap-px border border-white/20 bg-white/20 md:grid-cols-3">
-            {services.map((service) => (
-              <a
-                key={service.index}
-                href={`#service-${service.index}`}
-                className="group bg-blueprint p-5 transition-colors hover:bg-blueprint-deep"
-              >
-                <TechLabel>{service.index}</TechLabel>
-                <p className="mt-3 font-display text-xl font-bold tracking-tight-2">
-                  {service.code}
-                </p>
-                <p className="mt-2 text-sm text-white/60">
-                  {service.timeline} · {service.scope}
-                </p>
-              </a>
+        <Container className="relative z-10 grid items-end gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-9">
+            <TechLabel>Services</TechLabel>
+            <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[1.02] tracking-[-0.02em] sm:text-7xl">
+              What we do inside your company.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">
+              We sit with your team, learn how the work really gets done, and build the AI agents
+              and automations that make it faster, easier and more profitable.
+            </p>
+          </div>
+          <div className="hidden justify-end lg:col-span-3 lg:flex">
+            <Stickman
+              artboard="Hello"
+              alt="Our developer waves hello."
+              className="w-48 rounded-sm bg-[#eef1f5]"
+            />
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-offwhite py-16 text-ink sm:py-24">
+        <Container>
+          <TechLabel tone="dark">What we build</TechLabel>
+          <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+            Three ways we take work off your plate.
+          </h2>
+          <div className="mt-12 grid gap-px border border-ink/15 bg-ink/15 md:grid-cols-3">
+            {services.map((s) => (
+              <article key={s.title} className="flex flex-col bg-offwhite p-6 sm:p-8">
+                <div className="bg-[#eef1f5]">
+                  <Stickman artboard={s.artboard} alt={s.alt} className="mx-auto w-44" />
+                </div>
+                <h3 className="mt-6 font-display text-2xl font-bold tracking-tight-2">{s.title}</h3>
+                <p className="mt-2 text-ink/70">{s.line}</p>
+                <ul className="mt-5 space-y-3 border-t border-ink/15 pt-5">
+                  {s.examples.map((e) => (
+                    <li key={e} className="flex gap-3 text-sm leading-relaxed text-ink/75">
+                      <span className="mt-2 h-1.5 w-1.5 flex-none bg-blueprint" />
+                      {e}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-auto pt-6 text-sm font-medium text-blueprint">{s.change}</p>
+              </article>
             ))}
           </div>
         </Container>
       </section>
 
-      <ProductService service={services[0]} />
-      <AutomationService service={services[1]} />
-      <MediaService service={services[2]} />
+      <section className="bg-[#eef1f5] py-16 text-ink sm:py-24">
+        <Container>
+          <TechLabel tone="dark">How it runs</TechLabel>
+          <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+            Small steps, each one proven.
+          </h2>
+          <ol className="mt-12 grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-2 lg:grid-cols-4">
+            {STAGES.map((s) => (
+              <li key={s.n} className="bg-[#eef1f5] p-6 sm:p-8">
+                <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
+                  <span>{s.n}</span>
+                  <span>{s.time}</span>
+                </div>
+                <h3 className="mt-4 font-display text-2xl font-bold tracking-tight-2">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink/70">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </section>
 
-      <section className="bg-offwhite py-16 sm:py-24 md:py-28">
+      <section className="bg-offwhite py-16 text-ink sm:py-24">
         <Container>
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
-              <TechLabel tone="dark">ENGAGEMENT FIT</TechLabel>
-              <h2 className="mt-5 text-balance font-display text-4xl font-extrabold leading-[0.95] tracking-tight-3 sm:text-5xl">
-                The right conditions produce better systems.
+              <TechLabel tone="dark">Is this you?</TechLabel>
+              <h2 className="mt-4 font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+                We work best with teams like this.
               </h2>
             </div>
             <div className="grid gap-px bg-ink/15 sm:grid-cols-2 lg:col-span-7">
-              <FitPanel
-                title="Good fit"
-                items={[
-                  "A named business or user problem",
-                  "An internal owner who can make decisions",
-                  "Access to representative data and users",
-                  "A useful first release that fits inside 10 weeks",
-                ]}
-              />
-              <FitPanel
-                title="Not a good fit"
-                items={[
-                  "Open-ended staff augmentation",
-                  "A vague mandate to ‘add AI’ everywhere",
-                  "Research with no route to production",
-                  "Projects with no owner, data access, or launch path",
-                ]}
-              />
+              <FitPanel title="Good fit" items={fit.good} />
+              <FitPanel title="Not a good fit" items={fit.bad} muted />
             </div>
-          </div>
-          <div className="mt-12 flex flex-col items-start justify-between gap-6 border-t border-ink/20 pt-8 sm:flex-row sm:items-center">
-            <p className="max-w-2xl text-lg text-ink/70">
-              If the scope is still unclear, that is fine. Send us the workflow and the outcome you
-              need; we will tell you whether there is a focused first build.
-            </p>
-            <Button asChild variant="secondary" size="lg">
-              <Link href="/contact">Discuss the scope →</Link>
-            </Button>
           </div>
         </Container>
       </section>
+
+      <section className="bg-[#eef1f5] py-16 text-ink sm:py-24">
+        <Container className="grid items-center gap-10 lg:grid-cols-12">
+          <div className="flex justify-center lg:col-span-4">
+            <Stickman
+              artboard="Audit"
+              alt="A stickman with glasses inspects a document through a magnifying glass."
+              className="w-56"
+            />
+          </div>
+          <div className="lg:col-span-8">
+            <TechLabel tone="dark">How to start</TechLabel>
+            <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+              Start with a two week audit.
+            </h2>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/70">
+              We spend two weeks with the people who do the work. You get a map of where the time
+              goes, the first fixes worth building, and what each one would save. If AI isn&rsquo;t
+              the answer somewhere, we&rsquo;ll tell you.
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-offwhite py-16 text-ink sm:py-24">
+        <Container className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <TechLabel tone="dark">Questions</TechLabel>
+            <h2 className="mt-4 font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+              What people ask us.
+            </h2>
+          </div>
+          <div className="divide-y divide-ink/15 border-y border-ink/15 lg:col-span-8">
+            {faqs.map((f) => (
+              <details key={f.q} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-lg font-bold">
+                  {f.q}
+                  <span
+                    aria-hidden
+                    className="text-2xl font-normal text-blueprint transition-transform group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 max-w-2xl leading-relaxed text-ink/70">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <FinalCTA />
     </>
   );
 }
 
-type Service = (typeof services)[number];
-
-function ServiceIntro({ service }: { service: Service }) {
-  return (
-    <div>
-      <div className="flex items-center justify-between gap-4">
-        <TechLabel tone="dark">SERVICE_{service.index}</TechLabel>
-        <TechLabel tone="dark">{service.timeline}</TechLabel>
-      </div>
-      <p className="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-blueprint">
-        {service.problem}
-      </p>
-      <h2 className="mt-4 max-w-4xl text-balance font-display text-4xl font-extrabold leading-[0.95] tracking-tight-3 sm:text-5xl md:text-6xl">
-        {service.title}
-      </h2>
-      <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">{service.summary}</p>
-    </div>
-  );
-}
-
-function ProductService({ service }: { service: Service }) {
-  return (
-    <section
-      id={`service-${service.index}`}
-      className="scroll-mt-16 bg-offwhite py-16 sm:py-24 md:py-28"
-    >
-      <Container>
-        <ServiceIntro service={service} />
-        <div className="mt-12 grid gap-8 lg:grid-cols-12">
-          <div className="border border-ink/20 bg-[#eef1f5] p-6 sm:p-10 lg:col-span-7">
-            <ModuleStack
-              tone="dark"
-              showDimensions
-              modules={[
-                { code: "P.01", label: "INTERFACE", meta: "user workflow" },
-                { code: "P.02", label: "INTELLIGENCE", meta: "model · tools · evals" },
-                { code: "P.03", label: "DATA", meta: "retrieval · systems" },
-              ]}
-            />
-          </div>
-          <ServiceDetails service={service} className="lg:col-span-5" />
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-function AutomationService({ service }: { service: Service }) {
-  return (
-    <section
-      id={`service-${service.index}`}
-      className="scroll-mt-16 bg-[#eef1f5] py-16 sm:py-24 md:py-28"
-    >
-      <Container>
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
-          <div className="lg:col-span-6">
-            <ServiceIntro service={service} />
-          </div>
-          <div className="border border-ink/20 bg-offwhite p-6 sm:p-10 lg:col-span-6">
-            <Pipeline
-              tone="dark"
-              nodes={[
-                { code: "A.01", label: "INPUT", caption: "source" },
-                { code: "A.02", label: "RULE", caption: "deterministic" },
-                { code: "A.03", label: "MODEL", caption: "judgement" },
-                { code: "A.04", label: "REVIEW", caption: "audit" },
-              ]}
-            />
-          </div>
-        </div>
-        <ServiceDetails
-          service={service}
-          className="mt-10 grid gap-8 border-t border-ink/20 pt-8 lg:grid-cols-2"
-          horizontal
-        />
-      </Container>
-    </section>
-  );
-}
-
-function MediaService({ service }: { service: Service }) {
-  return (
-    <section
-      id={`service-${service.index}`}
-      className="scroll-mt-16 bg-offwhite py-16 sm:py-24 md:py-28"
-    >
-      <Container>
-        <ServiceIntro service={service} />
-        <div className="mt-12 grid gap-8 lg:grid-cols-12">
-          <ServiceDetails service={service} className="lg:order-1 lg:col-span-5" />
-          <div className="border border-white/15 bg-[#061225] p-2 sm:p-3 lg:order-2 lg:col-span-7">
-            <div className="aspect-[720/340] w-full">
-              <MediaPipelineScene className="h-full w-full" />
-            </div>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-function ServiceDetails({
-  service,
-  className,
-  horizontal = false,
+function FitPanel({
+  title,
+  items,
+  muted = false,
 }: {
-  service: Service;
-  className?: string;
-  horizontal?: boolean;
+  title: string;
+  items: string[];
+  muted?: boolean;
 }) {
-  return (
-    <div className={className}>
-      <div>
-        <TechLabel tone="dark">DELIVERABLES</TechLabel>
-        <ul className="mt-4 divide-y divide-ink/15 border-y border-ink/15">
-          {service.deliverables.map((item, index) => (
-            <li key={item} className="flex gap-4 py-3 text-sm text-ink/75">
-              <span className="font-mono text-[10px] text-blueprint">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className={horizontal ? "" : "mt-8"}>
-        <div className="grid grid-cols-2 gap-4 border-b border-ink/15 pb-5">
-          <div>
-            <TechLabel tone="dark">TIMELINE</TechLabel>
-            <p className="mt-1 font-display text-xl font-bold">{service.timeline}</p>
-          </div>
-          <div>
-            <TechLabel tone="dark">SCOPE</TechLabel>
-            <p className="mt-1 text-sm font-medium leading-snug">{service.scope}</p>
-          </div>
-        </div>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {service.examples.map((item) => (
-            <span
-              key={item}
-              className="border border-ink/20 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-ink/70"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-        <Link
-          href={service.proof.href}
-          className="mt-6 block border-l-2 border-blueprint pl-4 transition-colors hover:border-warn"
-        >
-          <TechLabel tone="dark">PROOF · {service.proof.client}</TechLabel>
-          <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            {service.proof.text} <span className="font-medium text-ink">View →</span>
-          </p>
-        </Link>
-      </div>
-    </div>
-  );
-}
-
-function FitPanel({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="bg-offwhite p-6 sm:p-8">
       <h3 className="font-display text-2xl font-bold tracking-tight-2">{title}</h3>
       <ul className="mt-5 space-y-4">
         {items.map((item) => (
           <li key={item} className="flex gap-3 text-sm leading-relaxed text-ink/70">
-            <span className="mt-2 h-1.5 w-1.5 flex-none bg-blueprint" />
+            <span
+              className={`mt-2 h-1.5 w-1.5 flex-none ${muted ? "bg-ink/30" : "bg-blueprint"}`}
+            />
             {item}
           </li>
         ))}

@@ -1,6 +1,6 @@
 // Builds public/rive/testimonials.riv — "The Podium".
-// Five clients sit either side of a podium; the selected one walks up, speaks,
-// takes applause and walks back. Lives inside the white quote card. State machine `Podium`, number input `speaker` (0–4):
+// Six clients sit either side of a podium; the selected one walks up, speaks,
+// takes applause and walks back. Lives inside the white quote card. State machine `Podium`, number input `speaker` (0 to 5):
 // each state plays that client's 9.5s turn. Run: npm run rive:testimonials.
 import { writeFileSync, mkdirSync } from "node:fs";
 import { createRiv } from "rive-mcp-server/dist/rivWriter.js";
@@ -8,7 +8,7 @@ import { makeKit, AMBER, BLUE, DEEP, WHITE } from "./kit.mjs";
 
 const FPS = 60;
 const TURN_SECONDS = 9.5; // Testimonials.tsx advances on the same beat
-const PROPS = ["box", "laptop", "puzzle", "camera", "phone"]; // Shipzy, Taamul, Jgsaw, Fabplay, Vencuts
+const PROPS = ["box", "laptop", "puzzle", "note", "camera", "trophy"]; // Shipzy, Taamul, Jgsaw, Fabplay, Vencuts, Yogi
 
 function scene(L) {
   const G = L.ground;
@@ -149,6 +149,51 @@ function scene(L) {
         parent: hand,
         stroke: { color: AMBER, thickness: 1.3 },
         fill: { color: WHITE },
+      });
+    } else if (PROPS[i] === "note") {
+      shapes.push({
+        id: `${id}_prop`,
+        type: "ellipse",
+        x: -2,
+        y: 20,
+        width: 6,
+        height: 5,
+        parent: hand,
+        fill: { color: AMBER },
+      });
+      line(
+        `${id}_stem`,
+        [
+          { x: 1, y: 20 },
+          { x: 1, y: 10 },
+          { x: 5, y: 13 },
+        ],
+        {
+          parent: hand,
+          stroke: { color: AMBER, thickness: 1.6, cap: "round", join: "round" },
+        }
+      );
+    } else if (PROPS[i] === "trophy") {
+      shapes.push({
+        id: `${id}_prop`,
+        type: "polygon",
+        x: 0,
+        y: 16,
+        parent: hand,
+        stroke: ink(1.2),
+        fill: { color: AMBER },
+        points: [
+          { x: -5, y: -6 },
+          { x: 5, y: -6 },
+          { x: 3, y: 0 },
+          { x: 1, y: 1 },
+          { x: 1, y: 4 },
+          { x: 3, y: 6 },
+          { x: -3, y: 6 },
+          { x: -1, y: 4 },
+          { x: -1, y: 1 },
+          { x: -3, y: 0 },
+        ],
       });
     } else {
       shapes.push({
@@ -342,15 +387,15 @@ const desktop = scene({
   h: 170,
   ground: 160,
   podium: 340,
-  seats: [40, 125, 210, 470, 555],
+  seats: [40, 125, 210, 470, 555, 640],
 });
 const mobile = scene({
   name: "Mobile",
   w: 340,
   h: 170,
   ground: 160,
-  podium: 255,
-  seats: [25, 70, 115, 160, 310],
+  podium: 236,
+  seats: [20, 60, 100, 140, 288, 326],
 });
 
 const { bytes, warnings } = createRiv({ artboards: [desktop, mobile] });
