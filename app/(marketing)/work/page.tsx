@@ -1,34 +1,17 @@
-import { Container } from "@/components/layout/Container";
-import { SectionHeading } from "@/components/blueprint/SectionHeading";
-import { WorkGrid } from "@/components/sections/WorkGrid";
-import { projects } from "@/lib/projects";
+import { PortfolioSoon } from "@/components/sections/PortfolioSoon";
+import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export const metadata = {
   title: "Work | Sudo Sapient",
-  description:
-    "Selected work: the AI agents and automations Sudo Sapient has built and handed over to our clients.",
+  description: "Our case studies are on the way. Talk to us about what we could automate for you.",
 };
 
+// Case studies are coming soon; the /work/[slug] pages stay built but unlinked until then.
 export default function WorkIndexPage() {
   return (
     <>
-      <section className="bg-blueprint py-16 text-white sm:py-24 md:py-28">
-        <Container>
-          <SectionHeading
-            as="h1"
-            index="W"
-            eyebrow="ALL WORK"
-            title="Systems we've shipped."
-            description="Each one a working system we built, tested with the team and handed over."
-          />
-        </Container>
-      </section>
-
-      <section className="bg-offwhite py-12 sm:py-16 md:py-20">
-        <Container>
-          <WorkGrid projects={projects} />
-        </Container>
-      </section>
+      <PortfolioSoon as="h1" />
+      <FinalCTA />
     </>
   );
 }

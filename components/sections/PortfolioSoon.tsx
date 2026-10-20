@@ -6,15 +6,18 @@ import { Container } from "@/components/layout/Container";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import { RiveScene } from "@/components/motion/RiveScene";
 
-/** Section 2: the portfolio is being framed. A painter and his buddy hang the sign. */
-export function PortfolioSoon() {
+/**
+ * The portfolio is being framed: a painter and his buddy hang the sign. Section 2 on
+ * the home page, and the whole Work page (as its h1) until case studies are public.
+ */
+export function PortfolioSoon({ as: Heading = "h2" }: { as?: "h1" | "h2" }) {
   return (
     <section className="bg-offwhite py-16 text-ink sm:py-24">
       <Container className="flex flex-col items-center text-center">
         <TechLabel tone="dark">Company portfolio</TechLabel>
-        <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+        <Heading className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
           We&rsquo;re framing our best work.
-        </h2>
+        </Heading>
         <RiveScene
           className="mt-8 w-full max-w-[560px]"
           src="/rive/portfolio.riv"
