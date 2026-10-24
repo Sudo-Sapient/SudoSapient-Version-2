@@ -46,6 +46,8 @@ export const metadata: Metadata = {
   title: { default: HOME.title, template: "%s" },
   description: HOME.description,
   applicationName: SITE_NAME,
+  // Google Search Console ownership check (the same code also works as a DNS TXT record)
+  verification: { google: "HRhmj3aqfDDmTIzzkojOUc6sU6K_7iNwcU7sNPhn_dY" },
   openGraph: {
     siteName: SITE_NAME,
     type: "website",
