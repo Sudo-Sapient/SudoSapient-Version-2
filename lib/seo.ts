@@ -12,6 +12,8 @@ export const EMAIL = "sudosapient@gmail.com";
 export const PHONE = "+91-80500-29848";
 export const WHATSAPP_URL = "https://wa.me/918050029848";
 export const INSTAGRAM_URL = "https://www.instagram.com/sudo.sapient/";
+/** Google Analytics 4 measurement ID ("G-XXXXXXXXXX"). Empty turns analytics off. */
+export const GA_ID = "";
 export const FOUNDER_LINKEDIN_URL = "https://www.linkedin.com/in/sabari8956/";
 
 /** The homepage's search title and description, also the site wide default. */
@@ -126,21 +128,24 @@ export const organizationSchema = {
   ],
 };
 
-/** Home > Page breadcrumbs for an interior page. */
-export const breadcrumbSchema = (name: string, path: string) => ({
+/** Breadcrumbs: Home, then any parent pages ([name, path] pairs), then this page. */
+export const breadcrumbSchema = (name: string, path: string, parents: [string, string][] = []) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-    { "@type": "ListItem", position: 2, name, item: `${SITE_URL}${path}` },
-  ],
+  itemListElement: [["Home", "/"], ...parents, [name, path]].map(([n, p], i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: n,
+    item: `${SITE_URL}${p}`,
+  })),
 });
 
 /** A service we offer, provided by the organization. */
-export const serviceSchema = (name: string, description: string) => ({
+export const serviceSchema = (name: string, description: string, path?: string) => ({
   "@context": "https://schema.org",
   "@type": "Service",
   name,
+  ...(path ? { url: `${SITE_URL}${path}` } : {}),
   description,
   serviceType: name,
   provider: { "@id": ORG_ID },

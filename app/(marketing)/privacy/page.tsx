@@ -34,6 +34,10 @@ export default function PrivacyPage() {
           "When you contact us, we collect what you send: your name, work email, company, and what you would like to automate. Our contact form is delivered by a form provider (Formspree) on our behalf. We do not run advertising trackers on this site.",
         ],
         [
+          "Analytics",
+          "We use Google Analytics to understand how people find and use this site: which pages are visited, roughly where visitors are, what device they use, and which links they tap to contact us. It uses cookies, and the data is processed by Google. We don't use it for advertising. You can block it in your browser's privacy settings or with Google's opt out browser add on.",
+        ],
+        [
           "How we use it",
           "We use it to reply to you, plan a possible engagement, keep basic business records, and keep the site safe from abuse. We do not sell your information or use it for anything else.",
         ],

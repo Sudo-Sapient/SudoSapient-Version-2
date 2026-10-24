@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { breadcrumbSchema, faqSchema, pageMetadata, serviceSchema } from "@/lib/seo";
+import { SERVICES } from "@/lib/services";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
@@ -113,6 +115,13 @@ function Stickman({
   );
 }
 
+// Each card links to its own service page; the artboard ties the two together.
+const pageFor = (artboard: string) => {
+  const page = SERVICES.find((p) => p.artboard === artboard);
+  if (!page) throw new Error(`No service page for artboard ${artboard}`);
+  return page;
+};
+
 export default function ServicesPage() {
   return (
     <>
@@ -120,7 +129,11 @@ export default function ServicesPage() {
         data={[
           breadcrumbSchema("Services", "/services/"),
           ...services.map((s) =>
-            serviceSchema(s.title, `${s.line} For example: ${s.examples.join(", ")}. ${s.change}`)
+            serviceSchema(
+              s.title,
+              `${s.line} For example: ${s.examples.join(", ")}. ${s.change}`,
+              `/services/${pageFor(s.artboard).slug}/`
+            )
           ),
           faqSchema(faqs),
         ]}
@@ -171,6 +184,12 @@ export default function ServicesPage() {
                   ))}
                 </ul>
                 <p className="mt-auto pt-6 text-sm font-medium text-blueprint">{s.change}</p>
+                <Link
+                  href={`/services/${pageFor(s.artboard).slug}/`}
+                  className="mt-4 inline-flex min-h-11 items-center self-start border-b border-ink/40 font-mono text-[12px] uppercase tracking-[0.14em] hover:border-blueprint hover:text-blueprint"
+                >
+                  More on {s.title}
+                </Link>
               </article>
             ))}
           </div>

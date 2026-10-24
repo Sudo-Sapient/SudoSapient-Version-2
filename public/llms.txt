@@ -44,5 +44,8 @@ Sudo Sapient has automated logistics operations for Shipzy, a credit engine and 
 
 - [Home](https://sudosapient.com/): what we do and how it works
 - [Services](https://sudosapient.com/services/): AI agents, workflow automation, AI in your software, the two week audit, FAQ
+- [AI agents](https://sudosapient.com/services/ai-agents/): what AI agents handle, client examples, FAQ
+- [Workflow automation](https://sudosapient.com/services/workflow-automation/): connecting your tools, client examples, FAQ
+- [AI in your software](https://sudosapient.com/services/ai-in-your-software/): AI features for software platforms, FAQ
 - [About](https://sudosapient.com/about/): why we exist, what we believe, the team
 - [Contact](https://sudosapient.com/contact/): WhatsApp and email

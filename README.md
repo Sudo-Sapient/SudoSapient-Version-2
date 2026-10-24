@@ -166,3 +166,8 @@ the same signals, all generated from `lib/seo.ts`:
 - **`public/og.png`:** the 1200 × 630 social share image (a real PNG, so link previews work
   on GitHub Pages).
 - The parked `/work/<slug>` case studies are `noindex` and left out of the sitemap.
+- **Service pages:** `/services/<slug>/` are generated from `lib/services.ts` (one search
+  intent per page, with its own FAQs and schema). Add a service there and it gets a page,
+  sitemap entry and card link.
+- **Google Analytics 4:** set `GA_ID` in `lib/seo.ts`. `components/seo/Analytics.tsx` loads it
+  and sends a `generate_lead` event for WhatsApp, email and phone taps.

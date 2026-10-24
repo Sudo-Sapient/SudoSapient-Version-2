@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
+import { SERVICES } from "@/lib/services";
 
 export const dynamic = "force-static"; // emitted as a file in the static export
 
@@ -12,6 +13,11 @@ const PAGES: {
 }[] = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
   { path: "/services/", priority: 0.9, changeFrequency: "monthly" },
+  ...SERVICES.map((s) => ({
+    path: `/services/${s.slug}/`,
+    priority: 0.9,
+    changeFrequency: "monthly" as const,
+  })),
   { path: "/about/", priority: 0.8, changeFrequency: "monthly" },
   { path: "/contact/", priority: 0.8, changeFrequency: "yearly" },
   { path: "/work/", priority: 0.5, changeFrequency: "monthly" },

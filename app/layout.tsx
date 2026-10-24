@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { HOME, SITE_NAME, SITE_URL, organizationSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { Analytics } from "@/components/seo/Analytics";
 import { Archivo, Archivo_Black, IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { BlueprintCursor } from "@/components/cursor/BlueprintCursor";
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body id="top">
         <JsonLd data={organizationSchema} />
+        <Analytics />
         <ClientErrorGuard />
         <MotionPrefs>
           {children}
