@@ -70,7 +70,8 @@ export default function ContactPage() {
               <a href="tel:+918050029848" className="underline underline-offset-4 hover:text-warn">
                 +91 80500 29848
               </a>
-              .
+              . We&rsquo;re based in Bangalore and work with teams across India, in Dubai and
+              remotely anywhere.
             </p>
           </div>
           <div className="lg:col-span-6">

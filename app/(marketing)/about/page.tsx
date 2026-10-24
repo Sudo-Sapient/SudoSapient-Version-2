@@ -8,9 +8,9 @@ import { TeamElevator, type Floor } from "@/components/sections/TeamElevator";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export const metadata = pageMetadata({
-  title: "About Sudo Sapient | AI Transformation Team in India",
+  title: "About Sudo Sapient | AI Transformation Team in Bangalore",
   description:
-    "Meet the Sudo Sapient team: engineers and operators who sit with your people, learn how the work really gets done, and automate the busywork with AI.",
+    "Meet the Sudo Sapient team in Bangalore: engineers and operators who sit with your people across India and Dubai, and automate the busywork with AI.",
   path: "/about/",
 });
 
@@ -113,7 +113,8 @@ export default function AboutPage() {
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">
               Sudo Sapient is a small team of engineers and operators. We learn how your company
               really works, then build the AI that takes the busywork off it. Your people get their
-              time back, and the business moves faster.
+              time back, and the business moves faster. We&rsquo;re based in Bangalore and work with
+              teams across India and in Dubai.
             </p>
           </div>
           <div className="hidden justify-end lg:col-span-3 lg:flex">

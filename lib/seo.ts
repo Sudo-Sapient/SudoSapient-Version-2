@@ -18,7 +18,7 @@ export const FOUNDER_LINKEDIN_URL = "https://www.linkedin.com/in/sabari8956/";
 export const HOME = {
   title: "AI Agents and Workflow Automation for Businesses | Sudo Sapient",
   description:
-    "Sudo Sapient is an AI transformation company in India. We learn how your team works, then build AI agents and automations that save hours every week.",
+    "Sudo Sapient is an AI transformation company in Bangalore, serving India and Dubai. We build AI agents and automations that save your team hours every week.",
 };
 
 const OG_IMAGE = {
@@ -63,6 +63,15 @@ export function pageMetadata({
 
 const ORG_ID = `${SITE_URL}/#organization`;
 
+// Where we work: based in Bangalore, serving India first, Dubai next, and remote clients anywhere.
+const AREA_SERVED = [
+  { "@type": "City", name: "Bengaluru" },
+  { "@type": "Country", name: "India" },
+  { "@type": "City", name: "Dubai" },
+  { "@type": "Country", name: "United Arab Emirates" },
+  "Worldwide",
+];
+
 /** Who we are. Rendered once on every page from the root layout. */
 export const organizationSchema = {
   "@context": "https://schema.org",
@@ -74,11 +83,16 @@ export const organizationSchema = {
       url: `${SITE_URL}/`,
       logo: `${SITE_URL}/icon.svg`,
       description:
-        "Sudo Sapient is an AI transformation company. We learn how a team really works, then build the AI agents and workflow automations that take the busywork off it.",
+        "Sudo Sapient is an AI transformation company based in Bangalore, India, working with teams across India, in Dubai and worldwide. We learn how a team really works, then build the AI agents and workflow automations that take the busywork off it.",
       email: EMAIL,
       telephone: PHONE,
-      address: { "@type": "PostalAddress", addressCountry: "IN" },
-      areaServed: [{ "@type": "Country", name: "India" }, "Worldwide"],
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bengaluru",
+        addressRegion: "Karnataka",
+        addressCountry: "IN",
+      },
+      areaServed: AREA_SERVED,
       knowsAbout: [
         "AI transformation",
         "AI agents",
@@ -96,7 +110,7 @@ export const organizationSchema = {
           email: EMAIL,
           telephone: PHONE,
           url: WHATSAPP_URL,
-          areaServed: ["IN", "Worldwide"],
+          areaServed: ["IN", "AE", "Worldwide"],
           availableLanguage: ["English"],
         },
       ],
@@ -130,7 +144,7 @@ export const serviceSchema = (name: string, description: string) => ({
   description,
   serviceType: name,
   provider: { "@id": ORG_ID },
-  areaServed: [{ "@type": "Country", name: "India" }, "Worldwide"],
+  areaServed: AREA_SERVED,
 });
 
 /** FAQPage built from the questions actually shown on the page. */

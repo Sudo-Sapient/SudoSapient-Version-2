@@ -1,6 +1,6 @@
 # Sudo Sapient
 
-> Sudo Sapient is an AI transformation company based in India, working with clients in India and worldwide. We sit with a company's team, learn how the work really gets done, then build the AI agents and workflow automations that make it faster, easier and more profitable. Clients own everything we build.
+> Sudo Sapient is an AI transformation company based in Bangalore (Bengaluru), India, working with clients across India, in Dubai (UAE) and worldwide. We sit with a company's team, learn how the work really gets done, then build the AI agents and workflow automations that make it faster, easier and more profitable. Clients own everything we build.
 
 ## What we build
 
@@ -32,6 +32,8 @@ A good fit: a team doing the same work every day, someone who owns the problem a
 Sudo Sapient has automated logistics operations for Shipzy, a credit engine and an applicant tracking system for Taamul, the Jgsaw go to market tool, an AI music curator for Fabplay, the Vencuts media agency, and several projects for an AI agency.
 
 ## Contact
+
+- Based in: Bangalore (Bengaluru), Karnataka, India. Serving India, Dubai and remote clients worldwide.
 
 - WhatsApp: https://wa.me/918050029848 (+91 80500 29848)
 - Email: sudosapient@gmail.com

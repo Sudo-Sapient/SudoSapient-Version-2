@@ -10,7 +10,7 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 export const metadata = pageMetadata({
   title: "AI Automation Services for Businesses | Sudo Sapient",
   description:
-    "AI agents, workflow automation and AI features in your software. Start with a two week audit, pilot one fix with your team, then scale what works.",
+    "AI agents, workflow automation and AI in your software for businesses in Bangalore, across India and in Dubai. Start with a two week audit.",
   path: "/services/",
 });
 
