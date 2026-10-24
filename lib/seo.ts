@@ -13,7 +13,7 @@ export const PHONE = "+91-80500-29848";
 export const WHATSAPP_URL = "https://wa.me/918050029848";
 export const INSTAGRAM_URL = "https://www.instagram.com/sudo.sapient/";
 /** Google Analytics 4 measurement ID ("G-XXXXXXXXXX"). Empty turns analytics off. */
-export const GA_ID = "";
+export const GA_ID = "G-BGCMYHT6EF";
 export const FOUNDER_LINKEDIN_URL = "https://www.linkedin.com/in/sabari8956/";
 
 /** The homepage's search title and description, also the site wide default. */
