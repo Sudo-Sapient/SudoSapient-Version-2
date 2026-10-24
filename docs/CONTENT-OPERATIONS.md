@@ -1,80 +1,64 @@
 # Content & Asset Operations
 
-## Case study content source
+All copy lives in the code. The full map of which file holds which copy is in `README.md`,
+"Where content lives". Follow the copy rules there (no dashes as connectors, no arrow
+characters, never say "product", AI transformation positioning).
 
-All case study records live in:
+## Case studies
 
-- `lib/projects.ts`
+Case study records live in `lib/projects.ts`. Each record drives one `/work/[slug]`
+page. These pages are built but **not linked** right now: `/work` and the home page
+show the "coming soon" `PortfolioSoon` section instead.
 
-Each record controls:
+Required fields: `slug`, `title`, `client`, `year`, `discipline` (`"AI agents"`,
+`"Operations"`, `"Content"` or `"Web & Brand"`), `oneLiner`, `problem`, `approach`,
+`outcome`, `metrics`, `isPlaceholder`.
 
-- work index card
-- homepage selected work card
-- dynamic `/work/[slug]` page
-- homepage featured case study eligibility
+Optional fields: `featured`, `image`, `externalUrl` (opens when the hero image is
+clicked).
 
-## Required project fields
+`featured` and `isPlaceholder` are not read by any component at the moment.
 
-Each project uses:
+## Images
 
-- `slug`
-- `title`
-- `client`
-- `year`
-- `discipline`
-- `oneLiner`
-- `problem`
-- `approach`
-- `outcome`
-- `metrics`
-- `isPlaceholder`
+| Folder                 | Use                                                    |
+| ---------------------- | ------------------------------------------------------ |
+| `case-study-sources/`  | Raw originals. Not served                              |
+| `public/case-studies/` | Web ready case study images                            |
+| `public/team/`         | Team photos for the About page elevator                |
+| `public/media/`        | `studio-reel.mp4`, the video over the TV in `FinalCTA` |
 
-Optional fields:
+Process for a case study image:
 
-- `featured`
-- `image`
+1. Drop the original in `case-study-sources/`.
+2. Export a web ready version to `public/case-studies/`.
+3. Reference it in `lib/projects.ts` as `/case-studies/<file>`.
 
-## Image workflow
+Team photos are referenced by `img` in the `team` array in
+`app/(marketing)/about/page.tsx`. Leave `img` out to show no photo.
 
-### Use this folder for production assets
+## Testimonials
 
-- `public/case-studies/`
+Edit the `testimonials` array in `components/sections/Testimonials.tsx`. There are six,
+and each one has a seat and prop in `scripts/rive/testimonials.mjs` in the same order.
+Adding, removing or reordering testimonials means changing that script and running
+`npm run rive:testimonials`.
 
-### Use this folder for raw/source images
+## Animated copy
 
-- `case-study-sources/`
+Some copy is timed to an animation. Change it together with its generator:
 
-Recommended process:
+- `PHRASES` in `components/sections/Pillars.tsx` and `scripts/rive/strike.mjs`
+- `BEATS` in `components/sections/Process.tsx` and `scripts/rive/transform.mjs`
 
-1. Drop original image in `case-study-sources/`
-2. Export a web-ready version
-3. Save the final version to `public/case-studies/`
-4. Reference it in `lib/projects.ts` using a `/case-studies/...` path
+See `docs/RIVE.md`.
 
-## Featured case study behavior
+## Contact flow
 
-The homepage featured case study component looks for:
+- Page copy: `app/(marketing)/contact/page.tsx`
+- Form: `components/sections/ContactForm.tsx`
 
-- first project with `featured: true`
-
-Fallback:
-
-- project with slug `mayaakars`
-
-File:
-
-- `components/sections/FeaturedCaseStudy.tsx`
-
-## Contact flow content
-
-Contact page copy lives in:
-
-- `app/(marketing)/contact/page.tsx`
-
-Contact form behavior lives in:
-
-- `components/sections/ContactForm.tsx`
-
-A valid form submit opens a pre-filled Gmail compose draft addressed to
-`sudosapient@gmail.com`. There is no website submission endpoint or stored lead
-data; update the `RECIPIENT` constant in that component if the inbox changes.
+The form posts to Formspree using `NEXT_PUBLIC_FORMSPREE_ID`. Submissions land in the
+Formspree account for that form, not on this site. If the ID is missing or the request
+fails, the visitor sees a message to email `sudosapient@gmail.com` (`RECIPIENT` in the
+form). The budget and timeline options are `BUDGETS` and `TIMELINES` in the same file.

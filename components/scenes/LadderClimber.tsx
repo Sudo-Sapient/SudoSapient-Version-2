@@ -186,7 +186,7 @@ export function LadderClimber() {
     <div
       ref={rail}
       aria-hidden
-      className="pointer-events-none fixed right-3 top-16 z-30 hidden h-[calc(100vh-4rem)] w-28 text-white lg:block"
+      className="pointer-events-none fixed right-3 top-16 z-30 hidden h-[calc(100vh-4rem)] w-28 text-white min-[1440px]:block"
     >
       <div className="absolute inset-y-0 right-6 w-8 opacity-40">
         <div className="h-full w-full border-x border-current" style={rungStyle} />

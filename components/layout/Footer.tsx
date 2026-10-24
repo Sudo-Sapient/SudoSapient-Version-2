@@ -62,7 +62,7 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/55 transition-colors hover:text-white"
+                      className="inline-flex min-h-11 items-center text-sm text-white/55 transition-colors hover:text-white"
                     >
                       {link.label}
                     </Link>
@@ -71,7 +71,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/contact"
-                    className="text-sm text-warn transition-colors hover:text-white"
+                    className="inline-flex min-h-11 items-center text-sm text-warn transition-colors hover:text-white"
                   >
                     {CTA_LABEL}
                   </Link>
@@ -80,13 +80,22 @@ export function Footer() {
             </nav>
             <div className="flex w-full items-center justify-between gap-3 border-t border-white/10 pt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-white/60 sm:w-auto sm:justify-start sm:border-0 sm:pt-0 sm:tracking-[0.14em]">
               <span>© {year}</span>
-              <Link href="/privacy" className="transition-colors hover:text-white">
+              <Link
+                href="/privacy"
+                className="inline-flex min-h-11 items-center transition-colors hover:text-white"
+              >
                 Privacy
               </Link>
-              <Link href="/terms" className="transition-colors hover:text-white">
+              <Link
+                href="/terms"
+                className="inline-flex min-h-11 items-center transition-colors hover:text-white"
+              >
                 Terms
               </Link>
-              <Link href="#top" className="transition-colors hover:text-warn">
+              <Link
+                href="#top"
+                className="inline-flex min-h-11 items-center transition-colors hover:text-warn"
+              >
                 Top
               </Link>
             </div>

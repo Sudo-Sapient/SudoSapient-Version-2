@@ -31,7 +31,7 @@ export function PortfolioSoon({ as: Heading = "h2" }: { as?: "h1" | "h2" }) {
         <p className="mt-4 max-w-md text-lg text-ink/70">Case studies land soon.</p>
         <Link
           href="/contact"
-          className="mt-5 inline-flex items-center gap-3 border-b border-ink/40 pb-1 font-mono text-[12px] uppercase tracking-[0.16em] transition-colors hover:border-blueprint hover:text-blueprint"
+          className="relative mt-5 inline-flex items-center gap-3 border-b border-ink/40 pb-1 font-mono text-[12px] uppercase tracking-[0.16em] transition-colors after:absolute after:-inset-y-3 after:inset-x-0 after:content-[''] hover:border-blueprint hover:text-blueprint"
         >
           Talk to us meanwhile
         </Link>

@@ -75,21 +75,21 @@ const beliefs = [
     artboard: "Learn",
     title: "We learn before we build.",
     body: "We watch how the work really flows before we write a line of code.",
-    alt: "Our developer stands behind someone at their desk, takes notes on a clipboard, and gets a lightbulb idea.",
+    alt: "Our developer stands behind someone at their desk, writes notes on a clipboard, and gets a lightbulb idea.",
   },
   {
-    src: "/rive/services.riv",
-    artboard: "Flow",
+    src: "/rive/about.riv",
+    artboard: "Queue",
     title: "One fix at a time.",
     body: "Small, proven wins beat a big plan nobody finishes.",
-    alt: "Two stickmen pass a box between them.",
+    alt: "A queue of people at our developer's counter: he fixes the broken thing each one brings, they cheer and walk off, and the next one steps up.",
   },
   {
     src: "/rive/about.riv",
     artboard: "Key",
     title: "It stays yours.",
     body: "Your code, your accounts, your team running it. We hand over the keys.",
-    alt: "A stickman hands another a key, who throws it up happily.",
+    alt: "A stickman hands another a key, and he holds it up and jingles it happily.",
   },
 ];
 
@@ -144,7 +144,7 @@ export default function AboutPage() {
               artboard="Rescue"
               animation="loop"
               frameClassName="aspect-[220/120] w-full"
-              ariaLabel="A worker sinks under a growing pile of paper until our developer pulls him out, and they both cheer."
+              ariaLabel="A worker sinks under a growing pile of paper. Our developer sends in a cute AI agent that swirls round the pile until every sheet sits in a neat stack, and the worker pops back up to cheer."
               fallback={null}
             />
           </div>
@@ -175,7 +175,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24">
+      <section className="relative overflow-clip bg-blueprint py-16 text-white sm:py-24">
         <GridBackground />
         <Container className="relative z-10">
           <TechLabel>The team</TechLabel>

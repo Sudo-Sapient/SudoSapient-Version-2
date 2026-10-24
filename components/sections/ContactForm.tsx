@@ -26,7 +26,8 @@ const TIMELINES = [
   "Exploring",
 ];
 
-// Formspree form ID (https://formspree.io). Without it the form falls back to email.
+// Formspree form ID (https://formspree.io). Without it, submitting shows an error that
+// points the visitor to the email address instead.
 const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
 
 type Status = "idle" | "sending" | "sent" | "error";

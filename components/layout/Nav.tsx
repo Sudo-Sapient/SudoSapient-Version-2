@@ -96,7 +96,7 @@ export function Nav() {
             tears down route-bound GSAP instances after long-lived inner pages. */}
         <a
           href={withBasePath("/")}
-          className="flex items-baseline text-white"
+          className="flex items-baseline whitespace-nowrap text-white"
           aria-label="Sudo Sapient home"
         >
           <span
@@ -110,7 +110,7 @@ export function Nav() {
           <span className="ml-0.5 text-warn">.</span>
         </a>
 
-        <nav aria-label="Primary navigation" className="hidden items-center gap-9 md:flex">
+        <nav aria-label="Primary navigation" className="hidden items-center gap-9 lg:flex">
           {links.map((link) => {
             const active = link.href.startsWith("/#")
               ? false
@@ -130,7 +130,7 @@ export function Nav() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls="mobile-navigation"
-          className="flex h-11 w-11 items-center justify-center text-white md:hidden"
+          className="flex h-11 w-11 items-center justify-center text-white lg:hidden"
           onClick={() => setOpen((value) => !value)}
         >
           <span className="relative block h-[14px] w-[22px]">
@@ -178,7 +178,7 @@ export function Nav() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 0.65, 0.3, 0.9] }}
-            className="overflow-hidden border-t border-white/15 bg-blueprint md:hidden"
+            className="overflow-hidden border-t border-white/15 bg-blueprint lg:hidden"
           >
             <Container className="flex flex-col py-4">
               {links.map((link, index) => (
@@ -216,14 +216,14 @@ function MinimalLink({ href, label, active }: { href: string; label: string; act
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "group relative font-mono text-[12px] uppercase tracking-[0.18em] transition-colors",
+        "group relative py-3 font-mono text-[12px] uppercase tracking-[0.18em] transition-colors",
         active ? "text-white" : "text-white/70 hover:text-white"
       )}
     >
       {label}
       <span
         className={cn(
-          "absolute -bottom-1.5 left-0 h-px w-full origin-left bg-warn transition-transform duration-300 ease-out",
+          "absolute bottom-1.5 left-0 h-px w-full origin-left bg-warn transition-transform duration-300 ease-out",
           active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
         )}
       />

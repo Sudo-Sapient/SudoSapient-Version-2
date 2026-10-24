@@ -1,293 +1,148 @@
 # Handoff Guide
 
-## Repository purpose
+## What this repo is
 
-This repo contains the public-facing Sudo Sapient marketing website.
+The public marketing site for Sudo Sapient, an AI transformation studio. Its jobs: explain
+the offer, show the team, and collect leads through the contact form. There is no CMS,
+no database and no backend; all copy lives in the code.
 
-Primary goals of the codebase:
-
-- present the studio brand clearly
-- showcase selected case studies
-- collect inbound leads through the contact form
-- stay easy to maintain for future designers/developers
+Read `README.md` first for setup, routes and where content lives.
 
 ## First things a new developer should know
 
-### 1) The main content source is `lib/projects.ts`
-
-Case studies are not coming from a CMS yet.
-
-If you need to:
-
-- add a new project
-- update copy
-- change featured work
-- update work page cards
-
-start in:
-
-- `lib/projects.ts`
-
-### 2) The homepage is section-driven
-
-The homepage imports reusable sections from `components/sections/`.
-
-Entry point:
-
-- `app/(marketing)/page.tsx`
-
-This means a redesign is usually easiest if you:
-
-1. keep the page composition file small
-2. edit or replace the relevant section component
-3. avoid putting large blocks of markup directly in the page route
-
-### 3) Shared chrome is already separated
-
-Navigation and footer are centralized.
-
-Use:
-
-- `components/layout/Nav.tsx`
-- `components/layout/Footer.tsx`
-
-Avoid duplicating nav/footer logic inside individual pages.
-
-### 4) Contact form opens Gmail directly
-
-The contact form lives in:
-
-- `components/sections/ContactForm.tsx`
-
-A valid submit opens a pre-filled Gmail compose tab addressed to
-`sudosapient@gmail.com`; nothing is posted to this website or persisted by it.
-There are no contact-form deployment environment variables. If the studio inbox
-changes, update the `RECIPIENT` constant in that component.
-
-## Folder responsibilities
-
-### `app/`
-
-Next.js routes, route groups, and layouts.
-
-### `components/blueprint/`
-
-Brand-specific visual language and reusable presentation primitives.
-Examples:
-
-- frames
-- diagram components
-- technical labels
-- grid backgrounds
-
-### `components/sections/`
-
-Marketing sections composed into pages.
-This is usually where most content/layout updates should happen.
-
-### `components/ui/`
-
-Low-level reusable UI controls.
-Keep these generic.
-
-### `components/figures/`
-
-Illustrative stick-figure components used in the brand system. They share one
-40×70 rig (`figures/rig.ts`) and animate via flipbook (see "Animation &
-interactive systems" below).
-
-### `components/scenes/`
-
-GSAP + ScrollTrigger scenes that animate the figures on scroll (hero "plotter
-pass", process "drafting pass", the side `LadderClimber`). These use the premium
-DrawSVGPlugin.
-
-### `components/motion/`
-
-Text-reveal primitive (`AnimatedText`) — rise / scramble / typewriter effects
-built on Framer Motion + split-type.
-
-### `components/cursor/`
-
-The custom blueprint crosshair cursor (`BlueprintCursor`). Desktop / fine-pointer
-only; hidden on touch and under reduced motion.
-
-### `components/interactive/`
-
-Interaction wrappers — currently `Shootable`, the "shoot the stickman" easter
-egg layered over figures without touching their base animation.
-
-### `components/system/`
-
-App-wide client guards. `ClientErrorGuard` auto-recovers from stale code-chunk
-errors (e.g. an open tab after a redeploy) and silences benign ResizeObserver
-noise. Mounted once in `app/layout.tsx`.
-
-### `lib/`
-
-Shared data and utilities.
-
-### `public/`
-
-Web-served assets.
-Anything referenced by `next/image` using a string path should be here.
-
-### `case-study-sources/`
-
-Source/original case study images. Treat this as a raw asset holding area.
-The website serves images from `public/case-studies/`, not from here.
-
-### `archive/`
-
-Reference-only material (the figure-library sandbox). Not part of the main app
-runtime. It is excluded in `tsconfig.json` and ignored by ESLint config.
-See `archive/README.md`.
-
-## Animation & interactive systems
-
-This site has a custom **2D** animation layer (no 3D). It is the part most likely
-to confuse a new developer, so it is documented here in full.
-
-### Fonts
-
-`app/layout.tsx` loads three faces via `next/font`, exposed as Tailwind tokens:
-**Archivo Black** — display/wordmark → `font-display`; **Archivo** →
-`font-sans` (body copy); **IBM Plex Mono** → `font-mono` (technical labels).
-
-### Stick-figure system (`components/figures/`)
-
-- `rig.ts` defines the shared **40×70 viewBox**, head radius, and `2.35px`
-  stroke weight used by the main figure family.
-- `ClimberStylePoses.tsx` and `ClimberPosePlayer.tsx` provide the preferred
-  thick, articulated pose language. New figures should use bent joints,
-  connected props, planted feet, and the shared stroke weight.
-- Small repeated motions (walk cycle, bobbing) live in `app/globals.css`.
-  Scripted scenes use GSAP but must not animate the same SVG path with both
-  DrawSVGPlugin and MorphSVGPlugin; that previously caused partial limbs.
-- `MascotFigure` is the roaming "doorman" used by the team grid.
-- All figure motion is disabled under `prefers-reduced-motion`.
-
-### Scroll scenes (`components/scenes/`)
-
-GSAP + ScrollTrigger (+ DrawSVGPlugin) drive the hero, process pipeline, and the
-side `LadderClimber`. The climber recolours itself to stay legible over light/
-dark sections; that recolour is **throttled (~7×/s)** so it doesn't force layout
-on every scroll frame.
-
-### Text reveals (`components/motion/AnimatedText.tsx`)
-
-`<AnimatedText variant="rise|scramble|typewriter" … />`. The real text is always
-in the DOM (SSR + accessibility via `aria-label`); the animated copy is
-`aria-hidden`. Reduced motion shows the final text immediately.
-
-### Custom cursor (`components/cursor/BlueprintCursor.tsx`)
-
-A blueprint crosshair that recolours (white on dark, blue on light) and snaps CAD
-brackets onto links/buttons/figures. Fine-pointer only. Its background detection
-is throttled so the crosshair itself stays frame-smooth.
-
-### Blueprint WebGL background (`components/blueprint/BlueprintCanvas.tsx`)
-
-A single **OGL** fragment shader (deep-blue grid that drifts, a sweeping light,
-paper grain, a cursor ripple, and a scroll "print-in"). It is layered on top of
-the static `<GridBackground/>` (which is the **no-WebGL fallback**). Important
-behaviours:
-
-- **One instance only — the homepage Hero.** Every mounted canvas is its own
-  WebGL context, and browsers cap simultaneous contexts (~8–16). To stay well
-  clear of that limit, only the Hero runs the live shader; all other blue
-  sections use the static `<GridBackground/>` (visually near-identical). **Do not
-  scatter `<BlueprintCanvas/>` across many sections** — that's what caused the
-  blank/"lost context" renders. If you need it lower on a page, refactor to one
-  shared/fixed canvas first.
-- **Disabled on phones (<768px)** — the cheap static grid shows instead.
-- DPR capped at 1.5; the render loop **pauses** when off-screen or the tab is
-  hidden.
-- **Fails safe**: if the GPU drops the WebGL context, the loop stops and the
-  static grid shows — it must never throw inside the render loop.
-
-### "Shoot the stickman" easter egg (`components/interactive/Shootable.tsx`)
-
-Aim the crosshair at a figure → it surrenders → click to "shoot" it. It randomly
-falls over or fades out, then respawns. It is **additive** — it wraps a figure
-without changing the figure's own animation.
-
-### Team grid (`components/sections/TeamGrid.tsx`)
-
-Portraits are **flip-lid cards** (front photo / back bio). The bio + focus tags
-come from the `team` array in `app/(marketing)/about/page.tsx` (placeholder copy
-— safe to edit). On single-row desktop a roaming `MascotFigure` walks to the
-clicked card and "opens" it; below `lg`, or on touch / reduced motion, the card
-just flips on tap. **Faces are never covered.**
-
-### Performance & device rules (follow these when adding effects)
-
-- Gate heavy/continuous work behind `prefers-reduced-motion` and pointer/size
-  media queries (see existing components for the pattern).
-- Throttle any per-scroll or per-pointer work that reads layout
-  (`getBoundingClientRect`, `getComputedStyle`, `elementsFromPoint`).
-- WebGL is desktop/tablet only and must degrade to the static grid.
-
-### Dependency note
-
-"**Motion**" in this project means **Framer Motion** (`framer-motion`). The
-standalone `motion` and `lenis` packages are intentionally **not** installed.
-Animation libraries in use: `framer-motion`, `gsap` (+ ScrollTrigger,
-DrawSVGPlugin), `ogl` (WebGL background), `split-type` (text splitting).
+1. **Pages are thin, sections do the work.** Home composes sections from
+   `components/sections/`. Services and About keep their copy inline in the page file.
+2. **Every stickman animation is a generated Rive file.** Edit `scripts/rive/<name>.mjs`,
+   run `npm run rive:<name>`, commit the `.riv`. Full guide: `docs/RIVE.md`.
+3. **Some UI is timed against the animations.** Process, Pillars, Testimonials,
+   TeamElevator and FinalCTA hold constants that must match the generator scripts. The
+   table is in `docs/RIVE.md`, "Syncing pages to animations".
+4. **The contact form posts to Formspree** and needs `NEXT_PUBLIC_FORMSPREE_ID` at build
+   time. Without it every submit shows the "email us directly" error.
+5. **Case studies are parked.** `/work` shows a "coming soon" portfolio. The
+   `/work/[slug]` pages still build from `lib/projects.ts` but nothing links to them.
+
+## Shared chrome
+
+`app/(marketing)/layout.tsx` wraps every page in `Nav`, the right edge `LadderClimber`, and
+`Footer`. `app/layout.tsx` adds the fonts, `BlueprintCursor`, `ClientErrorGuard` and
+`MotionPrefs`. Do not duplicate nav or footer inside pages.
+
+## Animation and interactive systems
+
+### Rive scenes (`components/motion/`)
+
+`RiveScene` lazy loads `RivePlayer` (the Rive runtime) only when a scene nears the
+viewport and its `.riv` exists. Until then, and always under `prefers-reduced-motion`,
+it renders the `fallback` prop. Scenes pause while off screen. Details in `docs/RIVE.md`.
+
+| Section                | Rive file                   | Fallback                                    |
+| ---------------------- | --------------------------- | ------------------------------------------- |
+| `Hero`                 | `hero.riv`                  | `HeroScene` (GSAP DrawSVG plotter)          |
+| `Pillars`              | `strike.riv`                | none; first phrase shown struck out         |
+| `PortfolioSoon`        | `portfolio.riv`             | "Coming soon" text                          |
+| `Process`              | `transform.riv`             | text list of the beats                      |
+| `Testimonials`         | `testimonials.riv`          | none                                        |
+| `FinalCTA`             | `cta.riv` + video overlay   | one line of text; no video                  |
+| `TeamElevator`         | `about.riv` cabs            | photo only (Kishen: "Classified")           |
+| `Footer`               | `footer.riv`                | `FooterScene` / `MobileFooterLaunch` (GSAP) |
+| `LadderClimber`        | `climber.riv`               | static SVG climber                          |
+| Services, About, legal | `services.riv`, `about.riv` | none                                        |
+
+### Team elevator (`components/sections/TeamElevator.tsx`)
+
+The About page team section. Pressing a floor shuts the doors, ticks the floor counter,
+dings, and opens on that person's cab in `about.riv` (state machine `SM`): they are
+caught slacking (`caught`), then pretend to code (`code`). After `gagMs` the real photo
+fades in. Tapping the cab swaps photo and stickman. The lift tours all floors on its own
+until the visitor presses one. Kishen (floor 6) has no photo: after `shotMs` he shoots,
+the glass cracks, the lift drops out of frame and a new one lands and restarts the tour.
+Under reduced motion there are no gags and no tour, only the photo on arrival.
+
+Team data (`name`, `role`, `img`, `artboard`, `gagMs`, `shotMs`, `caught`, `bio`) is the
+`team` array in `app/(marketing)/about/page.tsx`. Adding a person means adding a cab in
+`scripts/rive/cabs.mjs`, rebuilding `about.riv`, and adding a floor with matching
+`artboard` and `gagMs`.
+
+### Testimonials podium
+
+`Testimonials.tsx` drives the `Podium` state machine's `speaker` input with the active
+index. It rotates every 9.5s while on screen, stops once the visitor picks a client, and
+never rotates under reduced motion. The six seats and props in `testimonials.mjs` follow
+the order of the `testimonials` array, so reordering one means reordering the other.
+
+### Final CTA
+
+Hover or focus on the main button sets `seat` in `cta.riv` and an empty chair slides in.
+A muted, looping `public/media/studio-reel.mp4` sits over the TV drawn in the scene
+(hidden below `sm` and under reduced motion), with a "Sound on" toggle. It uses
+`preload="none"` and only plays while on screen.
+
+### Ladder climber (`components/scenes/LadderClimber.tsx`)
+
+A climber on a ladder at the right edge (`lg` and up). GSAP ScrollTrigger moves him down
+the rail with scroll; `climber.riv` animates the figure from three bool inputs. He
+recolours over light and dark sections and can be "shot" with the cursor.
+
+### Other systems
+
+- `AnimatedText` (`components/motion/`): rise, scramble and typewriter text reveals
+  (GSAP + split-type). Real text stays in the DOM for SEO and screen readers.
+- `BlueprintCursor`: crosshair cursor, only on devices with hover and a fine pointer.
+- `BlueprintCanvas`: OGL WebGL grid behind the home hero only. Every canvas is its own
+  WebGL context, so do not add more instances; other blue sections use the static
+  `GridBackground`. Disabled on phones and fails safe to the static grid.
+- `Shootable` (`components/interactive/`): the "shoot the stickman" easter egg on the
+  older SVG figures.
+- `components/figures/`: the older SVG figure library (40 × 70 rig). Still used by the
+  fallbacks, `ContactSuccessScene` and `/work/[slug]`. New animation work goes into Rive.
+
+### Motion rules
+
+- Respect `prefers-reduced-motion`. `MotionPrefs` covers framer-motion, `RiveScene`
+  covers Rive; anything else must check it itself.
+- framer-motion overwrites the `transform` of `motion.*` elements, so Tailwind
+  translate/scale classes on them are lost. Position with a static wrapper.
+- Throttle any per scroll or per pointer work that reads layout.
+- "Motion" here means `framer-motion`. The standalone `motion` and `lenis` packages are
+  not installed.
 
 ## Safe change workflow
 
-### Content-only update
+Content or copy change:
 
-1. Edit `lib/projects.ts` or the relevant section file.
-2. Run `npm run lint`
-3. Run `npm run typecheck`
-4. Run `npm run build`
+1. Edit the file listed in README "Where content lives". Follow the copy rules there.
+2. `npm run format`, then `npm run validate`.
 
-### Layout/style update
+Animation change:
 
-1. Update the relevant section or layout component.
-2. Check responsive behavior on home, work, and contact pages.
-3. Re-run lint, typecheck, and build.
+1. Edit the generator, run `npm run rive:<name>`, check it in `npm run dev -- -p 4000`.
+2. If timing changed, update the synced constants (`docs/RIVE.md`).
+3. Commit the script and the `.riv` together.
 
-### Adding a new case study
+Re-launching case studies:
 
-1. Add the image to `public/case-studies/`
-2. Add the project object to `lib/projects.ts`
-3. Confirm the slug is clean and URL-safe
-4. Verify `/work/[slug]` builds correctly
-5. If it should be featured on the homepage, set `featured: true`
+1. Add images to `public/case-studies/` and records to `lib/projects.ts`.
+2. Replace `PortfolioSoon` on `app/(marketing)/work/page.tsx` with a real index and link
+   to `/work/[slug]`.
 
-## Current technical decisions
+## Tests
 
-- App Router is being used, not Pages Router.
-- Styling is Tailwind-based.
-- Motion is handled with Framer Motion; scroll choreography with GSAP +
-  ScrollTrigger (+ DrawSVGPlugin); the ambient blueprint background with OGL.
-- The visual identity is strictly 2D (a blueprint / CAD aesthetic). 3D /
-  react-three-fiber was tried and removed — keep it 2D.
-- Project data is file-based, not CMS-based.
-- There is no backend database in this repo.
+Vitest + Testing Library (jsdom). Tests sit next to the code: `lib/projects.test.ts`,
+`lib/utils.test.ts`, `components/blueprint/TechLabel.test.tsx`. Animations are checked by
+the build and by hand.
 
 ## Known caveats
 
-### Gmail compose is client-side
-
-The contact page depends on Gmail being available in the visitor's browser. A
-visible `mailto:sudosapient@gmail.com` fallback is shown after they submit if a
-browser blocks the new compose tab.
-
-### Duplicate/auxiliary asset areas exist by design
-
-- `public/case-studies/` = app-ready assets
-- `case-study-sources/` = original/raw image drop zone
-- `archive/figures-sandbox/` = archived sandbox project
-
-Do not merge these blindly without checking how they are being used.
+- Team bios, FAQ answers and the privacy and terms pages are marked as drafts in the
+  code. The legal pages say to have them reviewed by a lawyer.
+- `Project.featured` and `Project.isPlaceholder` in `lib/projects.ts` are not read by any
+  component since the redesign.
 
 ## Recommended next improvements
 
-1. Introduce a CMS if non-developers need to edit case studies
-2. Add a database/CRM webhook if structured lead history is required later
-3. Add image optimization/source-of-truth rules if more case studies are coming
-4. Keep Next.js patched as upstream security releases become available
+1. Set `NEXT_PUBLIC_FORMSPREE_ID` in every build environment (including the GitHub
+   Pages workflow) and test a real submit.
+2. Publish real case studies and relink `/work/[slug]`.
+3. Remove unused dependencies and components once confirmed.
+4. Keep Next.js patched.

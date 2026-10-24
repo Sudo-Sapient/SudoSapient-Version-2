@@ -18,7 +18,7 @@ export function Hero() {
     <section className="relative isolate overflow-hidden bg-blueprint text-white">
       <GridBackground />
       <BlueprintCanvas reveal={false} />
-      <Container className="relative z-10 flex min-h-[calc(100dvh-4rem)] flex-col justify-center py-14 sm:py-20 md:py-24">
+      <Container className="relative z-10 flex flex-col justify-center py-14 sm:py-20 md:py-24 lg:min-h-[calc(100dvh-4rem)]">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="flex flex-col gap-6 lg:col-span-7">
             <TechLabel>
@@ -61,7 +61,7 @@ export function Hero() {
                 <Link href="/contact">{CTA_LABEL}</Link>
               </Button>
               <Button asChild variant="ghost" size="lg">
-                <Link href="/work">See transformations</Link>
+                <Link href="#how-we-transform">See transformations</Link>
               </Button>
             </motion.div>
           </div>
@@ -70,7 +70,7 @@ export function Hero() {
             initial={{ opacity: 0, x: 12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mx-auto w-full max-w-xl lg:col-span-5"
+            className="relative mx-auto w-full max-w-xl lg:col-span-5 [@media(max-height:500px)]:hidden lg:[@media(max-height:500px)]:block"
           >
             <RiveScene
               src="/rive/hero.riv"

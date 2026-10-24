@@ -251,62 +251,28 @@ function goSit(k, id, f0, f1, from) {
 const PL = X + 31; // laptop on the desk, in reach of the chair
 
 export const cabs = [
-  // Sabari: standing between two desks, a laptop under each hand, coding on both.
+  // Sabari: always coding. Three laptops on the go: he types on the main one while the
+  // other two (one stacked on the other) keep running, and he checks on them now and then.
   cab("Sabari", {
-    desk: false,
     setup(k) {
-      for (const [id, x0, x1] of [
-        ["tL", 6, 38],
-        ["tR", 82, 114],
-      ]) {
-        k.line(
-          `${id}Top`,
-          [
-            { x: x0, y: CG - 34 },
-            { x: x1, y: CG - 34 },
-          ],
-          { stroke: thin(2.4) }
-        );
-        k.line(
-          `${id}Leg`,
-          [
-            { x: (x0 + x1) / 2, y: CG - 34 },
-            { x: (x0 + x1) / 2, y: CG },
-          ],
-          { stroke: thin(1.8) }
-        );
-      }
-      laptop(k, "lapL", 26, CG - 34, { scaleX: -1 });
-      laptop(k, "lapR", 94, CG - 34);
-      // a third one, balanced on top of the right one, also running
-      laptop(k, "lapT", 94, CG - 52, { scaleX: 0.8, scaleY: 0.8 });
-      k.figure("s", 60, { glasses: true });
+      k.figure("s", X, { glasses: true });
+      chair(k, X);
+      laptop(k, "lapA", PL, CG - 34);
+      laptop(k, "lapB", PL + 26, CG - 34, { scaleX: 0.85, scaleY: 0.85 });
+      laptop(k, "lapC", PL + 26, CG - 50, { scaleX: 0.7, scaleY: 0.7 });
     },
     code(k) {
-      const reachBoth = (lx, ly, rx, ry, lean) => ({
-        ...STAND,
-        ...k.reach("s", "L", lx, ly),
-        ...k.reach("s", "R", rx, ry),
-        lean,
-      });
-      const A = reachBoth(-22, -35, 21, -38, -2);
-      const B = reachBoth(-21, -38, 22, -35, 2);
-      for (let t = 0; t < 96; t += 10) {
-        k.pose("s", t, A);
-        k.pose("s", t + 5, B);
-      }
-      k.pose("s", 96, A);
-      k.key("s_body", "y", [
-        [0, 0, "ease-in-out"],
-        [24, 1.5, "ease-in-out"],
-        [48, 0, "ease-in-out"],
-        [72, 1.5, "ease-in-out"],
-        [96, 0, "ease-in-out"],
-      ]);
-      codeRun(k, "lapL", 0, 96, 16);
-      codeRun(k, "lapR", 4, 96, 20);
-      codeRun(k, "lapT", 8, 96, 26);
-      return 96;
+      sit(k, "s", 0);
+      const GLANCE = { ...SIT, faL: -20, faR: -30, lean: -6 };
+      typing(k, "s", 0, 96, 8);
+      k.pose("s", 108, GLANCE, "ease-in-out"); // a look at the other two
+      k.pose("s", 128, GLANCE);
+      k.pose("s", 138, TYPE_A, "ease-in-out");
+      typing(k, "s", 138, 240, 8);
+      codeRun(k, "lapA", 0, 240, 26);
+      codeRun(k, "lapB", 6, 240, 34);
+      codeRun(k, "lapC", 12, 240, 30);
+      return 240;
     },
   }),
 

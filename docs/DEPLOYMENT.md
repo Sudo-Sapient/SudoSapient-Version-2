@@ -8,14 +8,18 @@ This is the release checklist for the Sudo Sapient marketing site.
 - `npm ci` rather than `npm install` in CI so the committed `package-lock.json` is honored.
 - A deployment platform that supports the Next.js App Router (for example Vercel).
 
-## 2. Contact form behavior
+## 2. Environment variables
 
-The contact form is client-side and opens a pre-filled Gmail compose window to
-`sudosapient@gmail.com`. It does not require API keys or deployment environment
-variables, and it does not store visitor details on the site.
+| Variable                   | Needed for                                                                 |
+| -------------------------- | -------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_FORMSPREE_ID` | Contact form. Formspree form ID (the part after `/f/`). See `.env.example` |
+| `NEXT_PUBLIC_BASE_PATH`    | Optional. Only if the site is served from a sub path                       |
+| `GITHUB_PAGES`             | Set to `true` for a static export (`output: "export"`)                     |
 
-If the studio inbox changes, update `RECIPIENT` in
-`components/sections/ContactForm.tsx`.
+`NEXT_PUBLIC_*` values are baked in at build time. Without `NEXT_PUBLIC_FORMSPREE_ID`
+the site still builds, but every contact form submit shows the "email us directly"
+error. The GitHub Pages workflow does not set it yet; add it as a repository variable or
+secret and pass it to the build step.
 
 ## 3. Required release gate
 
@@ -31,7 +35,7 @@ npm run validate
 
 1. TypeScript validation
 2. ESLint
-3. Vitest unit/API tests
+3. Vitest tests
 4. Production build
 
 Do not deploy if one of these fails.
@@ -41,18 +45,20 @@ Do not deploy if one of these fails.
 ### GitHub Pages (configured)
 
 This repository includes `.github/workflows/deploy-pages.yml`. Every push to
-`main` validates the project, exports it under the repository base path, and
-deploys the `out/` artifact to GitHub Pages.
-
-Expected URL:
+`main` runs typecheck, lint and tests, builds a static export with
+`GITHUB_PAGES=true`, and deploys `out/` to GitHub Pages. `public/CNAME` points the
+site at the custom domain:
 
 ```text
-https://sudo-sapient.github.io/SudoSapient-Version-2/
+https://sudosapient.com
 ```
 
+No base path is set, because the site is served from the domain root.
+
 GitHub Pages is static hosting, but all browser-side functionality remains
-interactive: GSAP and Framer Motion animations, WebGL, navigation, selectors,
-video playback, and stickman interactions. Server-only APIs are not supported;
+interactive: Rive scenes, GSAP and Framer Motion animations, WebGL, navigation,
+selectors, video playback, and stickman interactions. Security headers from
+`next.config.ts` are not applied on a static export. Server-only APIs are not supported;
 this project does not currently require one.
 
 To reproduce the Pages build locally:
@@ -67,7 +73,7 @@ GITHUB_PAGES=true npm run build
 2. Framework preset: **Next.js**.
 3. Build command: `npm run build` (default is fine).
 4. Install command: `npm ci`.
-5. Add the production environment variables above.
+5. Add `NEXT_PUBLIC_FORMSPREE_ID` to the environment variables.
 6. Deploy a preview first, then promote it after completing the smoke checklist.
 
 ### Other Node hosts
@@ -86,17 +92,17 @@ The host must forward traffic to the `PORT` it provides. Do not hard-code port
 On the deployed URL, check these at desktop, tablet, and mobile widths:
 
 - `/`, `/about`, `/services`, `/work`, `/contact`, `/privacy`, `/terms`
-- every `/work/[slug]` case-study route
+- `/work` shows the "coming soon" portfolio; `/work/[slug]` pages still render
 - navigation opens/closes on touch and keyboard
 - no horizontal page scroll at 320px wide
-- figure scenes stay inside their panels; mobile fallbacks remain readable
+- Rive scenes load (no 404s for `/rive/*.riv` or `/rive/rive.wasm`) and stay inside
+  their panels
 - `prefers-reduced-motion` leaves content visible without continuous motion
 - the Final CTA video loads, plays, and its mute control works
-- submit the contact form and confirm a Gmail compose tab opens with the
-  recipient, subject, and form details pre-filled; test the visible mailto
-  fallback too
+- submit the contact form and confirm the success scene shows and the entry
+  arrives in Formspree
 - verify the 404 route and social/Open Graph preview
-- inspect the production response headers (`X-Content-Type-Options`, `X-Frame-Options`,
+- on a Node host (not GitHub Pages), inspect the production response headers (`X-Content-Type-Options`, `X-Frame-Options`,
   `Referrer-Policy`, and `Permissions-Policy`)
 
 ## 6. Rollback

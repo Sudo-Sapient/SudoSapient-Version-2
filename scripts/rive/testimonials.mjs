@@ -392,8 +392,8 @@ const desktop = scene({
 const mobile = scene({
   name: "Mobile",
   w: 340,
-  h: 170,
-  ground: 160,
+  h: 112, // short: the figures only need the bottom of the card on phones
+  ground: 104,
   podium: 236,
   seats: [20, 60, 100, 140, 288, 326],
 });

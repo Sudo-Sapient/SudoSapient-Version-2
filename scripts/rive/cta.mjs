@@ -2,7 +2,7 @@
 // A client and our dev at a café table. The client describes the mess and scribbles
 // a tangle on a napkin; our dev listens, sips, then draws three neat boxes beside it.
 // Ticks pop on all three, the client breathes out, they shake on it. A clock sweeps
-// round over the loop, and the TV on the wall plays our reel (a video laid over it).
+// round over the loop, and a TV on the sideboard plays our reel (a video laid over it).
 // State machine "SM": layer Main loops `napkin`; layer Seat slides an empty chair in
 // while bool input `seat` is true (the page sets it on CTA hover).
 // Run: npm run rive:cta.
@@ -219,36 +219,63 @@ BOX.forEach((bx, i) => {
   );
 });
 
-// ---- a TV on the wall; FinalCTA.tsx plays the studio reel over its screen ----
-// Screen in artboard units: x 219 to 289, y 30 to 70 (FinalCTA.tsx positions the video by these).
+// ---- a TV on a sideboard behind the dev; FinalCTA.tsx plays the studio reel over it ----
+// Screen in artboard units: x 220 to 286, y 68 to 106 (FinalCTA.tsx positions the video by these).
+shapes.push({
+  id: "sideboard",
+  type: "rect",
+  x: 253,
+  y: 131,
+  width: 76,
+  height: 38,
+  cornerRadius: 2,
+  stroke: ink(2),
+  fill: { color: BG },
+});
+line(
+  "sideboardSplit",
+  [
+    { x: 253, y: 116 },
+    { x: 253, y: 146 },
+  ],
+  { stroke: ink(1.2), opacity: 0.6 }
+);
+for (const kx of [247, 259])
+  shapes.push({
+    id: `knob${kx}`,
+    type: "ellipse",
+    x: kx,
+    y: 131,
+    width: 2.4,
+    height: 2.4,
+    fill: { color: WHITE },
+  });
+line(
+  "tvFoot",
+  [
+    { x: 244, y: 112 },
+    { x: 262, y: 112 },
+  ],
+  { stroke: ink(2.2) }
+);
 shapes.push({
   id: "tv",
   type: "rect",
-  x: 254,
-  y: 50,
-  width: 76,
-  height: 46,
+  x: 253,
+  y: 87,
+  width: 72,
+  height: 44,
   cornerRadius: 3,
   stroke: ink(2.2),
   fill: { color: "#0E1424" },
 });
-line(
-  "tvMount",
-  [
-    { x: 254, y: 73 },
-    { x: 254, y: 80 },
-    { x: 246, y: 80 },
-    { x: 262, y: 80 },
-  ],
-  { stroke: ink(1.6), opacity: 0.6 }
-);
 shapes.push({
   id: "tvLed",
   type: "ellipse",
-  x: 286,
-  y: 75.5,
-  width: 2.4,
-  height: 2.4,
+  x: 284,
+  y: 107.5,
+  width: 2,
+  height: 2,
   fill: { color: AMBER },
 });
 

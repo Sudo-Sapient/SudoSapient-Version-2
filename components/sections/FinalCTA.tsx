@@ -93,8 +93,15 @@ export function FinalCTA() {
               }
             />
             {mounted && !reduce && (
-              // Sits exactly over the TV screen drawn in cta.riv (x 219 to 289, y 30 to 70 of 300x170).
-              <div className="absolute left-[73%] top-[17.65%] hidden h-[23.53%] w-[23.33%] overflow-hidden rounded-[2px] sm:block">
+              // Sits exactly over the TV screen drawn in cta.riv (x 220 to 286, y 68 to 106 of 300x170).
+              // The whole screen is the sound toggle: a far bigger target than a label on a tiny TV.
+              <button
+                type="button"
+                aria-pressed={!muted}
+                aria-label={muted ? "Play the reel with sound" : "Mute the reel"}
+                onClick={() => setMuted((m) => !m)}
+                className="group absolute left-[73.33%] top-[40%] h-[22.35%] w-[22%] overflow-hidden rounded-[2px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-warn"
+              >
                 <video
                   ref={video}
                   src={withBasePath("/media/studio-reel.mp4")}
@@ -102,18 +109,13 @@ export function FinalCTA() {
                   loop
                   muted={muted}
                   playsInline
-                  aria-label="Sudo Sapient studio reel"
+                  aria-hidden
                   className="h-full w-full object-cover"
                 />
-                <button
-                  type="button"
-                  aria-pressed={!muted}
-                  onClick={() => setMuted((m) => !m)}
-                  className="absolute bottom-0 right-0 min-h-6 bg-[#0E1424]/85 px-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-white hover:text-warn focus-visible:outline focus-visible:outline-2 focus-visible:outline-warn"
-                >
-                  {muted ? "Sound on" : "Mute"}
-                </button>
-              </div>
+                <span className="absolute right-0.5 top-0.5 bg-[#0E1424]/80 px-1 font-mono text-[8px] uppercase leading-4 tracking-[0.1em] text-white group-hover:text-warn sm:text-[9px]">
+                  {muted ? "Sound" : "Mute"}
+                </span>
+              </button>
             )}
           </div>
         </div>

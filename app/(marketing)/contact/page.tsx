@@ -24,13 +24,13 @@ export default function ContactPage() {
           <div className="grid gap-8 md:gap-12 lg:grid-cols-12">
             <div className="flex flex-col gap-6 lg:col-span-5">
               <TechLabel>{"// SPEC SHEET"}</TechLabel>
-              <h1 className="font-display text-3xl font-extrabold leading-[0.95] tracking-tight-2 sm:text-4xl md:text-5xl">
+              <h1 className="font-serif text-4xl leading-[1.02] tracking-[-0.02em] sm:text-5xl md:text-6xl">
                 Tell us how your company runs today.
               </h1>
               <p className="text-white/80">
-                Give us the context: your teams, where work piles up, and what AI-native would mean
-                for you. We&rsquo;ll reply within one working day with whether we&rsquo;re the right
-                partner and what an audit would cover.
+                Give us the context: your teams, where work piles up, and what you would love to
+                stop doing by hand. We&rsquo;ll reply within one working day with whether
+                we&rsquo;re the right partner and what an audit would cover.
               </p>
               <div className="mt-2 grid grid-cols-2 gap-3 border-t border-white/20 pt-4">
                 <Metadatum label="RESPONSE" value="< 24 HRS" />

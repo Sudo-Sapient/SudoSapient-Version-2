@@ -34,7 +34,7 @@ export function BlueprintFrame({
         <Field label="TYPE" value={type} tone={tone} />
         <Field label="VERSION" value={`${version} · ${date}`} tone={tone} />
       </div>
-      <CornerBrackets tone={tone} className={cn("px-6 py-8 sm:px-10 sm:py-12")}>
+      <CornerBrackets tone={tone} className={cn("px-0 py-8 sm:px-10 sm:py-12")}>
         {children}
       </CornerBrackets>
     </div>
@@ -59,7 +59,7 @@ function Field({
       className={cn(
         "flex flex-col gap-1 border-r px-3 py-2 last:border-r-0",
         border,
-        span === 2 && "col-span-2",
+        span === 2 && "col-span-2 max-sm:border-r-0",
         "min-w-0"
       )}
     >

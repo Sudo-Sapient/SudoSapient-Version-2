@@ -1,6 +1,6 @@
 // Shared rig for the generated Rive scenes: line-art stick figures with
 // shoulder/elbow/hip/knee joints, named poses, a walk cycle, and keyframe
-// accumulation. Used by footer.mjs and transform.mjs.
+// accumulation. Used by every generator in scripts/rive/.
 export const WHITE = "#FFFFFF";
 export const AMBER = "#FBBF24";
 export const BLUE = "#1E40AF";

@@ -146,9 +146,9 @@ export function TeamElevator({ floors }: { floors: Floor[] }) {
   const m = current === null ? null : floors[current];
 
   return (
-    <div ref={root} className="grid items-start gap-10 lg:grid-cols-12">
+    <div ref={root} className="grid items-start gap-6 md:grid-cols-12 md:gap-10">
       {/* the elevator; clipped so a dropped lift falls out of frame */}
-      <div className="mx-auto -mt-10 w-full max-w-[340px] overflow-hidden pt-10 lg:col-span-5">
+      <div className="mx-auto -mt-10 w-full max-w-[230px] overflow-hidden pt-10 sm:max-w-[280px] md:sticky md:top-16 md:col-span-5 lg:max-w-[340px] [@media(max-height:500px)]:max-w-[150px]">
         <motion.div
           key={lift}
           initial={lift === 0 ? false : { y: "-120%" }}
@@ -277,11 +277,12 @@ export function TeamElevator({ floors }: { floors: Floor[] }) {
       </div>
 
       {/* the panel */}
-      <div className="lg:col-span-7">
+      <div className="md:col-span-7">
         <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/60">
           Press a floor
         </p>
-        <ol className="mt-4 grid gap-2 sm:grid-cols-2">
+        {/* phones: a compact row of six numbers under the cab; names show from md up */}
+        <ol className="mt-4 grid grid-cols-6 gap-2 md:grid-cols-2">
           {floors.map((f, i) => (
             <li key={f.name}>
               <button
@@ -291,8 +292,9 @@ export function TeamElevator({ floors }: { floors: Floor[] }) {
                   go(i);
                 }}
                 aria-pressed={current === i}
+                aria-label={`Floor ${i + 1}: ${f.name}, ${f.role}`}
                 className={cn(
-                  "flex w-full items-center gap-3 rounded-sm border px-3 py-2.5 text-left transition-colors",
+                  "flex w-full items-center justify-center gap-3 rounded-sm border p-1.5 text-left transition-colors md:justify-start md:px-3 md:py-2.5",
                   current === i
                     ? "border-warn bg-white/10"
                     : "border-white/20 hover:border-white/60"
@@ -308,7 +310,7 @@ export function TeamElevator({ floors }: { floors: Floor[] }) {
                 >
                   {i + 1}
                 </span>
-                <span>
+                <span className="hidden md:block">
                   <span className="block font-medium">{f.name}</span>
                   <span className="block text-sm text-white/60">{f.role}</span>
                 </span>

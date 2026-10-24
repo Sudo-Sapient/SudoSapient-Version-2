@@ -22,7 +22,7 @@ const services = [
       "Pulling data out of documents",
     ],
     change: "Hours of busywork a week go back to your team.",
-    alt: "An amber stickman agent walks along carrying a parcel.",
+    alt: "Three cute AI agents swirl around a computer that writes code.",
   },
   {
     artboard: "Flow",
@@ -34,7 +34,7 @@ const services = [
       "Approvals reaching the right person",
     ],
     change: "Fewer handoffs, fewer mistakes, faster turnaround.",
-    alt: "Two stickmen pass a box from one to the other.",
+    alt: "Three cute AI agents pass a document down the line, each adding its part.",
   },
   {
     artboard: "Button",
@@ -46,7 +46,7 @@ const services = [
       "Smart suggestions where people need them",
     ],
     change: "Software that does more for every customer.",
-    alt: "A stickman presses a big amber button.",
+    alt: "A stickman codes on a laptop and cute AI agents pop out of it to get to work.",
   },
 ];
 
@@ -91,10 +91,12 @@ function Stickman({
   artboard,
   alt,
   className = "w-28",
+  frame = "aspect-[140/110]",
 }: {
   artboard: string;
   alt: string;
   className?: string;
+  frame?: string;
 }) {
   return (
     <RiveScene
@@ -102,7 +104,7 @@ function Stickman({
       src="/rive/services.riv"
       artboard={artboard}
       animation="loop"
-      frameClassName="aspect-[140/110] w-full"
+      frameClassName={`${frame} w-full`}
       ariaLabel={alt}
       fallback={null}
     />
@@ -204,14 +206,15 @@ export default function ServicesPage() {
 
       <section className="bg-[#eef1f5] py-16 text-ink sm:py-24">
         <Container className="grid items-center gap-10 lg:grid-cols-12">
-          <div className="flex justify-center lg:col-span-4">
+          <div className="flex justify-center lg:order-2 lg:col-span-6">
             <Stickman
-              artboard="Audit"
-              alt="A stickman with glasses inspects a document through a magnifying glass."
-              className="w-56"
+              artboard="Calendar"
+              frame="aspect-[200/110]"
+              alt="A stickman ticks off ten working days on a two week calendar, then cheers."
+              className="w-full max-w-[480px]"
             />
           </div>
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-6">
             <TechLabel tone="dark">How to start</TechLabel>
             <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
               Start with a two week audit.
@@ -221,6 +224,19 @@ export default function ServicesPage() {
               goes, the first fixes worth building, and what each one would save. If AI isn&rsquo;t
               the answer somewhere, we&rsquo;ll tell you.
             </p>
+            <ol className="mt-8 grid gap-4 sm:grid-cols-2">
+              {[
+                ["Week 1", "We sit with your team and watch how the work really gets done."],
+                ["Week 2", "We map where the hours go and pick the first fixes worth building."],
+              ].map(([week, line]) => (
+                <li key={week} className="border-l-2 border-warn pl-4">
+                  <span className="font-mono text-[12px] uppercase tracking-[0.14em] text-ink/60">
+                    {week}
+                  </span>
+                  <p className="mt-1 leading-relaxed text-ink/80">{line}</p>
+                </li>
+              ))}
+            </ol>
           </div>
         </Container>
       </section>

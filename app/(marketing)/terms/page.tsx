@@ -21,7 +21,7 @@ export default function TermsPage() {
       scene={{
         src: "/rive/about.riv",
         artboard: "Key",
-        alt: "A stickman hands another a key, who throws it up happily.",
+        alt: "A stickman hands another a key, and he holds it up and jingles it happily.",
       }}
       sections={[
         [
