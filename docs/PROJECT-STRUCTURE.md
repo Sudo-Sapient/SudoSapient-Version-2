@@ -13,7 +13,7 @@ case-study-sources/   # raw case study images, not served
 archive/              # reference only, excluded from build and lint
 package.json, next.config.ts, tailwind.config.ts, tsconfig.json,
 eslint.config.mjs, postcss.config.mjs, vitest.config.ts, vitest.setup.ts,
-.prettierrc.json, .prettierignore, .env.example, .github/workflows/deploy-pages.yml
+.prettierrc.json, .prettierignore, .github/workflows/deploy-pages.yml
 ```
 
 ## `app/`
@@ -27,24 +27,24 @@ eslint.config.mjs, postcss.config.mjs, vitest.config.ts, vitest.setup.ts,
 | `(marketing)/about/page.tsx`                                                   | About page. `team` and `beliefs` arrays are inline; renders `TeamElevator`      |
 | `(marketing)/work/page.tsx`                                                    | `PortfolioSoon as="h1"` and `FinalCTA`                                          |
 | `(marketing)/work/[slug]/page.tsx`                                             | Case study pages from `lib/projects.ts` (built, not linked)                     |
-| `(marketing)/contact/page.tsx`                                                 | Intake page around `ContactForm`                                                |
+| `(marketing)/contact/page.tsx`                                                 | WhatsApp and email buttons with the `contact.riv` scene                         |
 | `(marketing)/privacy/page.tsx`, `terms/page.tsx`                               | Legal copy, rendered by `LegalPageLayout`                                       |
 | `not-found.tsx`, `error.tsx`, `opengraph-image.tsx`, `icon.svg`, `globals.css` | 404, error boundary, OG image, favicon, global styles                           |
 
 ## `components/`
 
-| Folder         | Contents                                                                                                                                                                      |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sections/`    | `Hero`, `Pillars`, `PortfolioSoon`, `Process`, `Testimonials`, `FinalCTA`, `TeamElevator`, `ContactForm`, `LegalPageLayout`                                                   |
-| `layout/`      | `Nav`, `Footer`, `Container`. `FooterScene` and `MobileFooterLaunch` are the SVG/GSAP fallbacks for `footer.riv`                                                              |
-| `motion/`      | `RiveScene` (lazy Rive wrapper with fallback), `RivePlayer` (the runtime, loaded on demand), `AnimatedText` (rise, scramble, typewriter text reveals)                         |
-| `scenes/`      | `LadderClimber` (the climber on the right rail, plays `climber.riv`), `HeroScene` (SVG fallback for `hero.riv`), `ContactSuccessScene` (shown after a successful form submit) |
-| `blueprint/`   | `BlueprintFrame`, `CornerBrackets`, `TechLabel`, `GridBackground`, `BlueprintCanvas` (OGL WebGL grid, home hero only), `ModuleStack` (used by `HeroScene`)                    |
-| `figures/`     | The older SVG stick figure library (40 × 70 rig in `rig.ts`). Used by the SVG fallbacks, `ContactSuccessScene`, the ladder climber fallback and `/work/[slug]`                |
-| `interactive/` | `Shootable`, the "shoot the stickman" wrapper used by `BreathingFigure` and the figure players                                                                                |
-| `cursor/`      | `BlueprintCursor`, the crosshair cursor (fine pointers only)                                                                                                                  |
-| `system/`      | `ClientErrorGuard` (recovers from stale chunk errors), `MotionPrefs` (framer-motion honours reduced motion)                                                                   |
-| `ui/`          | `Button`, `Input`, `Select`, `Textarea`                                                                                                                                       |
+| Folder         | Contents                                                                                                                                                   |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sections/`    | `Hero`, `Pillars`, `PortfolioSoon`, `Process`, `Testimonials`, `FinalCTA`, `TeamElevator`, `LegalPageLayout`                                               |
+| `layout/`      | `Nav`, `Footer`, `Container`. `FooterScene` and `MobileFooterLaunch` are the SVG/GSAP fallbacks for `footer.riv`                                           |
+| `motion/`      | `RiveScene` (lazy Rive wrapper with fallback), `RivePlayer` (the runtime, loaded on demand), `AnimatedText` (rise, scramble, typewriter text reveals)      |
+| `scenes/`      | `LadderClimber` (the climber on the right rail, plays `climber.riv`), `HeroScene` (SVG fallback for `hero.riv`)                                            |
+| `blueprint/`   | `BlueprintFrame`, `CornerBrackets`, `TechLabel`, `GridBackground`, `BlueprintCanvas` (OGL WebGL grid, home hero only), `ModuleStack` (used by `HeroScene`) |
+| `figures/`     | The older SVG stick figure library (40 × 70 rig in `rig.ts`). Used by the SVG fallbacks, the ladder climber fallback and `/work/[slug]`                    |
+| `interactive/` | `Shootable`, the "shoot the stickman" wrapper used by `BreathingFigure` and the figure players                                                             |
+| `cursor/`      | `BlueprintCursor`, the crosshair cursor (fine pointers only)                                                                                               |
+| `system/`      | `ClientErrorGuard` (recovers from stale chunk errors), `MotionPrefs` (framer-motion honours reduced motion)                                                |
+| `ui/`          | `Button`, `Input`, `Select`, `Textarea`                                                                                                                    |
 
 ## `lib/`
 

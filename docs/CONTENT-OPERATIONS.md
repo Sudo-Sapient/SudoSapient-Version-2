@@ -55,10 +55,10 @@ See `docs/RIVE.md`.
 
 ## Contact flow
 
-- Page copy: `app/(marketing)/contact/page.tsx`
-- Form: `components/sections/ContactForm.tsx`
+- Page: `app/(marketing)/contact/page.tsx` (scene: `contact.riv`)
 
-The form posts to Formspree using `NEXT_PUBLIC_FORMSPREE_ID`. Submissions land in the
-Formspree account for that form, not on this site. If the ID is missing or the request
-fails, the visitor sees a message to email `sudosapient@gmail.com` (`RECIPIENT` in the
-form). The budget and timeline options are `BUDGETS` and `TIMELINES` in the same file.
+The contact page has no form. Two buttons open WhatsApp (`wa.me/918050029848`, with a
+prefilled hello) and email (a `mailto:` to `sudosapient@gmail.com` with a subject and a
+short template). The number, address and message live at the top of
+`app/(marketing)/contact/page.tsx`. Nothing is sent through this site and no environment
+variables are needed.

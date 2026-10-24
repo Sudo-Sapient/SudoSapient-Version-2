@@ -24,7 +24,8 @@
     "rive:portfolio": "node scripts/rive/portfolio.mjs",
     "rive:services": "node scripts/rive/services.mjs",
     "rive:about": "node scripts/rive/about.mjs",
-    "rive:cta": "node scripts/rive/cta.mjs"
+    "rive:cta": "node scripts/rive/cta.mjs",
+    "rive:contact": "node scripts/rive/contact.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

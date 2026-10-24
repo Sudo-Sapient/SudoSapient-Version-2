@@ -6,7 +6,6 @@ export const metadata = {
     "Terms for using the Sudo Sapient website and how our AI transformation engagements work.",
 };
 
-// Plain-language draft: have it reviewed by a lawyer before relying on it.
 export default function TermsPage() {
   return (
     <LegalPageLayout

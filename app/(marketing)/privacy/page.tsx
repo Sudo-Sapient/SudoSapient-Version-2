@@ -6,7 +6,6 @@ export const metadata = {
     "How Sudo Sapient handles your information on this website and your business data when we automate your workflows.",
 };
 
-// Plain-language draft: have it reviewed by a lawyer before relying on it.
 export default function PrivacyPage() {
   return (
     <LegalPageLayout

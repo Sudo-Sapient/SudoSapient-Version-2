@@ -23,7 +23,12 @@ const contacts = [
     external: true,
   },
   { label: "Email", value: "sudosapient@gmail.com", href: "mailto:sudosapient@gmail.com" },
-  { label: "Phone", value: "+91 80500 29848", href: "tel:+918050029848" },
+  {
+    label: "WhatsApp",
+    value: "+91 80500 29848",
+    href: "https://wa.me/918050029848",
+    external: true,
+  },
 ];
 
 /** The closing call to action: one conversation, acted out on a napkin. */

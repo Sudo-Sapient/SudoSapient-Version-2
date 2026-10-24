@@ -11,7 +11,7 @@ export const metadata = {
     "Sudo Sapient is a small team of engineers and operators. We learn how your company really works, then build the AI that takes the busywork off it.",
 };
 
-// Bios are drafts: review before launch. gagMs mirror the `caught` lengths in scripts/rive/cabs.mjs.
+// gagMs mirror the `caught` lengths in scripts/rive/cabs.mjs.
 const team: Floor[] = [
   {
     name: "Sabari K",

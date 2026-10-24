@@ -10,16 +10,12 @@ This is the release checklist for the Sudo Sapient marketing site.
 
 ## 2. Environment variables
 
-| Variable                   | Needed for                                                                 |
-| -------------------------- | -------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_FORMSPREE_ID` | Contact form. Formspree form ID (the part after `/f/`). See `.env.example` |
-| `NEXT_PUBLIC_BASE_PATH`    | Optional. Only if the site is served from a sub path                       |
-| `GITHUB_PAGES`             | Set to `true` for a static export (`output: "export"`)                     |
+| Variable                | Needed for                                             |
+| ----------------------- | ------------------------------------------------------ |
+| `NEXT_PUBLIC_BASE_PATH` | Optional. Only if the site is served from a sub path   |
+| `GITHUB_PAGES`          | Set to `true` for a static export (`output: "export"`) |
 
-`NEXT_PUBLIC_*` values are baked in at build time. Without `NEXT_PUBLIC_FORMSPREE_ID`
-the site still builds, but every contact form submit shows the "email us directly"
-error. The GitHub Pages workflow does not set it yet; add it as a repository variable or
-secret and pass it to the build step.
+No secrets are needed: the contact page links straight to WhatsApp and email.
 
 ## 3. Required release gate
 
@@ -73,8 +69,7 @@ GITHUB_PAGES=true npm run build
 2. Framework preset: **Next.js**.
 3. Build command: `npm run build` (default is fine).
 4. Install command: `npm ci`.
-5. Add `NEXT_PUBLIC_FORMSPREE_ID` to the environment variables.
-6. Deploy a preview first, then promote it after completing the smoke checklist.
+5. Deploy a preview first, then promote it after completing the smoke checklist.
 
 ### Other Node hosts
 
@@ -99,8 +94,8 @@ On the deployed URL, check these at desktop, tablet, and mobile widths:
   their panels
 - `prefers-reduced-motion` leaves content visible without continuous motion
 - the Final CTA video loads, plays, and its mute control works
-- submit the contact form and confirm the success scene shows and the entry
-  arrives in Formspree
+- on `/contact`, the WhatsApp button opens a chat with the prefilled hello and the
+  email button opens a draft to `sudosapient@gmail.com`
 - verify the 404 route and social/Open Graph preview
 - on a Node host (not GitHub Pages), inspect the production response headers (`X-Content-Type-Options`, `X-Frame-Options`,
   `Referrer-Policy`, and `Permissions-Policy`)

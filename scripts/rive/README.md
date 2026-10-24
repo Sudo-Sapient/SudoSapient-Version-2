@@ -10,6 +10,7 @@ commit the script and the regenerated `.riv` together. Never edit a `.riv` by ha
 | `portfolio.mjs`    | `public/rive/portfolio.riv`    | `npm run rive:portfolio`    |
 | `transform.mjs`    | `public/rive/transform.riv`    | `npm run rive:transform`    |
 | `testimonials.mjs` | `public/rive/testimonials.riv` | `npm run rive:testimonials` |
+| `contact.mjs`      | `public/rive/contact.riv`      | `npm run rive:contact`      |
 | `cta.mjs`          | `public/rive/cta.riv`          | `npm run rive:cta`          |
 | `footer.mjs`       | `public/rive/footer.riv`       | `npm run rive:footer`       |
 | `climber.mjs`      | `public/rive/climber.riv`      | `npm run rive:climber`      |

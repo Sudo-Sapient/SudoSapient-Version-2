@@ -14,9 +14,6 @@ npm run dev -- -p 4000
 Open `http://localhost:4000`. The `dev` script is plain `next dev` (port 3000 by default);
 the team passes `-p 4000`.
 
-Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_FORMSPREE_ID` if you want the
-contact form to send (see [Contact form](#contact-form)).
-
 ## Scripts
 
 | Script                                    | Does                                                                        |
@@ -64,10 +61,10 @@ app/
     about/ contact/ services/ work/ work/[slug]/ privacy/ terms/
 components/
   sections/   # page sections (Hero, Pillars, PortfolioSoon, Process, Testimonials,
-              # FinalCTA, TeamElevator, ContactForm, LegalPageLayout)
+              # FinalCTA, TeamElevator, LegalPageLayout)
   layout/     # Nav, Footer, Container, SVG footer fallbacks
   motion/     # RiveScene, RivePlayer, AnimatedText
-  scenes/     # LadderClimber, HeroScene (SVG fallback), ContactSuccessScene
+  scenes/     # LadderClimber, HeroScene (SVG fallback)
   blueprint/  # frames, labels, grid, WebGL canvas
   figures/    # older SVG stick figure library (used by fallbacks and case studies)
   cursor/ interactive/ system/ ui/
@@ -117,18 +114,13 @@ Full map: `docs/PROJECT-STRUCTURE.md`.
 | Primary button label                 | `CTA_LABEL` in `lib/site.ts` ("Start your transformation")                 |
 | Site metadata                        | `app/layout.tsx` and each page's `metadata` export                         |
 
-Team bios, FAQ answers and the legal pages are marked as drafts in the code.
+## Contact
 
-## Contact form
-
-`components/sections/ContactForm.tsx` posts the form to **Formspree** at
-`https://formspree.io/f/${NEXT_PUBLIC_FORMSPREE_ID}`.
-
-- Success: the form is replaced by `ContactSuccessScene`.
-- Failure, or `NEXT_PUBLIC_FORMSPREE_ID` not set: an error message asks the visitor to
-  email `sudosapient@gmail.com` directly. Nothing opens automatically.
-- The ID is read at build time (`NEXT_PUBLIC_`), so it must be set in the build
-  environment, including the GitHub Pages workflow.
+The contact page has no form. Two buttons open WhatsApp (`wa.me/918050029848`, with a
+prefilled hello) and email (a `mailto:` to `sudosapient@gmail.com` with a subject and a
+short template). The number, address and message live at the top of
+`app/(marketing)/contact/page.tsx`. Nothing is sent through this site and no environment
+variables are needed.
 
 ## Copy rules
 

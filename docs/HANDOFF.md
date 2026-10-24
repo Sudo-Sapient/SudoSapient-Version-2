@@ -17,8 +17,8 @@ Read `README.md` first for setup, routes and where content lives.
 3. **Some UI is timed against the animations.** Process, Pillars, Testimonials,
    TeamElevator and FinalCTA hold constants that must match the generator scripts. The
    table is in `docs/RIVE.md`, "Syncing pages to animations".
-4. **The contact form posts to Formspree** and needs `NEXT_PUBLIC_FORMSPREE_ID` at build
-   time. Without it every submit shows the "email us directly" error.
+4. **There is no contact form.** `/contact` opens WhatsApp or an email draft; no backend
+   or environment variables.
 5. **Case studies are parked.** `/work` shows a "coming soon" portfolio. The
    `/work/[slug]` pages still build from `lib/projects.ts` but nothing links to them.
 
@@ -95,7 +95,7 @@ recolours over light and dark sections and can be "shot" with the cursor.
 - `Shootable` (`components/interactive/`): the "shoot the stickman" easter egg on the
   older SVG figures.
 - `components/figures/`: the older SVG figure library (40 × 70 rig). Still used by the
-  fallbacks, `ContactSuccessScene` and `/work/[slug]`. New animation work goes into Rive.
+  fallbacks and `/work/[slug]`. New animation work goes into Rive.
 
 ### Motion rules
 
@@ -134,15 +134,10 @@ the build and by hand.
 
 ## Known caveats
 
-- Team bios, FAQ answers and the privacy and terms pages are marked as drafts in the
-  code. The legal pages say to have them reviewed by a lawyer.
 - `Project.featured` and `Project.isPlaceholder` in `lib/projects.ts` are not read by any
   component since the redesign.
 
 ## Recommended next improvements
 
-1. Set `NEXT_PUBLIC_FORMSPREE_ID` in every build environment (including the GitHub
-   Pages workflow) and test a real submit.
-2. Publish real case studies and relink `/work/[slug]`.
-3. Remove unused dependencies and components once confirmed.
-4. Keep Next.js patched.
+1. Publish real case studies and relink `/work/[slug]`.
+2. Keep Next.js patched.

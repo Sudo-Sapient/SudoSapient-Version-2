@@ -63,7 +63,6 @@ const fit = {
   ],
 };
 
-// Draft answers: review before launch.
 const faqs = [
   {
     q: "Is our data safe?",
