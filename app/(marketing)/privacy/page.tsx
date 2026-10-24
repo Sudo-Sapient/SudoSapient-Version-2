@@ -1,10 +1,12 @@
+import { pageMetadata } from "@/lib/seo";
 import { LegalPageLayout } from "@/components/sections/LegalPageLayout";
 
-export const metadata = {
-  title: "Privacy | Sudo Sapient",
+export const metadata = pageMetadata({
+  title: "Privacy Policy | Sudo Sapient",
   description:
-    "How Sudo Sapient handles your information on this website and your business data when we automate your workflows.",
-};
+    "How Sudo Sapient handles your information on this website and your business data when we automate your workflows with AI.",
+  path: "/privacy/",
+});
 
 export default function PrivacyPage() {
   return (

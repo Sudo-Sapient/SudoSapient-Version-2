@@ -1,10 +1,12 @@
+import { pageMetadata } from "@/lib/seo";
 import { LegalPageLayout } from "@/components/sections/LegalPageLayout";
 
-export const metadata = {
-  title: "Terms | Sudo Sapient",
+export const metadata = pageMetadata({
+  title: "Terms of Use | Sudo Sapient",
   description:
-    "Terms for using the Sudo Sapient website and how our AI transformation engagements work.",
-};
+    "Terms for using the Sudo Sapient website and how our AI transformation engagements work, from audit to pilot to scale.",
+  path: "/terms/",
+});
 
 export default function TermsPage() {
   return (

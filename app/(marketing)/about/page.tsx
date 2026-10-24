@@ -1,3 +1,5 @@
+import { breadcrumbSchema, pageMetadata, teamSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
 import { TechLabel } from "@/components/blueprint/TechLabel";
@@ -5,11 +7,12 @@ import { RiveScene } from "@/components/motion/RiveScene";
 import { TeamElevator, type Floor } from "@/components/sections/TeamElevator";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
-export const metadata = {
-  title: "About | Sudo Sapient",
+export const metadata = pageMetadata({
+  title: "About Sudo Sapient | AI Transformation Team in India",
   description:
-    "Sudo Sapient is a small team of engineers and operators. We learn how your company really works, then build the AI that takes the busywork off it.",
-};
+    "Meet the Sudo Sapient team: engineers and operators who sit with your people, learn how the work really gets done, and automate the busywork with AI.",
+  path: "/about/",
+});
 
 // gagMs mirror the `caught` lengths in scripts/rive/cabs.mjs.
 const team: Floor[] = [
@@ -98,6 +101,7 @@ const serif = "font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:tex
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={[breadcrumbSchema("About", "/about/"), teamSchema(team)]} />
       <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-28">
         <GridBackground />
         <Container className="relative z-10 grid items-end gap-8 lg:grid-cols-12">

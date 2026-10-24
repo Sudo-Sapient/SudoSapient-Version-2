@@ -1,3 +1,5 @@
+import { breadcrumbSchema, faqSchema, pageMetadata, serviceSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
 import { TechLabel } from "@/components/blueprint/TechLabel";
@@ -5,11 +7,12 @@ import { RiveScene } from "@/components/motion/RiveScene";
 import { STAGES } from "@/lib/site";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
-export const metadata = {
-  title: "Services | Sudo Sapient",
+export const metadata = pageMetadata({
+  title: "AI Automation Services for Businesses | Sudo Sapient",
   description:
-    "We learn how your team really works, then build the AI agents and automations that make the work faster, easier and more profitable.",
-};
+    "AI agents, workflow automation and AI features in your software. Start with a two week audit, pilot one fix with your team, then scale what works.",
+  path: "/services/",
+});
 
 const services = [
   {
@@ -113,6 +116,15 @@ function Stickman({
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          breadcrumbSchema("Services", "/services/"),
+          ...services.map((s) =>
+            serviceSchema(s.title, `${s.line} For example: ${s.examples.join(", ")}. ${s.change}`)
+          ),
+          faqSchema(faqs),
+        ]}
+      />
       <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24 md:py-28">
         <GridBackground />
         <Container className="relative z-10 grid items-end gap-8 lg:grid-cols-12">

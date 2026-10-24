@@ -54,7 +54,7 @@ Rive scripts: `rive:hero`, `rive:strike`, `rive:portfolio`, `rive:transform`,
 ```text
 app/
   layout.tsx            # fonts, metadata, cursor, motion prefs
-  opengraph-image.tsx, icon.svg, not-found.tsx, error.tsx
+  robots.ts, sitemap.ts, icon.svg, not-found.tsx, error.tsx
   (marketing)/
     layout.tsx          # Nav, LadderClimber, Footer
     page.tsx            # home
@@ -146,3 +146,23 @@ npm run validate
 - `docs/PROJECT-STRUCTURE.md`: folder map
 - `docs/CONTENT-OPERATIONS.md`: editing content and images
 - `docs/DEPLOYMENT.md`: release gate, hosting, smoke test, rollback
+
+## SEO and GEO
+
+Search engines and AI assistants (ChatGPT, Claude, Perplexity, Google AI Overviews) read
+the same signals, all generated from `lib/seo.ts`:
+
+- **Per page metadata:** every page exports `pageMetadata({ title, description, path })`,
+  which sets its own title, description, canonical URL and social card. Never hard code a
+  canonical in `app/layout.tsx`; it would point every page at the homepage.
+- **Structured data (JSON-LD):** `Organization` and `WebSite` on every page (root layout),
+  `Service` and `FAQPage` on Services (built from the visible `services` and `faqs`
+  arrays), the team on About, breadcrumbs on interior pages. Rendered by
+  `components/seo/JsonLd.tsx`. Keep schema facts identical to the visible copy.
+- **`app/robots.ts` and `app/sitemap.ts`:** generate `/robots.txt` (everyone, AI crawlers
+  included, may crawl) and `/sitemap.xml`. Add new public pages to `PAGES` in the sitemap.
+- **`public/llms.txt`:** a plain summary for AI assistants. Update it when services, the
+  process, FAQs or contact details change.
+- **`public/og.png`:** the 1200 × 630 social share image (a real PNG, so link previews work
+  on GitHub Pages).
+- The parked `/work/<slug>` case studies are `noindex` and left out of the sitemap.

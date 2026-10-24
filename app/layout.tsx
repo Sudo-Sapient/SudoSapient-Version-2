@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { HOME, SITE_NAME, SITE_URL, organizationSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Archivo, Archivo_Black, IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { BlueprintCursor } from "@/components/cursor/BlueprintCursor";
@@ -37,43 +39,20 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-// ✅ Always use your custom domain
-const siteUrl = "https://sudosapient.com";
-
+// Site wide defaults. Every page sets its own title, description and canonical URL
+// through pageMetadata() in lib/seo.ts, so nothing here may hard code a canonical.
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: "Sudo Sapient",
-    template: "%s",
-  },
-  description:
-    "We learn how your team really works, then build the AI agents and automations that make it faster, easier and more profitable.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: HOME.title, template: "%s" },
+  description: HOME.description,
+  applicationName: SITE_NAME,
   openGraph: {
-    title: "Sudo Sapient",
-    description:
-      "We learn how your team really works, then build the AI agents and automations that make it faster, easier and more profitable.",
-    url: siteUrl,
-    siteName: "Sudo Sapient",
+    siteName: SITE_NAME,
     type: "website",
-    images: [
-      {
-        url: `${siteUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: "Sudo Sapient, AI transformation for your company",
-      },
-    ],
+    locale: "en_IN",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: HOME.title }],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Sudo Sapient",
-    description:
-      "AI transformation for your company. Sudo Sapient sits with your team and automates the busywork with AI agents.",
-    images: [`${siteUrl}/opengraph-image`],
-  },
-  alternates: {
-    canonical: siteUrl,
-  },
+  twitter: { card: "summary_large_image", images: ["/og.png"] },
 };
 
 export const viewport: Viewport = {
@@ -90,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${display.variable} ${grotesk.variable} ${mono.variable} ${serif.variable}`}
     >
       <body id="top">
+        <JsonLd data={organizationSchema} />
         <ClientErrorGuard />
         <MotionPrefs>
           {children}

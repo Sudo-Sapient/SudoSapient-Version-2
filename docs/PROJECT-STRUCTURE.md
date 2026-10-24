@@ -18,18 +18,18 @@ eslint.config.mjs, postcss.config.mjs, vitest.config.ts, vitest.setup.ts,
 
 ## `app/`
 
-| Path                                                                           | Purpose                                                                         |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| `layout.tsx`                                                                   | Fonts, site metadata, `ClientErrorGuard`, `MotionPrefs`, `BlueprintCursor`      |
-| `(marketing)/layout.tsx`                                                       | Skip link, `Nav`, `LadderClimber`, `<main>`, `Footer`                           |
-| `(marketing)/page.tsx`                                                         | Home: `Hero`, `Pillars`, `PortfolioSoon`, `Process`, `Testimonials`, `FinalCTA` |
-| `(marketing)/services/page.tsx`                                                | Services page. Copy is inline in the file                                       |
-| `(marketing)/about/page.tsx`                                                   | About page. `team` and `beliefs` arrays are inline; renders `TeamElevator`      |
-| `(marketing)/work/page.tsx`                                                    | `PortfolioSoon as="h1"` and `FinalCTA`                                          |
-| `(marketing)/work/[slug]/page.tsx`                                             | Case study pages from `lib/projects.ts` (built, not linked)                     |
-| `(marketing)/contact/page.tsx`                                                 | WhatsApp and email buttons with the `contact.riv` scene                         |
-| `(marketing)/privacy/page.tsx`, `terms/page.tsx`                               | Legal copy, rendered by `LegalPageLayout`                                       |
-| `not-found.tsx`, `error.tsx`, `opengraph-image.tsx`, `icon.svg`, `globals.css` | 404, error boundary, OG image, favicon, global styles                           |
+| Path                                                                               | Purpose                                                                         |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `layout.tsx`                                                                       | Fonts, site metadata, `ClientErrorGuard`, `MotionPrefs`, `BlueprintCursor`      |
+| `(marketing)/layout.tsx`                                                           | Skip link, `Nav`, `LadderClimber`, `<main>`, `Footer`                           |
+| `(marketing)/page.tsx`                                                             | Home: `Hero`, `Pillars`, `PortfolioSoon`, `Process`, `Testimonials`, `FinalCTA` |
+| `(marketing)/services/page.tsx`                                                    | Services page. Copy is inline in the file                                       |
+| `(marketing)/about/page.tsx`                                                       | About page. `team` and `beliefs` arrays are inline; renders `TeamElevator`      |
+| `(marketing)/work/page.tsx`                                                        | `PortfolioSoon as="h1"` and `FinalCTA`                                          |
+| `(marketing)/work/[slug]/page.tsx`                                                 | Case study pages from `lib/projects.ts` (built, not linked)                     |
+| `(marketing)/contact/page.tsx`                                                     | WhatsApp and email buttons with the `contact.riv` scene                         |
+| `(marketing)/privacy/page.tsx`, `terms/page.tsx`                                   | Legal copy, rendered by `LegalPageLayout`                                       |
+| `not-found.tsx`, `error.tsx`, `robots.ts`, `sitemap.ts`, `icon.svg`, `globals.css` | 404, error boundary, robots.txt, sitemap.xml, favicon, global styles            |
 
 ## `components/`
 

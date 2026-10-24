@@ -1,0 +1,46 @@
+# Sudo Sapient
+
+> Sudo Sapient is an AI transformation company based in India, working with clients in India and worldwide. We sit with a company's team, learn how the work really gets done, then build the AI agents and workflow automations that make it faster, easier and more profitable. Clients own everything we build.
+
+## What we build
+
+- **AI agents**: software that does the work a team keeps doing by hand, such as sorting and answering the inbox, chasing follow ups and updating the CRM, and pulling data out of documents. The result: hours of busywork a week go back to the team.
+- **Workflow automation**: a company's tools, finally talking to each other, such as leads flowing straight into the CRM, invoices and reports that build themselves, and approvals reaching the right person. The result: fewer handoffs, fewer mistakes, faster turnaround.
+- **AI in your software**: smart features customers will actually use, such as an assistant inside an app, search and answers over a company's own data, and smart suggestions where people need them.
+
+## How an engagement runs
+
+1. **Audit (2 weeks)**: we walk the workflow before we touch it. Week 1 we sit with the team and watch how the work really gets done; week 2 we map where the hours go and pick the first fixes worth building.
+2. **Pilot (2 weeks)**: one fix, live, proven with the team.
+3. **Scale (3 to 6 weeks)**: we roll out what works, one workflow at a time.
+4. **Embed (ongoing)**: the team learns to run it, and it stays theirs.
+
+## Who it is for
+
+A good fit: a team doing the same work every day, someone who owns the problem and can make calls, and a company that wants a working system rather than a strategy deck.
+
+## Frequently asked questions
+
+- **Is our data safe?** Your data stays in your accounts wherever we can manage it. We sign an NDA before the audit, only touch what the workflow needs, and never use it to train anything.
+- **Will this replace my team?** No. We take away the repetitive parts so people spend their time on the work that needs a person. Most teams get busier with better work, not smaller.
+- **Do we have to change our tools?** Usually not. We build around what you already use, like your inbox, CRM, spreadsheets and internal apps.
+- **How fast will we see results?** The audit takes about two weeks. The first pilot is live with your team around two weeks after that.
+- **Who owns what you build?** You do. The code, the prompts and the accounts are yours, and we train your team to run it without us.
+
+## Clients
+
+Sudo Sapient has automated logistics operations for Shipzy, a credit engine and an applicant tracking system for Taamul, the Jgsaw go to market tool, an AI music curator for Fabplay, the Vencuts media agency, and several projects for an AI agency.
+
+## Contact
+
+- WhatsApp: https://wa.me/918050029848 (+91 80500 29848)
+- Email: sudosapient@gmail.com
+- Contact page: https://sudosapient.com/contact/
+- We reply within one working day. The first step is a 30 minute call; you leave with the first three things worth automating.
+
+## Pages
+
+- [Home](https://sudosapient.com/): what we do and how it works
+- [Services](https://sudosapient.com/services/): AI agents, workflow automation, AI in your software, the two week audit, FAQ
+- [About](https://sudosapient.com/about/): why we exist, what we believe, the team
+- [Contact](https://sudosapient.com/contact/): WhatsApp and email

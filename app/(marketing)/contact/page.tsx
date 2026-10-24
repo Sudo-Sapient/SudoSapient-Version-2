@@ -1,13 +1,16 @@
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
 import { TechLabel } from "@/components/blueprint/TechLabel";
 import { RiveScene } from "@/components/motion/RiveScene";
 
-export const metadata = {
-  title: "Start your transformation | Sudo Sapient",
+export const metadata = pageMetadata({
+  title: "Contact Sudo Sapient | Start Your AI Transformation",
   description:
-    "Message us on WhatsApp or email us. Tell us how your team works today and we reply within one working day.",
-};
+    "Message us on WhatsApp or email us. Tell us how your team works today and we reply within one working day with a time for a 30 minute call.",
+  path: "/contact/",
+});
 
 const WHATSAPP_NUMBER = "918050029848"; // +91 80500 29848, country code first, digits only
 const EMAIL = "sudosapient@gmail.com";
@@ -27,6 +30,7 @@ const steps = [
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema("Contact", "/contact/")} />
       <section className="relative overflow-hidden bg-blueprint py-16 text-white sm:py-24">
         <GridBackground />
         <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-12">
