@@ -61,7 +61,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <Container>
           <Link
             href="/work"
-            className="mb-6 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-white/65 transition-colors hover:text-white"
+            className="mb-6 inline-block text-[13px] font-medium text-white/65 transition-colors hover:text-white"
           >
             All work
           </Link>
@@ -127,7 +127,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
             <aside className="lg:col-span-3">
               <div className="sticky top-24 border-y border-ink/20 py-5">
-                <TechLabel tone="dark">PROJECT RECORD</TechLabel>
+                <TechLabel tone="dark">Project details</TechLabel>
                 <dl className="mt-5 space-y-5">
                   <Fact label="Client" value={project.client} />
                   <Fact label="Discipline" value={project.discipline} />
@@ -160,9 +160,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             </div>
           </div>
 
-          <div className="mt-16 grid gap-px border-y border-ink/20 bg-ink/15 py-px sm:grid-cols-3 md:mt-24">
+          <div className="mt-16 grid gap-x-10 gap-y-8 sm:grid-cols-3 md:mt-24">
             {project.metrics.map((metric) => (
-              <div key={metric.label} className="bg-offwhite p-6 sm:p-8">
+              <div key={metric.label} className="border-t-2 border-blueprint pt-6">
                 <TechLabel tone="dark">{metric.label}</TechLabel>
                 <p className="mt-2 font-display text-2xl font-bold tracking-tight-2 text-ink sm:text-3xl">
                   {metric.value}
@@ -191,7 +191,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             </div>
           </div>
           <div className="mt-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-            <TechLabel tone="dark">NEXT CASE STUDY</TechLabel>
+            <TechLabel tone="dark">Next case study</TechLabel>
             <Link
               href={`/work/${nextProject.slug}`}
               className="group max-w-2xl font-display text-2xl font-bold leading-tight tracking-tight-2 text-ink transition-colors hover:text-blueprint sm:text-right"
@@ -208,7 +208,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 function Fact({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/45">{label}</dt>
+      <dt className="text-[13px] font-medium text-ink/45">{label}</dt>
       <dd className="mt-1 text-sm font-medium text-ink">{value}</dd>
     </div>
   );

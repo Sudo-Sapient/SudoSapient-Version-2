@@ -95,7 +95,7 @@ On the deployed URL, check these at desktop, tablet, and mobile widths:
 - `prefers-reduced-motion` leaves content visible without continuous motion
 - the Final CTA video loads, plays, and its mute control works
 - on `/contact`, the WhatsApp button opens a chat with the prefilled hello and the
-  email button opens a draft to `sudosapient@gmail.com`
+  email button opens a draft to `hello@sudosapient.com`
 - verify the 404 route and social/Open Graph preview
 - on a Node host (not GitHub Pages), inspect the production response headers (`X-Content-Type-Options`, `X-Frame-Options`,
   `Referrer-Policy`, and `Permissions-Policy`)

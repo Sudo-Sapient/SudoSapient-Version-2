@@ -32,7 +32,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 const inSentence = (name: string) =>
   name.startsWith("AI") ? name : name[0].toLowerCase() + name.slice(1);
 
-const serif = "font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl";
+const serif =
+  "font-heading font-semibold text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl";
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -55,10 +56,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <GridBackground />
         <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <nav
-              aria-label="Breadcrumb"
-              className="font-mono text-[12px] uppercase tracking-[0.14em] text-white/70"
-            >
+            <nav aria-label="Breadcrumb" className="text-sm font-medium text-white/70">
               <Link href="/services/" className="hover:text-warn">
                 Services
               </Link>
@@ -67,7 +65,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               </span>
               <span aria-current="page">{s.name}</span>
             </nav>
-            <h1 className="mt-5 max-w-3xl font-serif text-5xl leading-[1.02] tracking-[-0.02em] sm:text-6xl md:text-7xl">
+            <h1 className="mt-5 max-w-3xl font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl md:text-7xl">
               {s.h1}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">{s.intro}</p>
@@ -98,9 +96,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <h2 className={`mt-4 max-w-3xl ${serif}`}>
             What {inSentence(s.name)} can handle for you.
           </h2>
-          <ul className="mt-12 grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-2">
+          <ul className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2">
             {s.handles.map((h) => (
-              <li key={h.title} className="bg-offwhite p-6 sm:p-8">
+              <li key={h.title} className="border-t-2 border-blueprint pt-6">
                 <h3 className="font-display text-2xl font-bold tracking-tight-2">{h.title}</h3>
                 <p className="mt-2 leading-relaxed text-ink/70">{h.body}</p>
               </li>
@@ -109,7 +107,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <div className="mt-12 grid gap-6 border-t border-ink/15 pt-8 md:grid-cols-2">
             <div>
               <TechLabel tone="dark">What changes</TechLabel>
-              <p className="mt-3 font-serif text-3xl leading-tight text-blueprint">{s.outcome}</p>
+              <p className="mt-3 font-heading text-3xl font-semibold leading-tight text-blueprint">
+                {s.outcome}
+              </p>
             </div>
             <div>
               <TechLabel tone="dark">Done for clients</TechLabel>
@@ -122,12 +122,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <section className="bg-[#eef1f5] py-16 text-ink sm:py-24">
         <Container>
           <TechLabel tone="dark">How it runs</TechLabel>
-          <h2 className={`mt-4 max-w-2xl ${serif}`}>Start small, prove it, then scale.</h2>
-          <ol className="mt-12 grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-2 lg:grid-cols-4">
+          <h2 className={`mt-4 max-w-2xl ${serif}`}>How a project runs.</h2>
+          <ol className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {STAGES.map((st) => (
-              <li key={st.n} className="bg-[#eef1f5] p-6 sm:p-8">
-                <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.14em] text-ink/60">
-                  <span>{st.n}</span>
+              <li key={st.title} className="border-t-2 border-blueprint pt-6">
+                <div className="flex items-center justify-between text-[13px] font-medium text-ink/60">
                   <span>{st.time}</span>
                 </div>
                 <h3 className="mt-4 font-display text-2xl font-bold tracking-tight-2">
@@ -149,7 +148,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <div className="divide-y divide-ink/15 border-y border-ink/15 lg:col-span-8">
             {s.faqs.map((f) => (
               <details key={f.q} className="group py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-lg font-bold">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-semibold text-ink">
                   {f.q}
                   <span
                     aria-hidden
@@ -170,7 +169,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <li key={o.slug}>
                 <Link
                   href={`/services/${o.slug}/`}
-                  className="inline-flex min-h-11 items-center border-b border-ink/40 font-serif text-2xl hover:border-blueprint hover:text-blueprint"
+                  className="inline-flex min-h-11 items-center border-b border-ink/40 font-heading text-2xl font-semibold hover:border-blueprint hover:text-blueprint"
                 >
                   {o.name}
                 </Link>

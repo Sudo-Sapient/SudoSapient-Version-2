@@ -2,6 +2,7 @@ import Link from "next/link";
 import { breadcrumbSchema, faqSchema, pageMetadata, serviceSchema } from "@/lib/seo";
 import { SERVICES } from "@/lib/services";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { buttonVariants } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { GridBackground } from "@/components/blueprint/GridBackground";
 import { TechLabel } from "@/components/blueprint/TechLabel";
@@ -32,7 +33,7 @@ const services = [
   {
     artboard: "Flow",
     title: "Workflow automation",
-    line: "Your tools, finally talking to each other.",
+    line: "Your tools, connected so the work moves on its own.",
     examples: [
       "Leads flowing straight into the CRM",
       "Invoices and reports that build themselves",
@@ -44,7 +45,7 @@ const services = [
   {
     artboard: "Button",
     title: "AI in your software",
-    line: "Smart features your customers will actually use.",
+    line: "AI features your customers will use every day.",
     examples: [
       "An assistant inside your app",
       "Search and answers over your own data",
@@ -59,7 +60,7 @@ const fit = {
   good: [
     "You have a team doing the same work every day",
     "Someone owns the problem and can make calls",
-    "You want a working system, not a strategy deck",
+    "You want a working system in weeks",
   ],
   bad: [
     "You want AI because everyone else has it",
@@ -75,7 +76,7 @@ const faqs = [
   },
   {
     q: "Will this replace my team?",
-    a: "No. We take away the repetitive parts so your people spend their time on the work that needs a person. Most teams get busier with better work, not smaller.",
+    a: "No. We take away the repetitive parts so your people spend their time on the work that needs a person. Most teams stay the same size and spend more of the day on work that matters.",
   },
   {
     q: "Do we have to change our tools?",
@@ -143,12 +144,12 @@ export default function ServicesPage() {
         <Container className="relative z-10 grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-9">
             <TechLabel>Services</TechLabel>
-            <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[1.02] tracking-[-0.02em] sm:text-7xl">
+            <h1 className="mt-5 max-w-4xl font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-7xl">
               What we do inside your company.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">
-              We sit with your team, learn how the work really gets done, and build the AI agents
-              and automations that make it faster, easier and more profitable.
+              We sit with your team, see where the hours go, and build the AI agents and automations
+              that take that work off their hands.
             </p>
           </div>
           <div className="hidden justify-end lg:col-span-3 lg:flex">
@@ -164,12 +165,12 @@ export default function ServicesPage() {
       <section className="bg-offwhite py-16 text-ink sm:py-24">
         <Container>
           <TechLabel tone="dark">What we build</TechLabel>
-          <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
-            Three ways we take work off your plate.
+          <h2 className="mt-4 max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+            What we build for you.
           </h2>
-          <div className="mt-12 grid gap-px border border-ink/15 bg-ink/15 md:grid-cols-3">
+          <div className="mt-12 grid gap-x-10 gap-y-14 md:grid-cols-3">
             {services.map((s) => (
-              <article key={s.title} className="flex flex-col bg-offwhite p-6 sm:p-8">
+              <article key={s.title} className="flex flex-col border-t-2 border-blueprint pt-6">
                 <div className="bg-[#eef1f5]">
                   <Stickman artboard={s.artboard} alt={s.alt} className="mx-auto w-44" />
                 </div>
@@ -186,7 +187,7 @@ export default function ServicesPage() {
                 <p className="mt-auto pt-6 text-sm font-medium text-blueprint">{s.change}</p>
                 <Link
                   href={`/services/${pageFor(s.artboard).slug}/`}
-                  className="mt-4 inline-flex min-h-11 items-center self-start border-b border-ink/40 font-mono text-[12px] uppercase tracking-[0.14em] hover:border-blueprint hover:text-blueprint"
+                  className={buttonVariants({ variant: "secondary", className: "mt-4 self-start" })}
                 >
                   More on {s.title}
                 </Link>
@@ -199,14 +200,13 @@ export default function ServicesPage() {
       <section className="bg-[#eef1f5] py-16 text-ink sm:py-24">
         <Container>
           <TechLabel tone="dark">How it runs</TechLabel>
-          <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
-            Small steps, each one proven.
+          <h2 className="mt-4 max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+            How a project runs.
           </h2>
-          <ol className="mt-12 grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {STAGES.map((s) => (
-              <li key={s.n} className="bg-[#eef1f5] p-6 sm:p-8">
-                <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                  <span>{s.n}</span>
+              <li key={s.title} className="border-t-2 border-blueprint pt-6">
+                <div className="flex items-center justify-between text-[13px] font-medium text-ink/50">
                   <span>{s.time}</span>
                 </div>
                 <h3 className="mt-4 font-display text-2xl font-bold tracking-tight-2">{s.title}</h3>
@@ -222,11 +222,11 @@ export default function ServicesPage() {
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <TechLabel tone="dark">Is this you?</TechLabel>
-              <h2 className="mt-4 font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+              <h2 className="mt-4 font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
                 We work best with teams like this.
               </h2>
             </div>
-            <div className="grid gap-px bg-ink/15 sm:grid-cols-2 lg:col-span-7">
+            <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:col-span-7">
               <FitPanel title="Good fit" items={fit.good} />
               <FitPanel title="Not a good fit" items={fit.bad} muted />
             </div>
@@ -246,7 +246,7 @@ export default function ServicesPage() {
           </div>
           <div className="lg:col-span-6">
             <TechLabel tone="dark">How to start</TechLabel>
-            <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+            <h2 className="mt-4 max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
               Start with a two week audit.
             </h2>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/70">
@@ -256,13 +256,11 @@ export default function ServicesPage() {
             </p>
             <ol className="mt-8 grid gap-4 sm:grid-cols-2">
               {[
-                ["Week 1", "We sit with your team and watch how the work really gets done."],
+                ["Week 1", "We sit with your team and watch how the work gets done day to day."],
                 ["Week 2", "We map where the hours go and pick the first fixes worth building."],
               ].map(([week, line]) => (
                 <li key={week} className="border-l-2 border-warn pl-4">
-                  <span className="font-mono text-[12px] uppercase tracking-[0.14em] text-ink/60">
-                    {week}
-                  </span>
+                  <span className="text-sm font-medium text-ink/60">{week}</span>
                   <p className="mt-1 leading-relaxed text-ink/80">{line}</p>
                 </li>
               ))}
@@ -275,14 +273,14 @@ export default function ServicesPage() {
         <Container className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <TechLabel tone="dark">Questions</TechLabel>
-            <h2 className="mt-4 font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+            <h2 className="mt-4 font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
               What people ask us.
             </h2>
           </div>
           <div className="divide-y divide-ink/15 border-y border-ink/15 lg:col-span-8">
             {faqs.map((f) => (
               <details key={f.q} className="group py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-lg font-bold">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-semibold text-ink">
                   {f.q}
                   <span
                     aria-hidden
@@ -313,7 +311,7 @@ function FitPanel({
   muted?: boolean;
 }) {
   return (
-    <div className="bg-offwhite p-6 sm:p-8">
+    <div className={`border-t-2 pt-6 ${muted ? "border-ink/25" : "border-blueprint"}`}>
       <h3 className="font-display text-2xl font-bold tracking-tight-2">{title}</h3>
       <ul className="mt-5 space-y-4">
         {items.map((item) => (

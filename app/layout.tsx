@@ -2,13 +2,13 @@ import type { Metadata, Viewport } from "next";
 import { HOME, SITE_NAME, SITE_URL, organizationSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Analytics } from "@/components/seo/Analytics";
-import { Archivo, Archivo_Black, IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
+import { Archivo, Archivo_Black, Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { BlueprintCursor } from "@/components/cursor/BlueprintCursor";
 import { ClientErrorGuard } from "@/components/system/ClientErrorGuard";
 import { MotionPrefs } from "@/components/system/MotionPrefs";
 
-// Wide industrial display face
+// Wide industrial face, kept for the wordmark
 const display = Archivo_Black({
   subsets: ["latin"],
   weight: "400",
@@ -23,13 +23,10 @@ const grotesk = Archivo({
   display: "swap",
 });
 
-// Technical annotation font
-// Editorial serif for statement lines (section 1).
-const serif = Instrument_Serif({
+// Friendly grotesque for headings
+const heading = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-serif",
+  variable: "--font-heading",
   display: "swap",
 });
 
@@ -69,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${display.variable} ${grotesk.variable} ${mono.variable} ${serif.variable}`}
+      className={`${display.variable} ${grotesk.variable} ${mono.variable} ${heading.variable}`}
     >
       <body id="top">
         <JsonLd data={organizationSchema} />

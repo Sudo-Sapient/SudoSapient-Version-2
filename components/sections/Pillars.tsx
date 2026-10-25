@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { buttonVariants } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { RiveScene } from "@/components/motion/RiveScene";
 import { cn } from "@/lib/utils";
@@ -40,7 +41,7 @@ export function Pillars() {
     <section className="relative overflow-hidden bg-[#eef1f5] py-20 sm:py-28">
       <Container className="grid items-center gap-10 lg:grid-cols-12">
         <div className="lg:col-span-7">
-          <h2 className="font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] text-ink sm:text-6xl md:text-7xl">
+          <h2 className="font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] text-ink sm:text-6xl md:text-7xl">
             Stop paying people to{" "}
             <span
               className={cn(
@@ -64,7 +65,7 @@ export function Pillars() {
           </p>
           <a
             href="#how-we-transform"
-            className="relative mt-6 inline-flex items-center gap-3 border-b border-ink/40 pb-1 font-mono text-[12px] uppercase tracking-[0.16em] text-ink transition-colors after:absolute after:-inset-y-3 after:inset-x-0 after:content-[''] hover:border-blueprint hover:text-blueprint"
+            className={cn(buttonVariants({ variant: "secondary" }), "mt-6")}
           >
             See how it works
           </a>

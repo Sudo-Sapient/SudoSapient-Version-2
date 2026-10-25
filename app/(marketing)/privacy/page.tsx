@@ -63,11 +63,11 @@ export default function PrivacyPage() {
         ],
         [
           "Your choices",
-          "You can ask us to show, correct or delete the information you have shared with us by emailing sudosapient@gmail.com.",
+          "You can ask us to show, correct or delete the information you have shared with us by emailing hello@sudosapient.com.",
         ],
         [
           "Changes and contact",
-          "If this policy changes, we will update the date at the top of this page. Questions can be sent to sudosapient@gmail.com.",
+          "If this policy changes, we will update the date at the top of this page. Questions can be sent to hello@sudosapient.com.",
         ],
       ]}
     />

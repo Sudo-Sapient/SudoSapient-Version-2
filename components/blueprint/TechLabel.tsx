@@ -17,11 +17,11 @@ export function TechLabel({
   ...props
 }: Props) {
   const toneClass =
-    tone === "light" ? "text-white/80" : tone === "warn" ? "text-warn" : "text-ink/70";
+    tone === "light" ? "text-white/80" : tone === "warn" ? "text-warn" : "text-blueprint";
   return (
     <Tag
       className={cn(
-        "font-mono text-[11px] uppercase tracking-[0.18em]",
+        "text-sm font-semibold",
         toneClass,
         underline && "tick-underline inline-block",
         className

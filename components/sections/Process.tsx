@@ -8,11 +8,11 @@ import { cn } from "@/lib/utils";
 
 // Beat start times (seconds) must match the timeline in scripts/rive/transform.mjs.
 const BEATS = [
-  { at: 0, label: "Mess", line: "Your best people, buried in busywork." },
-  { at: 3, label: "Call", line: "So they call Sudo Sapient. We're there fast." },
-  { at: 7, label: "Audit", line: "We audit how the work really flows." },
-  { at: 10, label: "Pilot", line: "We pilot one AI fix, with your team." },
-  { at: 13, label: "Chill", line: "Then it runs on its own. They finally breathe." },
+  { at: 0, label: "Busywork", line: "Your best people spend the day copying and chasing." },
+  { at: 3, label: "First call", line: "You call us, and we come and sit with the team." },
+  { at: 7, label: "Audit", line: "We watch how the work flows and note where the hours go." },
+  { at: 10, label: "Pilot", line: "We build one AI fix and test it with your team." },
+  { at: 13, label: "Handover", line: "It runs by itself, and your people get their time back." },
 ];
 
 /** Section 3: a small comic strip. The message leads; the strip supports it. */
@@ -36,8 +36,8 @@ export function Process() {
       className="relative scroll-mt-20 bg-[#eef1f5] py-16 text-ink sm:py-24"
     >
       <Container className="flex flex-col items-center text-center">
-        <TechLabel tone="dark">How we transform</TechLabel>
-        <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+        <TechLabel tone="dark">How we work</TechLabel>
+        <h2 className="mt-4 max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
           We take the mess off your desk.
         </h2>
 
@@ -53,10 +53,7 @@ export function Process() {
             <ol className="space-y-2 text-left text-lg text-ink/80">
               {BEATS.map((b) => (
                 <li key={b.label}>
-                  <span className="font-mono text-[12px] uppercase tracking-[0.14em] text-ink/60">
-                    {b.label}.
-                  </span>{" "}
-                  {b.line}
+                  <span className="text-sm font-medium text-ink/60">{b.label}.</span> {b.line}
                 </li>
               ))}
             </ol>
@@ -68,7 +65,7 @@ export function Process() {
         </p>
         <ol
           aria-label="Our process"
-          className="mt-5 flex flex-wrap justify-center gap-x-2 gap-y-2 font-mono text-[12px] uppercase tracking-[0.14em]"
+          className="mt-5 flex flex-wrap justify-center gap-x-2 gap-y-2 text-sm font-medium"
         >
           {BEATS.map((b, i) => (
             <li key={b.label} className="flex items-center gap-2">

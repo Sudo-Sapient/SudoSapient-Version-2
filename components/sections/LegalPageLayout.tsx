@@ -22,7 +22,7 @@ export function LegalPageLayout({ title, intro, updated, summary, scene, section
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-7">
               <TechLabel tone="dark">Legal · Updated {updated}</TechLabel>
-              <h1 className="mt-5 font-serif text-5xl leading-[1.02] tracking-[-0.02em] sm:text-7xl">
+              <h1 className="mt-5 font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-7xl">
                 {title}
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">{intro}</p>
@@ -42,9 +42,7 @@ export function LegalPageLayout({ title, intro, updated, summary, scene, section
           </div>
 
           <div className="mt-12 border border-ink/15 bg-white p-6 sm:p-8">
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
-              The short version
-            </p>
+            <p className="text-[13px] font-medium text-ink/50">The short version</p>
             <ul className="mt-5 grid gap-5 sm:grid-cols-3">
               {summary.map((line) => (
                 <li key={line} className="flex gap-3 leading-relaxed text-ink/80">
@@ -62,9 +60,7 @@ export function LegalPageLayout({ title, intro, updated, summary, scene, section
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
             <aside className="hidden lg:col-span-3 lg:block">
               <nav aria-label="On this page" className="lg:sticky lg:top-28">
-                <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/50">
-                  On this page
-                </p>
+                <p className="text-[13px] font-medium text-ink/50">On this page</p>
                 <ol className="mt-5 space-y-3 border-l border-ink/15 pl-4">
                   {sections.map(([heading], index) => (
                     <li key={heading}>
@@ -88,10 +84,7 @@ export function LegalPageLayout({ title, intro, updated, summary, scene, section
                   className="scroll-mt-28 border-t border-ink/20 py-8 first:border-t-0 first:pt-0"
                 >
                   <div className="flex items-baseline gap-4">
-                    <span className="font-mono text-[11px] text-blueprint">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <h2 className="font-serif text-3xl leading-tight tracking-[-0.01em] sm:text-4xl">
+                    <h2 className="font-heading text-3xl font-semibold leading-tight tracking-[-0.01em] sm:text-4xl">
                       {heading}
                     </h2>
                   </div>

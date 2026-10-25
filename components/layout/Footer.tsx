@@ -43,15 +43,15 @@ export function Footer() {
             <Link
               href="/"
               aria-label="Sudo Sapient home"
-              className="font-display text-2xl tracking-[-0.045em] text-white"
+              className="font-brand text-2xl tracking-[-0.045em] text-white"
             >
               Sudo Sapient<span className="text-warn">.</span>
             </Link>
             <a
-              href="mailto:sudosapient@gmail.com"
+              href="mailto:hello@sudosapient.com"
               className="text-white/42 mt-2 block text-xs transition-colors hover:text-white"
             >
-              sudosapient@gmail.com
+              hello@sudosapient.com
             </a>
           </div>
 
@@ -78,7 +78,7 @@ export function Footer() {
                 </li>
               </ul>
             </nav>
-            <div className="flex w-full items-center justify-between gap-3 border-t border-white/10 pt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-white/60 sm:w-auto sm:justify-start sm:border-0 sm:pt-0 sm:tracking-[0.14em]">
+            <div className="flex w-full items-center justify-between gap-3 border-t border-white/10 pt-4 text-[13px] font-medium text-white/60 sm:w-auto sm:justify-start sm:border-0 sm:pt-0">
               <span>© {year}</span>
               <Link
                 href="/privacy"

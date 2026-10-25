@@ -101,7 +101,7 @@ export function Nav() {
         >
           <span
             className={cn(
-              "font-display font-semibold leading-none tracking-tight-2 transition-all duration-300",
+              "font-brand font-semibold leading-none tracking-tight-2 transition-all duration-300",
               scrolled ? "text-lg" : "text-xl"
             )}
           >
@@ -181,14 +181,13 @@ export function Nav() {
             className="overflow-hidden border-t border-white/15 bg-blueprint lg:hidden"
           >
             <Container className="flex flex-col py-4">
-              {links.map((link, index) => (
+              {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="flex min-h-12 items-center gap-3 border-b border-white/10 py-3 font-mono text-sm uppercase tracking-[0.16em] text-white/85"
+                  className="flex min-h-12 items-center gap-3 border-b border-white/10 py-3 text-sm font-medium text-white/85"
                 >
-                  <span className="text-white/35">{String(index + 1).padStart(2, "0")}</span>
                   {link.label}
                 </Link>
               ))}
@@ -216,7 +215,7 @@ function MinimalLink({ href, label, active }: { href: string; label: string; act
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "group relative py-3 font-mono text-[12px] uppercase tracking-[0.18em] transition-colors",
+        "group relative py-3 text-sm font-medium transition-colors",
         active ? "text-white" : "text-white/70 hover:text-white"
       )}
     >

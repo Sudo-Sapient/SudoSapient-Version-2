@@ -157,8 +157,8 @@ export function MobileFooterLaunch() {
           </g>
         </g>
       </svg>
-      <p className="absolute inset-x-0 bottom-1 text-center font-mono text-[11px] uppercase tracking-[0.15em] text-white/60">
-        Build carefully. Launch confidently.
+      <p className="absolute inset-x-0 bottom-1 text-center text-[13px] font-medium text-white/60">
+        Made in Bangalore by the Sudo Sapient team.
       </p>
     </div>
   );

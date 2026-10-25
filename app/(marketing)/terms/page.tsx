@@ -39,7 +39,7 @@ export default function TermsPage() {
         ],
         [
           "How engagements work",
-          "We usually start with an audit of how the work really flows, then pilot one fix with your team, then roll out what works. Each step, what it includes and what it costs is agreed in writing before it begins. Timelines depend on your workflows, your tools and how quickly we can get access.",
+          "We usually start with an audit of how the work flows, then pilot one fix with your team, then roll out what works. Each step, what it includes and what it costs is agreed in writing before it begins. Timelines depend on your workflows, your tools and how quickly we can get access.",
         ],
         [
           "You own what we build",
@@ -65,7 +65,7 @@ export default function TermsPage() {
           "Links and limits",
           "Links to other websites are provided for convenience and are run by their owners, not us. This website is provided as it is, and to the extent the law allows we are not responsible for losses from using it.",
         ],
-        ["Contact", "Questions about these terms can be sent to sudosapient@gmail.com."],
+        ["Contact", "Questions about these terms can be sent to hello@sudosapient.com."],
       ]}
     />
   );

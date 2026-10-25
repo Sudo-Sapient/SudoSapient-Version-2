@@ -7,7 +7,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
     <>
       <a
         href="#main-content"
-        className="fixed left-4 top-4 z-[10000] -translate-y-24 bg-warn px-4 py-3 font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-transform focus:translate-y-0"
+        className="fixed left-4 top-4 z-[10000] -translate-y-24 bg-warn px-4 py-3 text-sm font-bold text-ink transition-transform focus:translate-y-0"
       >
         Skip to content
       </a>

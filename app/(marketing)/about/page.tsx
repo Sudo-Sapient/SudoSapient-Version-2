@@ -59,7 +59,7 @@ const team: Floor[] = [
     artboard: "Janith",
     gagMs: 2670,
     caught: "Caught watching a movie with popcorn. Back to work.",
-    bio: "Sits with the people doing the work and builds what they actually need.",
+    bio: "Sits with the people doing the work and builds what they need.",
   },
   {
     name: "Kishen",
@@ -77,7 +77,7 @@ const beliefs = [
     src: "/rive/about.riv",
     artboard: "Learn",
     title: "We learn before we build.",
-    body: "We watch how the work really flows before we write a line of code.",
+    body: "We watch how the work flows before we write any code.",
     alt: "Our developer stands behind someone at their desk, writes notes on a clipboard, and gets a lightbulb idea.",
   },
   {
@@ -96,7 +96,8 @@ const beliefs = [
   },
 ];
 
-const serif = "font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl";
+const serif =
+  "font-heading font-semibold text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl";
 
 export default function AboutPage() {
   return (
@@ -107,14 +108,14 @@ export default function AboutPage() {
         <Container className="relative z-10 grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-9">
             <TechLabel>About</TechLabel>
-            <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[1.02] tracking-[-0.02em] sm:text-7xl">
+            <h1 className="mt-5 max-w-4xl font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-7xl">
               We&rsquo;re the people who sit next to your team.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">
               Sudo Sapient is a small team of engineers and operators. We learn how your company
-              really works, then build the AI that takes the busywork off it. Your people get their
-              time back, and the business moves faster. We&rsquo;re based in Bangalore and work with
-              teams across India and in Dubai.
+              works day to day, then build the AI that takes the busywork off it. Your people get
+              their time back, and the business moves faster. We&rsquo;re based in Bangalore and
+              work with teams across India and in Dubai.
             </p>
           </div>
           <div className="hidden justify-end lg:col-span-3 lg:flex">
@@ -137,9 +138,8 @@ export default function AboutPage() {
             <TechLabel tone="dark">Why we exist</TechLabel>
             <h2 className={`mt-4 max-w-2xl ${serif}`}>We kept seeing the same thing.</h2>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/70">
-              Smart people spending half their week copying, chasing and sorting. Not because they
-              wanted to, but because nobody had fixed it. So that&rsquo;s what we do. We fix it, one
-              workflow at a time.
+              Smart people spending half their week copying, chasing and sorting, because nobody had
+              found the time to fix it. So we started fixing it, one workflow at a time.
             </p>
           </div>
           <div className="flex justify-center lg:col-span-5">
@@ -159,10 +159,10 @@ export default function AboutPage() {
       <section className="bg-[#eef1f5] py-16 text-ink sm:py-24">
         <Container>
           <TechLabel tone="dark">What we believe</TechLabel>
-          <h2 className={`mt-4 max-w-2xl ${serif}`}>Three things we don&rsquo;t bend on.</h2>
-          <div className="mt-12 grid gap-px border border-ink/15 bg-ink/15 md:grid-cols-3">
+          <h2 className={`mt-4 max-w-2xl ${serif}`}>How we like to work.</h2>
+          <div className="mt-12 grid gap-x-10 gap-y-14 md:grid-cols-3">
             {beliefs.map((b) => (
-              <article key={b.title} className="bg-[#eef1f5] p-6 sm:p-8">
+              <article key={b.title} className="border-t-2 border-blueprint pt-6">
                 <RiveScene
                   className="mx-auto w-44"
                   src={b.src}
@@ -184,10 +184,10 @@ export default function AboutPage() {
         <GridBackground />
         <Container className="relative z-10">
           <TechLabel>The team</TechLabel>
-          <h2 className={`mt-4 max-w-2xl ${serif}`}>Take the lift. Meet the team.</h2>
+          <h2 className={`mt-4 max-w-2xl ${serif}`}>Meet the team.</h2>
           <p className="mt-4 max-w-xl text-lg text-white/75">
-            Six floors, six people. These are the ones on your calls and the ones building your
-            system.
+            Six people, one per floor. Press a floor to meet who will be on your calls and who will
+            build your system.
           </p>
           <div className="mt-12">
             <TeamElevator floors={team} />

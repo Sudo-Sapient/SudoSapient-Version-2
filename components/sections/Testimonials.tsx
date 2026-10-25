@@ -140,11 +140,11 @@ export function Testimonials() {
     >
       <Container>
         <TechLabel tone="dark">Testimonials</TechLabel>
-        <h2 className="mt-4 max-w-2xl font-serif text-[2.6rem] leading-[1.04] tracking-[-0.02em] sm:text-6xl">
-          Real outcomes. Built together.
+        <h2 className="mt-4 max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+          What our clients say.
         </h2>
         <p className="mt-4 max-w-xl text-lg text-ink/70">
-          Six teams who let us into how their business really runs, and what changed once we
+          Six teams let us into how their business runs day to day. Here is what changed after we
           automated it.
         </p>
 
@@ -156,15 +156,7 @@ export function Testimonials() {
             aria-label={`Testimonial from ${current.name} at ${current.company}`}
             className="border-ink/18 relative overflow-hidden border-b bg-white px-5 py-6 sm:px-10 sm:py-10 lg:col-span-7 lg:min-h-[510px] lg:border-b-0 lg:border-r lg:px-12 lg:py-12 lg:pb-36"
           >
-            <div className="flex items-center justify-between gap-4">
-              <TechLabel tone="dark">FEATURED TESTIMONIAL</TechLabel>
-              <TechLabel tone="dark">
-                {String(active + 1).padStart(2, "0")} /{" "}
-                {String(testimonials.length).padStart(2, "0")}
-              </TechLabel>
-            </div>
-
-            <div className="mt-7 max-w-2xl sm:mt-12 lg:mt-14">
+            <div className="max-w-2xl">
               <span aria-hidden className="block h-10 font-display text-6xl leading-none text-warn">
                 “
               </span>
@@ -230,13 +222,7 @@ export function Testimonials() {
             onPointerDownCapture={stopAuto}
             onKeyDownCapture={stopAuto}
           >
-            <div className="flex items-center justify-between gap-4 border-b border-ink/15 pb-4">
-              <div>
-                <TechLabel tone="dark">SELECT A VOICE</TechLabel>
-                <p className="mt-1.5 text-xs leading-relaxed text-ink/50 lg:hidden">
-                  Tap a client to change the story.
-                </p>
-              </div>
+            <div className="flex items-center justify-end gap-4 border-b border-ink/15 pb-4">
               <div className="flex shrink-0 gap-2">
                 <button
                   type="button"
@@ -306,16 +292,11 @@ export function Testimonials() {
                         : "border-ink/15 bg-white/55 text-ink"
                     }`}
                   >
-                    <span
-                      className={`block font-mono text-[11px] tracking-[0.15em] ${selected ? "text-warn" : "text-ink/60"}`}
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="mt-2 block text-pretty font-display text-[0.95rem] font-bold leading-[1.05] tracking-[-0.025em]">
+                    <span className="block text-pretty font-display text-[0.95rem] font-bold leading-[1.05] tracking-[-0.025em]">
                       {testimonial.name}
                     </span>
                     <span
-                      className={`mt-1.5 block font-mono text-[11px] uppercase tracking-[0.11em] ${selected ? "text-white/75" : "text-ink/65"}`}
+                      className={`mt-1.5 block text-[13px] font-medium ${selected ? "text-white/75" : "text-ink/65"}`}
                     >
                       {testimonial.company}
                     </span>
@@ -341,20 +322,15 @@ export function Testimonials() {
                     tabIndex={selected ? 0 : -1}
                     onClick={() => setActive(index)}
                     onKeyDown={handleTabKey}
-                    className="border-ink/12 group grid w-full grid-cols-[2.5rem_1fr_auto] items-center gap-3 border-b py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ink"
+                    className="border-ink/12 group grid w-full grid-cols-[1fr_auto] items-center gap-3 border-b py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ink"
                   >
-                    <span
-                      className={`font-mono text-[11px] tracking-[0.16em] transition-colors ${selected ? "text-warn" : "text-ink/60"}`}
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
                     <span>
                       <span
                         className={`block font-display text-xl font-bold tracking-[-0.035em] transition-transform duration-300 ${selected ? "translate-x-1 text-ink" : "text-ink/60 group-hover:translate-x-1 group-hover:text-ink"}`}
                       >
                         {testimonial.name}
                       </span>
-                      <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.13em] text-ink/65">
+                      <span className="mt-1 block text-[13px] font-medium text-ink/65">
                         {testimonial.company} · {testimonial.discipline}
                       </span>
                     </span>
@@ -364,12 +340,6 @@ export function Testimonials() {
                   </button>
                 );
               })}
-            </div>
-
-            <div className="mt-8 hidden border-l-2 border-warn/60 pl-4 lg:block">
-              <p className="max-w-[20rem] font-mono text-[11px] uppercase leading-relaxed tracking-[0.13em] text-ink/65">
-                Choose a client to read their full testimonial and project context.
-              </p>
             </div>
           </div>
         </div>

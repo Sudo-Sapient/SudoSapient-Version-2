@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 
 export const SITE_URL = "https://sudosapient.com";
 export const SITE_NAME = "Sudo Sapient";
-export const EMAIL = "sudosapient@gmail.com";
+export const EMAIL = "hello@sudosapient.com";
 export const PHONE = "+91-80500-29848";
 export const WHATSAPP_URL = "https://wa.me/918050029848";
 export const INSTAGRAM_URL = "https://www.instagram.com/sudo.sapient/";
@@ -85,7 +85,7 @@ export const organizationSchema = {
       url: `${SITE_URL}/`,
       logo: `${SITE_URL}/icon.svg`,
       description:
-        "Sudo Sapient is an AI transformation company based in Bangalore, India, working with teams across India, in Dubai and worldwide. We learn how a team really works, then build the AI agents and workflow automations that take the busywork off it.",
+        "Sudo Sapient is an AI transformation company based in Bangalore, India, working with teams across India, in Dubai and worldwide. We learn how a team works, then build the AI agents and workflow automations that take the busywork off it.",
       email: EMAIL,
       telephone: PHONE,
       address: {

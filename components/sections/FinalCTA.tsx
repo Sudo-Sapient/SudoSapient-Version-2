@@ -22,7 +22,7 @@ const contacts = [
     href: "https://www.linkedin.com/in/sabari8956/",
     external: true,
   },
-  { label: "Email", value: "sudosapient@gmail.com", href: "mailto:sudosapient@gmail.com" },
+  { label: "Email", value: "hello@sudosapient.com", href: "mailto:hello@sudosapient.com" },
   {
     label: "WhatsApp",
     value: "+91 80500 29848",
@@ -68,12 +68,12 @@ export function FinalCTA() {
       <Container className="relative z-10">
         <div className="grid items-center gap-10 lg:grid-cols-12">
           <div className="flex flex-col gap-6 lg:col-span-6">
-            <h2 className="font-serif text-5xl leading-[1.02] tracking-[-0.02em] sm:text-6xl">
-              Start with one conversation.
+            <h2 className="font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl">
+              Start with a 30 minute call.
             </h2>
             <p className="max-w-xl text-lg leading-relaxed text-white/80">
-              Thirty minutes on how your team works today. You leave with the first three things
-              worth automating, whether or not we work together.
+              Tell us how your team works today. By the end of the call you&rsquo;ll know
+              what&rsquo;s worth automating first, whether or not we work together.
             </p>
             <div>
               <Button asChild variant="solid" size="lg">
@@ -92,8 +92,8 @@ export function FinalCTA() {
               frameClassName="aspect-[300/170] w-full"
               ariaLabel="A client and our developer at a café table. The client scribbles a tangled mess on a napkin, our developer draws three neat boxes beside it, ticks appear on all three, and they shake hands."
               fallback={
-                <p className="border border-white/20 p-6 font-serif text-2xl leading-snug text-white/85">
-                  Thirty minutes, one napkin, three things worth automating.
+                <p className="border border-white/20 p-6 font-heading text-2xl font-semibold leading-snug text-white/85">
+                  A short call and a napkin sketch of what to automate first.
                 </p>
               }
             />
@@ -117,7 +117,7 @@ export function FinalCTA() {
                   aria-hidden
                   className="h-full w-full object-cover"
                 />
-                <span className="absolute right-0.5 top-0.5 bg-[#0E1424]/80 px-1 font-mono text-[8px] uppercase leading-4 tracking-[0.1em] text-white group-hover:text-warn sm:text-[9px]">
+                <span className="absolute right-0.5 top-0.5 bg-[#0E1424]/80 px-1 text-[10px] font-medium leading-4 text-white group-hover:text-warn">
                   {muted ? "Sound" : "Mute"}
                 </span>
               </button>
@@ -127,18 +127,16 @@ export function FinalCTA() {
 
         <ul
           aria-label="Other ways to reach us"
-          className="mt-12 grid gap-px border border-white/20 bg-white/20 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
         >
           {contacts.map((c) => (
             <li key={c.label}>
               <a
                 href={c.href}
                 {...(c.external ? { target: "_blank", rel: "noreferrer" } : {})}
-                className="block h-full bg-blueprint px-5 py-4 transition-colors hover:bg-white hover:text-blueprint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
+                className="block h-full rounded-2xl bg-white/10 px-5 py-4 transition-colors hover:bg-white hover:text-blueprint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
               >
-                <span className="block font-mono text-[11px] uppercase tracking-[0.12em] opacity-75">
-                  {c.label}
-                </span>
+                <span className="block text-[13px] font-medium opacity-75">{c.label}</span>
                 <span className="mt-1 block break-words font-display text-lg tracking-[-0.03em]">
                   {c.value}
                 </span>

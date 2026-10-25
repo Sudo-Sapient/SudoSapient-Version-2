@@ -7,12 +7,17 @@ export function withBasePath(path: string) {
 }
 
 /** One primary action, worded the same everywhere. */
-export const CTA_LABEL = "Start your transformation";
+export const CTA_LABEL = "Book a 30 minute call";
 
 /** The transformation journey (Audit, Pilot, Scale, Embed), shown on the Services page. */
 export const STAGES = [
   { n: "01", title: "Audit", time: "2 weeks", body: "We walk your workflow before we touch it." },
-  { n: "02", title: "Pilot", time: "2 weeks", body: "One fix, live, proven with your team." },
+  {
+    n: "02",
+    title: "Pilot",
+    time: "2 weeks",
+    body: "We build one fix and run it live with your team.",
+  },
   {
     n: "03",
     title: "Scale",

@@ -167,7 +167,7 @@ export function TeamElevator({ floors }: { floors: Floor[] }) {
                   initial={{ opacity: 0, y: 6, scale: 0.8 }}
                   animate={{ opacity: 1, y: -22, scale: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute -right-14 top-0 rounded-full bg-warn px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink"
+                  className="absolute -right-14 top-0 rounded-full bg-warn px-2 py-0.5 text-[13px] font-medium text-ink"
                 >
                   Ding!
                 </motion.span>
@@ -278,9 +278,7 @@ export function TeamElevator({ floors }: { floors: Floor[] }) {
 
       {/* the panel */}
       <div className="md:col-span-7">
-        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/60">
-          Press a floor
-        </p>
+        <p className="text-[13px] font-medium text-white/60">Press a floor</p>
         {/* phones: a compact row of six numbers under the cab; names show from md up */}
         <ol className="mt-4 grid grid-cols-6 gap-2 md:grid-cols-2">
           {floors.map((f, i) => (
@@ -327,10 +325,10 @@ export function TeamElevator({ floors }: { floors: Floor[] }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35 }}
             >
-              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-warn">
+              <p className="text-[13px] font-medium text-warn">
                 Floor {current + 1}. {m.caught}
               </p>
-              <h3 className="mt-3 font-serif text-4xl leading-none">{m.name}</h3>
+              <h3 className="mt-3 font-heading text-4xl font-semibold leading-none">{m.name}</h3>
               <p className="mt-1 text-white/60">{m.role}</p>
               <p className="mt-4 max-w-md leading-relaxed text-white/85">{m.bio}</p>
             </motion.div>

@@ -78,7 +78,7 @@ export const SERVICES: ServiceDetail[] = [
     metaTitle: "Workflow Automation Services in Bangalore | Sudo Sapient",
     metaDescription:
       "Workflow automation that connects your tools: leads into the CRM, reports that build themselves, approvals that reach the right person. India and Dubai.",
-    h1: "Your tools, finally talking to each other.",
+    h1: "Your tools, connected so the work moves on its own.",
     intro:
       "Most busywork lives in the gaps between tools: copying a lead into the CRM, rebuilding the same report, chasing an approval. We connect those tools and add AI where a step needs judgement, so the work moves on its own.",
     handles: [
@@ -128,7 +128,7 @@ export const SERVICES: ServiceDetail[] = [
     metaTitle: "AI Features for Your Software | Sudo Sapient",
     metaDescription:
       "Add AI to your software: an assistant in your app, search and answers over your own data, smart suggestions. Built with your developers; the code is yours.",
-    h1: "Smart features your customers will actually use.",
+    h1: "AI features your customers will use every day.",
     intro:
       "If you run a software platform, AI can make it do more for every customer. We design and build AI features that fit your app and your data, work alongside your developers, and hand the code over to your team.",
     handles: [

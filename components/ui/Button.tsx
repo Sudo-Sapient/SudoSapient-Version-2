@@ -4,23 +4,25 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-mono text-[13px] font-medium uppercase tracking-[0.08em] transition-colors disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-current",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-[15px] font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-current",
   {
     variants: {
       variant: {
-        // Primary: white outline on blue, fills white on hover with blue text
-        primary: "border border-white text-white hover:bg-white hover:text-blueprint",
-        // Secondary: blue outline on white
-        secondary: "border border-ink text-ink hover:bg-ink hover:text-white",
-        // Ghost: text only
-        ghost: "text-white hover:bg-white/10",
+        // Primary and solid: the bright amber call to action
+        primary:
+          "bg-warn text-ink shadow-[0_4px_14px_-4px_rgba(251,191,36,0.35)] hover:bg-[#fcd34d] hover:shadow-[0_6px_18px_-4px_rgba(251,191,36,0.5)]",
+        // Secondary: filled ink on light backgrounds
+        secondary: "bg-ink text-white shadow-[0_8px_24px_-8px_rgba(10,20,40,0.6)] hover:bg-ink/90",
+        // Ghost: white outline pill on blue
+        ghost:
+          "border-2 border-white/80 text-white hover:border-white hover:bg-white hover:text-blueprint",
         ghostInk: "text-ink hover:bg-ink/5",
-        // Solid white for blue backgrounds
-        solid: "bg-white text-blueprint hover:bg-white/90",
+        solid:
+          "bg-warn text-ink shadow-[0_4px_14px_-4px_rgba(251,191,36,0.35)] hover:bg-[#fcd34d] hover:shadow-[0_6px_18px_-4px_rgba(251,191,36,0.5)]",
       },
       size: {
         default: "h-11 px-5",
-        sm: "h-9 px-4 text-[12px]",
+        sm: "h-9 px-4 text-sm",
         lg: "h-12 px-6",
       },
     },

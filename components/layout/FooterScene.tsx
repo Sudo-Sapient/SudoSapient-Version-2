@@ -364,8 +364,8 @@ export function FooterScene() {
       <div className="absolute inset-x-0 bottom-3 aspect-[960/440] min-w-[54rem] -translate-x-[17%] sm:min-w-0 sm:translate-x-0">
         <UnifiedBlueprintFooter className="text-white/82 h-full w-full" />
       </div>
-      <p className="absolute inset-x-0 bottom-1 text-center font-mono text-[9px] uppercase tracking-[0.18em] text-white/30">
-        Plan it clearly. Build it properly. Send it.
+      <p className="absolute inset-x-0 bottom-1 text-center text-[13px] font-medium text-white/30">
+        Made in Bangalore by the Sudo Sapient team.
       </p>
     </div>
   );

@@ -117,7 +117,7 @@ Full map: `docs/PROJECT-STRUCTURE.md`.
 ## Contact
 
 The contact page has no form. Two buttons open WhatsApp (`wa.me/918050029848`, with a
-prefilled hello) and email (a `mailto:` to `sudosapient@gmail.com` with a subject and a
+prefilled hello) and email (a `mailto:` to `hello@sudosapient.com` with a subject and a
 short template). The number, address and message live at the top of
 `app/(marketing)/contact/page.tsx`. Nothing is sent through this site and no environment
 variables are needed.

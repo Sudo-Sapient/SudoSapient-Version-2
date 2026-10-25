@@ -1,6 +1,6 @@
 # Sudo Sapient
 
-> Sudo Sapient is an AI transformation company based in Bangalore (Bengaluru), India, working with clients across India, in Dubai (UAE) and worldwide. We sit with a company's team, learn how the work really gets done, then build the AI agents and workflow automations that make it faster, easier and more profitable. Clients own everything we build.
+> Sudo Sapient is an AI transformation company based in Bangalore (Bengaluru), India, working with clients across India, in Dubai (UAE) and worldwide. We sit with a company's team, learn how the work really gets done, then build the AI agents and workflow automations that take that work off its hands. Clients own everything we build.
 
 ## What we build
 
@@ -10,19 +10,19 @@
 
 ## How an engagement runs
 
-1. **Audit (2 weeks)**: we walk the workflow before we touch it. Week 1 we sit with the team and watch how the work really gets done; week 2 we map where the hours go and pick the first fixes worth building.
-2. **Pilot (2 weeks)**: one fix, live, proven with the team.
+1. **Audit (2 weeks)**: we walk the workflow before we touch it. Week 1 we sit with the team and watch how the work gets done day to day; week 2 we map where the hours go and pick the first fixes worth building.
+2. **Pilot (2 weeks)**: one fix, built and run live with the team.
 3. **Scale (3 to 6 weeks)**: we roll out what works, one workflow at a time.
 4. **Embed (ongoing)**: the team learns to run it, and it stays theirs.
 
 ## Who it is for
 
-A good fit: a team doing the same work every day, someone who owns the problem and can make calls, and a company that wants a working system rather than a strategy deck.
+A good fit: a team doing the same work every day, someone who owns the problem and can make calls, and a company that wants a working system in weeks.
 
 ## Frequently asked questions
 
 - **Is our data safe?** Your data stays in your accounts wherever we can manage it. We sign an NDA before the audit, only touch what the workflow needs, and never use it to train anything.
-- **Will this replace my team?** No. We take away the repetitive parts so people spend their time on the work that needs a person. Most teams get busier with better work, not smaller.
+- **Will this replace my team?** No. We take away the repetitive parts so people spend their time on the work that needs a person. Most teams stay the same size and spend more of the day on work that matters.
 - **Do we have to change our tools?** Usually not. We build around what you already use, like your inbox, CRM, spreadsheets and internal apps.
 - **How fast will we see results?** The audit takes about two weeks. The first pilot is live with your team around two weeks after that.
 - **Who owns what you build?** You do. The code, the prompts and the accounts are yours, and we train your team to run it without us.
@@ -36,9 +36,9 @@ Sudo Sapient has automated logistics operations for Shipzy, a credit engine and 
 - Based in: Bangalore (Bengaluru), Karnataka, India. Serving India, Dubai and remote clients worldwide.
 
 - WhatsApp: https://wa.me/918050029848 (+91 80500 29848)
-- Email: sudosapient@gmail.com
+- Email: hello@sudosapient.com
 - Contact page: https://sudosapient.com/contact/
-- We reply within one working day. The first step is a 30 minute call; you leave with the first three things worth automating.
+- We reply within one working day. The first step is a 30 minute call; by the end you know what's worth automating first.
 
 ## Pages
 

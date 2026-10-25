@@ -6,25 +6,31 @@ import { TechLabel } from "@/components/blueprint/TechLabel";
 import { RiveScene } from "@/components/motion/RiveScene";
 
 export const metadata = pageMetadata({
-  title: "Contact Sudo Sapient | Start Your AI Transformation",
+  title: "Contact Sudo Sapient | Book a Call About AI Automation",
   description:
     "Message us on WhatsApp or email us. Tell us how your team works today and we reply within one working day with a time for a 30 minute call.",
   path: "/contact/",
 });
 
 const WHATSAPP_NUMBER = "918050029848"; // +91 80500 29848, country code first, digits only
-const EMAIL = "sudosapient@gmail.com";
+const EMAIL = "hello@sudosapient.com";
 const HELLO = "Hi Sudo Sapient, I'd like to talk about automating some of the work at my company.";
 
 const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(HELLO)}`;
-const emailHref = `mailto:${EMAIL}?subject=${encodeURIComponent("Start our transformation")}&body=${encodeURIComponent(
+const emailHref = `mailto:${EMAIL}?subject=${encodeURIComponent("Hello from our team")}&body=${encodeURIComponent(
   `${HELLO}\n\nOur company:\nWhat takes up most of our week:\n`
 )}`;
 
 const steps = [
   ["You message us", "A few lines on your team and where the work piles up is plenty."],
-  ["We reply within a working day", "A real person, not an auto reply, with a time for a call."],
-  ["A thirty minute call", "You leave with the first three things worth automating."],
+  [
+    "We reply within a working day",
+    "Someone from the team writes back and suggests a time to talk.",
+  ],
+  [
+    "A thirty minute call",
+    "We go through your week together and point out what to automate first.",
+  ],
 ];
 
 export default function ContactPage() {
@@ -35,8 +41,8 @@ export default function ContactPage() {
         <GridBackground />
         <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-12">
           <div className="lg:col-span-6">
-            <TechLabel>Start your transformation</TechLabel>
-            <h1 className="mt-5 font-serif text-5xl leading-[1.02] tracking-[-0.02em] sm:text-6xl md:text-7xl">
+            <TechLabel>Contact</TechLabel>
+            <h1 className="mt-5 font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl md:text-7xl">
               Say hello. We&rsquo;ll take it from there.
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
@@ -48,14 +54,14 @@ export default function ContactPage() {
                 href={whatsappHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-14 items-center justify-center gap-3 bg-[#25D366] px-6 font-mono text-[13px] uppercase tracking-[0.14em] text-ink transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
+                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-[#25D366] px-7 text-sm font-semibold text-ink shadow-[0_4px_14px_-4px_rgba(37,211,102,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_18px_-4px_rgba(37,211,102,0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
               >
                 <ChatIcon />
                 Message us on WhatsApp
               </a>
               <a
                 href={emailHref}
-                className="inline-flex min-h-14 items-center justify-center gap-3 border border-white/60 px-6 font-mono text-[13px] uppercase tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-blueprint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
+                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full border-2 border-white/80 px-7 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-blueprint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warn"
               >
                 <MailIcon />
                 Email us
@@ -89,13 +95,10 @@ export default function ContactPage() {
       <section className="bg-offwhite py-16 text-ink sm:py-24">
         <Container>
           <TechLabel tone="dark">What happens next</TechLabel>
-          <ol className="mt-8 grid gap-px border border-ink/15 bg-ink/15 md:grid-cols-3">
-            {steps.map(([title, body], i) => (
-              <li key={title} className="bg-offwhite p-6 sm:p-8">
-                <span className="font-mono text-[12px] text-blueprint">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h2 className="mt-3 font-serif text-3xl leading-tight">{title}</h2>
+          <ol className="mt-8 grid gap-x-10 gap-y-10 md:grid-cols-3">
+            {steps.map(([title, body]) => (
+              <li key={title} className="border-t-2 border-blueprint pt-6">
+                <h2 className="font-heading text-3xl font-semibold leading-tight">{title}</h2>
                 <p className="mt-2 leading-relaxed text-ink/70">{body}</p>
               </li>
             ))}
