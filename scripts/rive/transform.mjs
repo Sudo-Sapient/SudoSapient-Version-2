@@ -76,9 +76,19 @@ const SIT = {
   shR: 80,
   lean: 0,
 };
-const TYPE_A = { ...SIT, faL: -5, faR: -45, lean: 8 };
-const TYPE_B = { ...SIT, faL: -35, faR: -15, lean: 8 };
-const DESPAIR = { ...SIT, ...reach("emp", "L", -5, -52), ...reach("emp", "R", 5, -52), lean: 22 };
+// Leaning tilts the whole seated body about the feet; counter-rotate the thighs so the
+// feet stay planted instead of sinking through the floor.
+const seated = (p) => ({ ...p, thL: SIT.thL - p.lean, thR: SIT.thR - p.lean });
+const TYPE_A = seated({ ...SIT, faL: -5, faR: -45, lean: 8 });
+const TYPE_B = seated({ ...SIT, faL: -35, faR: -15, lean: 8 });
+// Head in hands. A small lean only: the body pivots at the feet, so a big one swings the
+// seated legs through the floor.
+const DESPAIR = seated({
+  ...SIT,
+  ...reach("emp", "L", -5, -52),
+  ...reach("emp", "R", 5, -52),
+  lean: 7,
+});
 const PHONE = { ...SIT, ...reach("emp", "R", 6, -55), uaL: -40, faL: -60, lean: 0 };
 const THUMBS = { ...SIT, uaR: -150, faR: -40 };
 const CHILL = {
@@ -236,15 +246,27 @@ for (let p = 0; p < 3; p++)
     fill: { color: PAPER },
   });
 // The dev's laptop: carried in his left hand, set on the desk, opened, closed, carried off.
+// Carried as a laptop bag hanging from the hand, so it never reads as part of the arm.
+group("carry", 0, 11.5, { parent: "dev_faL" });
+line(
+  "carryHandle",
+  [
+    { x: -3.5, y: 4 },
+    { x: -3.5, y: 0 },
+    { x: 3.5, y: 0 },
+    { x: 3.5, y: 4 },
+  ],
+  { parent: "carry", stroke: ink(1.4) }
+);
 shapes.push({
-  id: "carry",
+  id: "carryBag",
   type: "rect",
   x: 0,
-  y: 14,
-  width: 14,
-  height: 3,
-  cornerRadius: 1,
-  parent: "dev_faL",
+  y: 9,
+  width: 15,
+  height: 10,
+  cornerRadius: 1.5,
+  parent: "carry",
   stroke: ink(1.4),
   fill: { color: BLUE },
 });
@@ -300,7 +322,7 @@ for (let t = 0; t < 3; t++) {
   );
 }
 
-const STAND = { uaL: 12, faL: -6, uaR: -12, faR: 6, thL: 4, shL: 0, thR: -4, shR: 0, lean: 0 };
+const STAND = { uaL: 20, faL: -8, uaR: -20, faR: 8, thL: 7, shL: 0, thR: -7, shR: 0, lean: 0 };
 const RUN_A = {
   uaL: -50,
   faL: -60,
@@ -361,8 +383,8 @@ for (let t = 0; t < 110; t += 12) {
 pose("emp", 120, DESPAIR, "ease-out");
 for (let t = 130; t < 170; t += 10)
   key("emp_body", "rotation", [
-    [t, 26, "ease-in-out"],
-    [t + 5, 18, "ease-in-out"],
+    [t, 9, "ease-in-out"],
+    [t + 5, 5, "ease-in-out"],
   ]);
 for (const p of ["scaleX", "scaleY"])
   key("scribble", p, [

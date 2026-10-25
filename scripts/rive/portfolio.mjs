@@ -26,7 +26,7 @@ const k = makeKit(G, { line: BLUE, paper: PAPER });
 const { shapes, groups, group, line, key, figure, pose, reach, walk, tracksOut } = k;
 const ink = (t = 2.4) => ({ color: BLUE, thickness: t, cap: "round", join: "round" });
 const texts = [];
-const STAND = { uaL: 12, faL: -6, uaR: -12, faR: 6, thL: 4, shL: 0, thR: -4, shR: 0, lean: 0 };
+const STAND = { uaL: 20, faL: -8, uaR: -20, faR: 8, thL: 7, shL: 0, thR: -7, shR: 0, lean: 0 };
 
 line(
   "floor",
@@ -97,11 +97,12 @@ const shown = (x) => (L1 - x) / (L1 - L0); // cover scaleX that leaves everythin
 // ---- the painter, with a long roller on a pole ----
 figure("painter", 60);
 const POLE_TOP = { x: 34, y: -122 }; // roller head, in the painter's own units
+// On the body (not the feet) so the pole leans with him and stays in his hands.
 line("pole", [{ x: 10, y: -30 }, POLE_TOP], {
-  parent: "painter",
+  parent: "painter_body",
   stroke: { color: AMBER, thickness: 3, cap: "round" },
 });
-group("rollerHead", POLE_TOP.x, POLE_TOP.y, { parent: "painter" });
+group("rollerHead", POLE_TOP.x, POLE_TOP.y, { parent: "painter_body" });
 shapes.push({
   id: "roller",
   type: "rect",
@@ -126,7 +127,8 @@ for (let d = 0; d < 2; d++)
     opacity: 0,
     fill: { color: BLUE },
   });
-const GRIP = { ...STAND, ...reach("painter", "R", 10, -30), ...reach("painter", "L", 14, -44) };
+// Near (right) hand takes the upper grip, far hand the lower, so no arm folds across the chest.
+const GRIP = { ...STAND, ...reach("painter", "L", 11, -35), ...reach("painter", "R", 17, -57) };
 // The roller head sits at painter.x + POLE_TOP.x, so this is where he stands to paint at x.
 const standFor = (x) => x - POLE_TOP.x;
 
@@ -148,11 +150,12 @@ shapes.push({
   fill: { color: AMBER },
 });
 
-const HIPS = { ...STAND, ...reach("painter", "L", -8, -28), ...reach("painter", "R", 8, -28) };
+// The painter never lets go of the pole: his near hand stays on it in every pose.
+const HIPS = { ...GRIP, ...reach("painter", "L", -8, -28) };
 const HIPS_B = { ...STAND, ...reach("buddy", "L", -8, -28), ...reach("buddy", "R", 8, -28) };
 const HAND_OVER = { ...STAND, uaR: -80, faR: -10, lean: 6 };
 const NUDGE = { ...STAND, ...reach("buddy", "R", 16, -58), lean: 8 };
-const FIVE_P = { ...STAND, uaL: 140, faL: 10 };
+const FIVE_P = { ...GRIP, uaL: 140, faL: 10 };
 const FIVE_B = { ...STAND, uaR: -140, faR: -10 };
 
 // ================= 0–250: paint left to right =================
@@ -236,7 +239,7 @@ key("rollerHead", "y", [
 ]);
 
 // ================= 512–640: step back, admire; the frame tilts =================
-walk("painter", 512, 560, standFor(L1), standFor(L1) + 60);
+walk("painter", 512, 560, standFor(L1), standFor(L1) + 60, { arms: false });
 walk("buddy", 512, 560, standFor(MID) - 30, 70);
 pose("painter", 564, HIPS);
 pose("buddy", 564, HIPS_B);

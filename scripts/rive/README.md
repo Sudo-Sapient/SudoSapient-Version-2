@@ -22,6 +22,7 @@ Shared modules, not run directly:
 - `kit.mjs`: stick figure rig, poses, `reach` IK, walk cycle, keyframe collector.
 - `agents.mjs`: the cute AI agent characters plus `blink` and `pop`.
 - `cabs.mjs`: the About page elevator cabs. Built into `about.riv`, so run `rive:about`.
+- `glyphs.mjs`: the monoline letters the footer crew turns into for the "Sudo Sapient." finale.
 
 The scripts need the `rive-mcp-server` devDependency, so run `npm install` first.
 

@@ -193,19 +193,21 @@ export function makeKit(G, { line: LINE = WHITE, paper: PAPER = NIGHT } = {}) {
   };
   // Pose = joint rotations in degrees (0 = limb hanging straight down).
   const POSES = {
-    stand: { uaL: 12, faL: -6, uaR: -12, faR: 6, thL: 4, shL: 0, thR: -4, shR: 0, lean: 0 },
-    sketch: { uaL: 10, faL: -6, uaR: -95, faR: -40, thL: 6, shL: 0, thR: -6, shR: 0, lean: 4 },
-    sketch2: { uaL: 10, faL: -6, uaR: -80, faR: -65, thL: 6, shL: 0, thR: -6, shR: 0, lean: 4 },
+    // Resting arms hang a little away from the body so they never overlap the legs.
+    stand: { uaL: 20, faL: -8, uaR: -20, faR: 8, thL: 7, shL: 0, thR: -7, shR: 0, lean: 0 },
+    sketch: { uaL: 20, faL: -8, uaR: -95, faR: -40, thL: 7, shL: 0, thR: -7, shR: 0, lean: 4 },
+    sketch2: { uaL: 20, faL: -8, uaR: -80, faR: -65, thL: 7, shL: 0, thR: -7, shR: 0, lean: 4 },
     reachUp: { uaL: 160, faL: 10, uaR: -160, faR: -10, thL: 6, shL: 0, thR: -6, shR: 0, lean: 0 },
     press: {
       uaL: 120,
       faL: 30,
       uaR: -120,
       faR: -30,
-      thL: 14,
-      shL: -18,
-      thR: -14,
-      shR: 18,
+      // Wide, straight legs: inward-bent shins read as broken knees.
+      thL: 12,
+      shL: 0,
+      thR: -12,
+      shR: 0,
       lean: 0,
     },
     ears: {
@@ -213,17 +215,17 @@ export function makeKit(G, { line: LINE = WHITE, paper: PAPER = NIGHT } = {}) {
       faL: 120,
       uaR: -150,
       faR: -120,
-      thL: 16,
-      shL: -26,
-      thR: -16,
-      shR: 26,
+      thL: 11,
+      shL: 0,
+      thR: -11,
+      shR: 0,
       lean: 0,
     },
     type: { uaL: -50, faL: -50, uaR: -70, faR: -40, thL: 4, shL: 0, thR: -4, shR: 0, lean: 6 },
-    point: { uaL: 12, faL: -6, uaR: -125, faR: -5, thL: 4, shL: 0, thR: -4, shR: 0, lean: 0 },
+    point: { uaL: 20, faL: -8, uaR: -125, faR: -5, thL: 7, shL: 0, thR: -7, shR: 0, lean: 0 },
     cheer: { uaL: 165, faL: -15, uaR: -165, faR: 15, thL: 6, shL: 0, thR: -6, shR: 0, lean: 0 },
-    fiveL: { uaL: 12, faL: -6, uaR: -140, faR: -10, thL: 4, shL: 0, thR: -4, shR: 0, lean: -4 },
-    fiveR: { uaL: 140, faL: 10, uaR: -12, faR: 6, thL: 4, shL: 0, thR: -4, shR: 0, lean: 4 },
+    fiveL: { uaL: 20, faL: -8, uaR: -140, faR: -10, thL: 7, shL: 0, thR: -7, shR: 0, lean: -4 },
+    fiveR: { uaL: 140, faL: 10, uaR: -20, faR: 8, thL: 7, shL: 0, thR: -7, shR: 0, lean: 4 },
   };
   // Two-bone reach: rotations that put `side`'s hand on (tx, ty) in the figure's own
   // coordinates (feet at 0,0), with the elbow bent outward.
@@ -251,6 +253,23 @@ export function makeKit(G, { line: LINE = WHITE, paper: PAPER = NIGHT } = {}) {
       .sort((a, b) => b.out - a.out)[0];
     return { [`ua${side}`]: pick.ua, [`fa${side}`]: pick.fa };
   };
+  // Repeat a track's latest value at frame f, so the next key doesn't interpolate across
+  // the whole gap from an earlier pose (which made idle legs drift into a stride).
+  const holdAt = (target, prop, f) => {
+    const prev = (tracks.get(`${target}|${prop}`) ?? []).filter(([kf]) => kf <= f);
+    if (!prev.length) return;
+    const [, v] = prev.reduce((a, b) => (b[0] >= a[0] ? b : a));
+    key(target, prop, [[f, v, "ease-in-out"]]);
+  };
+  // Hold a joint still until `lead` frames before its next key, so a pose change takes a
+  // beat instead of creeping across a long gap. Skips if a key already sits in that beat.
+  const POSE_LEAD = 20;
+  const settle = (target, prop, frame) => {
+    const f = frame - POSE_LEAD;
+    const kfs = tracks.get(`${target}|${prop}`) ?? [];
+    if (f <= 0 || kfs.some(([kf]) => kf > f && kf <= frame)) return;
+    holdAt(target, prop, f);
+  };
   const pose = (id, frame, name, easing = "ease-in-out") => {
     let p = typeof name === "string" ? POSES[name] : name;
     if (name === "ears") {
@@ -259,6 +278,7 @@ export function makeKit(G, { line: LINE = WHITE, paper: PAPER = NIGHT } = {}) {
       p = { ...p, ...reach(id, "L", -7, hy), ...reach(id, "R", 7, hy) };
     }
     for (const [j, v] of Object.entries(p)) {
+      settle(j === "lean" ? `${id}_body` : `${id}_${j}`, "rotation", frame);
       if (j === "lean") key(`${id}_body`, "rotation", [[frame, v, easing]]);
       // Upper arms stop at 145° from hanging: further would swing them through the head.
       // The big guy's arms splay out so they hang around his belly, not across it.
@@ -269,19 +289,31 @@ export function makeKit(G, { line: LINE = WHITE, paper: PAPER = NIGHT } = {}) {
     }
   };
   // Walk: travel x with contact/passing poses every 12 frames, plus a small bob.
-  const walk = (id, f0, f1, x0, x1) => {
+  // Positive rotation swings a limb's end toward -x, so the trailing leg is the one rotated
+  // by +dir; only that knee bends, and it bends by +dir so the foot kicks back, never forward.
+  // arms: false keeps the arms in their current pose (e.g. while carrying something).
+  const walk = (id, f0, f1, x0, x1, { arms = true } = {}) => {
+    const dir = x1 >= x0 ? 1 : -1;
+    for (const j of ["thL", "thR", "shL", "shR", "uaL", "uaR", "faL", "faR"])
+      holdAt(`${id}_${j}`, "rotation", f0);
     key(id, "x", [
       [f0, x0, "hold"],
       [f1, x1, "ease-in-out"],
     ]);
     let s = 1;
     for (let f = f0; f < f1; f += 12, s = -s) {
-      key(`${id}_thL`, "rotation", [[f + 6, 24 * s, "ease-in-out"]]);
-      key(`${id}_thR`, "rotation", [[f + 6, -24 * s, "ease-in-out"]]);
-      key(`${id}_shL`, "rotation", [[f + 6, s > 0 ? 0 : -20, "ease-in-out"]]);
-      key(`${id}_shR`, "rotation", [[f + 6, s > 0 ? -20 : 0, "ease-in-out"]]);
-      key(`${id}_uaL`, "rotation", [[f + 6, -18 * s, "ease-in-out"]]);
-      key(`${id}_uaR`, "rotation", [[f + 6, 18 * s, "ease-in-out"]]);
+      const lBack = s * dir > 0;
+      key(`${id}_thL`, "rotation", [[f + 6, 22 * s, "ease-in-out"]]);
+      key(`${id}_thR`, "rotation", [[f + 6, -22 * s, "ease-in-out"]]);
+      key(`${id}_shL`, "rotation", [[f + 6, lBack ? 28 * dir : 0, "ease-in-out"]]);
+      key(`${id}_shR`, "rotation", [[f + 6, lBack ? 0 : 28 * dir, "ease-in-out"]]);
+      if (arms) {
+        // Arms swing against the legs, elbows bent slightly forward.
+        key(`${id}_uaL`, "rotation", [[f + 6, -18 * s, "ease-in-out"]]);
+        key(`${id}_uaR`, "rotation", [[f + 6, 18 * s, "ease-in-out"]]);
+        key(`${id}_faL`, "rotation", [[f + 6, -8 * dir, "ease-in-out"]]);
+        key(`${id}_faR`, "rotation", [[f + 6, -8 * dir, "ease-in-out"]]);
+      }
       key(`${id}_body`, "y", [
         [f, 0, "ease-in-out"],
         [f + 6, -2, "ease-in-out"],
