@@ -141,7 +141,8 @@ export function BlueprintCanvas({ className, interactive = true, reveal = true }
         powerPreference: "low-power",
       });
     } catch {
-      return; // no WebGL → the static <GridBackground/> fallback stays visible
+      canvas.style.visibility = "hidden"; // no WebGL → the static <GridBackground/> shows
+      return;
     }
 
     const gl = renderer.gl;
@@ -210,12 +211,14 @@ export function BlueprintCanvas({ className, interactive = true, reveal = true }
     let onScreen = true;
 
     // Stop cleanly if the GL context is lost (the browser can drop the oldest
-    // context once too many exist). Fail safe to the static GridBackground
-    // instead of throwing inside renderer.render().
+    // context once too many exist, or the GPU process can crash). A dead opaque
+    // canvas paints solid white over the section, so hide it and let the static
+    // GridBackground and the section's blue show through.
     let lost = false;
     const onLost = (e: Event) => {
       e.preventDefault();
       lost = true;
+      canvas.style.visibility = "hidden";
       if (raf) cancelAnimationFrame(raf);
       raf = 0;
     };
@@ -234,7 +237,10 @@ export function BlueprintCanvas({ className, interactive = true, reveal = true }
     let t0 = 0;
     const frame = (now: number) => {
       raf = 0;
-      if (lost || gl.isContextLost()) return;
+      if (lost || gl.isContextLost()) {
+        canvas.style.visibility = "hidden";
+        return;
+      }
       if (!t0) t0 = now;
       const t = (now - t0) / 1000;
 
@@ -259,6 +265,7 @@ export function BlueprintCanvas({ className, interactive = true, reveal = true }
         renderer.render({ scene: mesh });
       } catch {
         lost = true;
+        canvas.style.visibility = "hidden";
         return;
       }
 
