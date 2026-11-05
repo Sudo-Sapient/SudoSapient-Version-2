@@ -177,7 +177,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <Container>
           <div className="grid items-end gap-8 border-b border-ink/20 pb-10 lg:grid-cols-12">
             <div className="lg:col-span-8">
-              <TechLabel tone="dark">HAVE A RELATED WORKFLOW?</TechLabel>
+              <TechLabel tone="dark">Have a related workflow?</TechLabel>
               <h2 className="mt-4 text-balance font-display text-4xl font-extrabold leading-[0.95] tracking-tight-3 sm:text-5xl">
                 Let&rsquo;s identify the smallest useful system to ship first.
               </h2>

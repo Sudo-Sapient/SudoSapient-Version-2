@@ -38,7 +38,7 @@ export function Process() {
       <Container className="flex flex-col items-center text-center">
         <TechLabel tone="dark">How we work</TechLabel>
         <h2 className="mt-4 max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
-          We take the mess off your desk.
+          We take the mess off your desk
         </h2>
 
         <RiveScene
@@ -53,7 +53,7 @@ export function Process() {
             <ol className="space-y-2 text-left text-lg text-ink/80">
               {BEATS.map((b) => (
                 <li key={b.label}>
-                  <span className="text-sm font-medium text-ink/60">{b.label}.</span> {b.line}
+                  <span className="font-semibold text-ink">{b.label}.</span> {b.line}
                 </li>
               ))}
             </ol>

@@ -92,10 +92,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       <section className="bg-offwhite py-16 text-ink sm:py-24">
         <Container>
-          <TechLabel tone="dark">What it handles</TechLabel>
-          <h2 className={`mt-4 max-w-3xl ${serif}`}>
-            What {inSentence(s.name)} can handle for you.
-          </h2>
+          <h2 className={`max-w-3xl ${serif}`}>What {inSentence(s.name)} can handle for you</h2>
           <ul className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2">
             {s.handles.map((h) => (
               <li key={h.title} className="border-t-2 border-blueprint pt-6">
@@ -121,8 +118,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       <section className="bg-[#eef1f5] py-16 text-ink sm:py-24">
         <Container>
-          <TechLabel tone="dark">How it runs</TechLabel>
-          <h2 className={`mt-4 max-w-2xl ${serif}`}>How a project runs.</h2>
+          <h2 className={`max-w-2xl ${serif}`}>How a project runs</h2>
           <ol className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {STAGES.map((st) => (
               <li key={st.title} className="border-t-2 border-blueprint pt-6">
@@ -142,8 +138,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <section className="bg-offwhite py-16 text-ink sm:py-24">
         <Container className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <TechLabel tone="dark">Questions</TechLabel>
-            <h2 className={`mt-4 ${serif}`}>About {inSentence(s.name)}.</h2>
+            <h2 className={`${serif}`}>Questions about {inSentence(s.name)}</h2>
           </div>
           <div className="divide-y divide-ink/15 border-y border-ink/15 lg:col-span-8">
             {s.faqs.map((f) => (

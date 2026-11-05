@@ -69,7 +69,7 @@ export function FinalCTA() {
         <div className="grid items-center gap-10 lg:grid-cols-12">
           <div className="flex flex-col gap-6 lg:col-span-6">
             <h2 className="font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl">
-              Start with a 30 minute call.
+              Let&rsquo;s talk
             </h2>
             <p className="max-w-xl text-lg leading-relaxed text-white/80">
               Tell us how your team works today. By the end of the call you&rsquo;ll know

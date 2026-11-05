@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export type Module = {
-  code: string; // "M.01"
+  code: string; // stable key, e.g. "M.01" (not shown)
   label: string; // "AGENTS"
   meta?: string; // "agents · copilots · RAG"
   width?: number; // 0-1 fraction of container width, default 1
@@ -28,7 +28,7 @@ type Props = {
 
 /**
  * Vertical stack of labeled blocks. Modules stack from top → bottom.
- * Each block has an internal divider, code label on the left, name in the center,
+ * Each block has an internal divider, name in the center,
  * and an optional meta line in mono on the right. The whole stack draws in via
  * staggered stroke animation.
  *
@@ -130,7 +130,7 @@ export function ModuleStack({
           );
         })}
 
-        {/* row content: code label, name, meta */}
+        {/* row content: name, meta */}
         {modules.map((m, i) => {
           const cy = top + rowH * i + rowH / 2;
           return (
@@ -143,17 +143,6 @@ export function ModuleStack({
                 transition: { duration: 0.5, delay: startDelay + 1.0 + i * 0.12 },
               })}
             >
-              <text
-                x={left + 16}
-                y={cy - 18}
-                style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
-                fontSize="11"
-                letterSpacing="2"
-                className={textColor}
-                stroke="none"
-              >
-                {m.code}
-              </text>
               <text
                 x={left + 16}
                 y={cy + 8}
@@ -183,19 +172,6 @@ export function ModuleStack({
             <line x1={36} y1={top} x2={36} y2={bottom} />
             <line x1={28} y1={top} x2={44} y2={top} />
             <line x1={28} y1={bottom} x2={44} y2={bottom} />
-            <text
-              x={26}
-              y={(top + bottom) / 2}
-              textAnchor="middle"
-              style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}
-              fontSize="10"
-              letterSpacing="2"
-              className={textColor}
-              stroke="none"
-              transform={`rotate(-90, 26, ${(top + bottom) / 2})`}
-            >
-              AI-NATIVE
-            </text>
           </motion.g>
         )}
 

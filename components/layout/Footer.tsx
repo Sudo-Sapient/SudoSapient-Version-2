@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "./Container";
+import { FooterBuddy } from "./FooterBuddy";
 import { FooterScene } from "./FooterScene";
 import { MobileFooterLaunch } from "./MobileFooterLaunch";
 import { CTA_LABEL } from "@/lib/site";
@@ -27,7 +28,7 @@ export function Footer() {
             fallback={<MobileFooterLaunch />}
           />
         </div>
-        <div className="hidden border-y border-white/10 bg-white/[0.015] sm:block">
+        <div className="relative hidden border-y border-white/10 bg-white/[0.015] sm:block">
           <RiveScene
             src="/rive/footer.riv"
             artboard="Desktop"
@@ -36,6 +37,7 @@ export function Footer() {
             ariaLabel="The crew builds and launches a rocket"
             fallback={<FooterScene />}
           />
+          <FooterBuddy />
         </div>
 
         <div className="mt-5 flex flex-col gap-6 sm:mt-4 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
@@ -71,7 +73,7 @@ export function Footer() {
                 <li>
                   <Link
                     href="/contact"
-                    className="inline-flex min-h-11 items-center text-sm text-warn transition-colors hover:text-white"
+                    className="inline-flex min-h-11 items-center text-sm font-semibold text-white underline decoration-white/40 underline-offset-4 transition-colors hover:decoration-white"
                   >
                     {CTA_LABEL}
                   </Link>

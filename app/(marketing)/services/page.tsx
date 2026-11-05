@@ -143,8 +143,7 @@ export default function ServicesPage() {
         <GridBackground />
         <Container className="relative z-10 grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-9">
-            <TechLabel>Services</TechLabel>
-            <h1 className="mt-5 max-w-4xl font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-7xl">
+            <h1 className="max-w-4xl font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-7xl">
               What we do inside your company.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">
@@ -164,9 +163,8 @@ export default function ServicesPage() {
 
       <section className="bg-offwhite py-16 text-ink sm:py-24">
         <Container>
-          <TechLabel tone="dark">What we build</TechLabel>
-          <h2 className="mt-4 max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
-            What we build for you.
+          <h2 className="max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+            What we build for you
           </h2>
           <div className="mt-12 grid gap-x-10 gap-y-14 md:grid-cols-3">
             {services.map((s) => (
@@ -199,9 +197,8 @@ export default function ServicesPage() {
 
       <section className="bg-[#eef1f5] py-16 text-ink sm:py-24">
         <Container>
-          <TechLabel tone="dark">How it runs</TechLabel>
-          <h2 className="mt-4 max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
-            How a project runs.
+          <h2 className="max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+            How a project runs
           </h2>
           <ol className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {STAGES.map((s) => (
@@ -221,9 +218,8 @@ export default function ServicesPage() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
-              <TechLabel tone="dark">Is this you?</TechLabel>
-              <h2 className="mt-4 font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
-                We work best with teams like this.
+              <h2 className="font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+                We work best with teams like this
               </h2>
             </div>
             <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:col-span-7">
@@ -245,9 +241,8 @@ export default function ServicesPage() {
             />
           </div>
           <div className="lg:col-span-6">
-            <TechLabel tone="dark">How to start</TechLabel>
-            <h2 className="mt-4 max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
-              Start with a two week audit.
+            <h2 className="max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+              Start with a two week audit
             </h2>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/70">
               We spend two weeks with the people who do the work. You get a map of where the time
@@ -272,9 +267,8 @@ export default function ServicesPage() {
       <section className="bg-offwhite py-16 text-ink sm:py-24">
         <Container className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <TechLabel tone="dark">Questions</TechLabel>
-            <h2 className="mt-4 font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
-              What people ask us.
+            <h2 className="font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+              What people ask us
             </h2>
           </div>
           <div className="divide-y divide-ink/15 border-y border-ink/15 lg:col-span-8">

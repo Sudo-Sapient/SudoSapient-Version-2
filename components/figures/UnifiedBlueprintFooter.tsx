@@ -39,24 +39,6 @@ export function UnifiedBlueprintFooter({ className }: { className?: string }) {
         <path d="M78 400h804" />
         <path d="M480 34v352" strokeDasharray="3 12" />
       </g>
-      <g
-        fill="#CBD5FF"
-        stroke="none"
-        fontFamily="var(--font-mono)"
-        fontSize="8"
-        letterSpacing="1.5"
-        opacity=".46"
-      >
-        <text x="50" y="58">
-          01 / ARCHITECT
-        </text>
-        <text x="395" y="58">
-          02 / BUILD CREW
-        </text>
-        <text x="784" y="58">
-          03 / LAUNCH
-        </text>
-      </g>
 
       {/* The table is built as two physical halves so the launch shockwave can split it. */}
       <g data-desk-left>
@@ -307,31 +289,12 @@ export function UnifiedBlueprintFooter({ className }: { className?: string }) {
         opacity="0"
         fill="#FBBF24"
         stroke="none"
-        fontFamily="var(--font-mono)"
-        fontSize="9"
-        letterSpacing="1.5"
+        fontFamily="var(--font-grotesk)"
+        fontSize="11"
+        fontWeight="600"
       >
         <text x="586" y="20" textAnchor="middle">
-          CLEARED FOR LAUNCH
-        </text>
-      </g>
-
-      <g
-        fill="#CBD5FF"
-        stroke="none"
-        fontFamily="var(--font-mono)"
-        fontSize="7"
-        letterSpacing="1.3"
-        opacity=".35"
-      >
-        <text x="203" y="422" textAnchor="middle">
-          DRAW THE PLAN
-        </text>
-        <text x="586" y="422" textAnchor="middle">
-          BUILD THE ROCKET
-        </text>
-        <text x="866" y="422" textAnchor="middle">
-          SEND IT
+          Cleared for launch
         </text>
       </g>
     </svg>

@@ -4,7 +4,6 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Analytics } from "@/components/seo/Analytics";
 import { Archivo, Archivo_Black, Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import { BlueprintCursor } from "@/components/cursor/BlueprintCursor";
 import { ClientErrorGuard } from "@/components/system/ClientErrorGuard";
 import { MotionPrefs } from "@/components/system/MotionPrefs";
 
@@ -72,10 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={organizationSchema} />
         <Analytics />
         <ClientErrorGuard />
-        <MotionPrefs>
-          {children}
-          <BlueprintCursor />
-        </MotionPrefs>
+        <MotionPrefs>{children}</MotionPrefs>
       </body>
     </html>
   );

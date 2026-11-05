@@ -8,17 +8,18 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Primary and solid: the bright amber call to action
+        // Primary and solid: the call to action on blue, a white pill with blue text
         primary:
-          "bg-warn text-ink shadow-[0_4px_14px_-4px_rgba(251,191,36,0.35)] hover:bg-[#fcd34d] hover:shadow-[0_6px_18px_-4px_rgba(251,191,36,0.5)]",
-        // Secondary: filled ink on light backgrounds
-        secondary: "bg-ink text-white shadow-[0_8px_24px_-8px_rgba(10,20,40,0.6)] hover:bg-ink/90",
+          "bg-white text-blueprint shadow-[0_6px_18px_-8px_rgba(0,0,0,0.45)] hover:bg-[#EEF1F5]",
+        // Secondary: the call to action on light backgrounds, a brand blue pill
+        secondary:
+          "bg-blueprint text-white shadow-[0_6px_18px_-8px_rgba(30,64,175,0.6)] hover:bg-blueprint-deep",
         // Ghost: white outline pill on blue
         ghost:
           "border-2 border-white/80 text-white hover:border-white hover:bg-white hover:text-blueprint",
         ghostInk: "text-ink hover:bg-ink/5",
         solid:
-          "bg-warn text-ink shadow-[0_4px_14px_-4px_rgba(251,191,36,0.35)] hover:bg-[#fcd34d] hover:shadow-[0_6px_18px_-4px_rgba(251,191,36,0.5)]",
+          "bg-white text-blueprint shadow-[0_6px_18px_-8px_rgba(0,0,0,0.45)] hover:bg-[#EEF1F5]",
       },
       size: {
         default: "h-11 px-5",

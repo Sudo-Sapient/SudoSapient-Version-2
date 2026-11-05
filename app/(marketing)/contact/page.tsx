@@ -6,7 +6,7 @@ import { TechLabel } from "@/components/blueprint/TechLabel";
 import { RiveScene } from "@/components/motion/RiveScene";
 
 export const metadata = pageMetadata({
-  title: "Contact Sudo Sapient | Book a Call About AI Automation",
+  title: "Contact Sudo Sapient | Start Your AI Transformation",
   description:
     "Message us on WhatsApp or email us. Tell us how your team works today and we reply within one working day with a time for a 30 minute call.",
   path: "/contact/",
@@ -41,8 +41,7 @@ export default function ContactPage() {
         <GridBackground />
         <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-12">
           <div className="lg:col-span-6">
-            <TechLabel>Contact</TechLabel>
-            <h1 className="mt-5 font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl md:text-7xl">
+            <h1 className="font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-6xl md:text-7xl">
               Say hello. We&rsquo;ll take it from there.
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">

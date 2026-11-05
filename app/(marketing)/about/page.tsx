@@ -107,8 +107,7 @@ export default function AboutPage() {
         <GridBackground />
         <Container className="relative z-10 grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-9">
-            <TechLabel>About</TechLabel>
-            <h1 className="mt-5 max-w-4xl font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-7xl">
+            <h1 className="max-w-4xl font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.02em] sm:text-7xl">
               We&rsquo;re the people who sit next to your team.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">
@@ -136,7 +135,7 @@ export default function AboutPage() {
         <Container className="grid items-center gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <TechLabel tone="dark">Why we exist</TechLabel>
-            <h2 className={`mt-4 max-w-2xl ${serif}`}>We kept seeing the same thing.</h2>
+            <h2 className={`mt-4 max-w-2xl ${serif}`}>We kept seeing the same thing</h2>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/70">
               Smart people spending half their week copying, chasing and sorting, because nobody had
               found the time to fix it. So we started fixing it, one workflow at a time.
@@ -158,8 +157,7 @@ export default function AboutPage() {
 
       <section className="bg-[#eef1f5] py-16 text-ink sm:py-24">
         <Container>
-          <TechLabel tone="dark">What we believe</TechLabel>
-          <h2 className={`mt-4 max-w-2xl ${serif}`}>How we like to work.</h2>
+          <h2 className={`max-w-2xl ${serif}`}>How we like to work</h2>
           <div className="mt-12 grid gap-x-10 gap-y-14 md:grid-cols-3">
             {beliefs.map((b) => (
               <article key={b.title} className="border-t-2 border-blueprint pt-6">
@@ -183,8 +181,7 @@ export default function AboutPage() {
       <section className="relative overflow-clip bg-blueprint py-16 text-white sm:py-24">
         <GridBackground />
         <Container className="relative z-10">
-          <TechLabel>The team</TechLabel>
-          <h2 className={`mt-4 max-w-2xl ${serif}`}>Meet the team.</h2>
+          <h2 className={`max-w-2xl ${serif}`}>Meet the team</h2>
           <p className="mt-4 max-w-xl text-lg text-white/75">
             Six people, one per floor. Press a floor to meet who will be on your calls and who will
             build your system.

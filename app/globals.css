@@ -345,20 +345,6 @@
   }
 }
 
-/* Hide the native cursor while the blueprint cursor is active (fine pointers
-   only). Text fields keep their caret so the contact form stays usable. */
-@media (hover: hover) and (pointer: fine) {
-  html.has-custom-cursor,
-  html.has-custom-cursor * {
-    cursor: none !important;
-  }
-  html.has-custom-cursor input,
-  html.has-custom-cursor textarea,
-  html.has-custom-cursor select {
-    cursor: auto !important;
-  }
-}
-
 /* Hero figures: a slow hoist, as if each rides its own rig. Each figure sets
    --rise / --rise-dur inline. `translate` keeps it clear of GSAP's transforms;
    reduced motion is covered by the global kill-switch above. */
@@ -371,5 +357,60 @@
   }
   to {
     translate: 0 calc(var(--rise, 8px) * -1);
+  }
+}
+
+/* Footer buddy (components/layout/FooterBuddy.tsx): limbs swing about the hip and
+   shoulders while he walks; one arm waves when the pointer is right over him. */
+.footer-buddy g {
+  transform-box: view-box;
+}
+.footer-buddy .buddy-legL,
+.footer-buddy .buddy-legR {
+  transform-origin: 15px 37px;
+}
+.footer-buddy .buddy-armL {
+  transform-origin: 13px 22px;
+}
+.footer-buddy .buddy-armR {
+  transform-origin: 17px 22px;
+  transition: transform 0.2s ease-out;
+}
+.footer-buddy[data-state="walk"] .buddy-legL,
+.footer-buddy[data-state="walk"] .buddy-armR {
+  animation: buddy-swing 0.32s ease-in-out infinite alternate;
+}
+.footer-buddy[data-state="walk"] .buddy-legR,
+.footer-buddy[data-state="walk"] .buddy-armL {
+  animation: buddy-swing 0.32s ease-in-out infinite alternate-reverse;
+}
+.footer-buddy[data-state="walk"] svg {
+  animation: buddy-bob 0.32s ease-in-out infinite alternate;
+}
+.footer-buddy[data-state="wave"] .buddy-armR {
+  animation: buddy-wave 0.36s ease-in-out infinite alternate;
+}
+@keyframes buddy-swing {
+  from {
+    transform: rotate(-22deg);
+  }
+  to {
+    transform: rotate(22deg);
+  }
+}
+@keyframes buddy-bob {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-3%);
+  }
+}
+@keyframes buddy-wave {
+  from {
+    transform: rotate(-125deg);
+  }
+  to {
+    transform: rotate(-165deg);
   }
 }

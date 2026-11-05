@@ -136,12 +136,11 @@ export function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="scroll-mt-20 overflow-hidden bg-offwhite pb-16 pt-4 sm:pb-24 md:pb-20"
+      className="scroll-mt-20 overflow-hidden bg-offwhite py-16 sm:py-24 md:py-20"
     >
       <Container>
-        <TechLabel tone="dark">Testimonials</TechLabel>
-        <h2 className="mt-4 max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
-          What our clients say.
+        <h2 className="max-w-2xl font-heading text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl">
+          What our clients say
         </h2>
         <p className="mt-4 max-w-xl text-lg text-ink/70">
           Six teams let us into how their business runs day to day. Here is what changed after we
@@ -227,7 +226,7 @@ export function Testimonials() {
                 <button
                   type="button"
                   onClick={() => selectRelative(-1)}
-                  className="flex h-11 w-11 items-center justify-center border border-ink/25 text-ink transition-colors hover:border-ink hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:translate-y-px"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/25 text-ink transition-colors hover:border-ink hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:translate-y-px"
                   aria-label="Previous testimonial"
                 >
                   <svg
@@ -246,7 +245,7 @@ export function Testimonials() {
                 <button
                   type="button"
                   onClick={() => selectRelative(1)}
-                  className="flex h-11 w-11 items-center justify-center border border-ink/25 text-ink transition-colors hover:border-ink hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:translate-y-px"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/25 text-ink transition-colors hover:border-ink hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:translate-y-px"
                   aria-label="Next testimonial"
                 >
                   <svg
@@ -335,7 +334,7 @@ export function Testimonials() {
                       </span>
                     </span>
                     <span
-                      className={`h-2 w-2 border border-ink/35 transition-colors ${selected ? "bg-warn" : "bg-transparent"}`}
+                      className={`h-2 w-2 rounded-full border transition-colors ${selected ? "border-blueprint bg-blueprint" : "border-ink/35 bg-transparent"}`}
                     />
                   </button>
                 );
