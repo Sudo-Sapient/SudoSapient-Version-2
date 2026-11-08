@@ -138,9 +138,7 @@ export function MobileFooterLaunch() {
             fontSize="8"
             fontWeight="700"
             letterSpacing="1"
-          >
-            GO
-          </text>
+          />
         </g>
 
         {/* Right builder has complete stand and duck poses. */}
@@ -157,9 +155,6 @@ export function MobileFooterLaunch() {
           </g>
         </g>
       </svg>
-      <p className="absolute inset-x-0 bottom-1 text-center text-[13px] font-medium text-white/60">
-        Made in Bangalore by the Sudo Sapient team.
-      </p>
     </div>
   );
 }

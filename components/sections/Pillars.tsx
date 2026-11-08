@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { buttonVariants } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { RiveScene } from "@/components/motion/RiveScene";
 import { cn } from "@/lib/utils";
@@ -63,12 +62,6 @@ export function Pillars() {
             We find the busywork in your workflow and hand it to AI agents, so your team moves
             faster and earns more.
           </p>
-          <a
-            href="#how-we-transform"
-            className={cn(buttonVariants({ variant: "secondary" }), "mt-6")}
-          >
-            See how it works
-          </a>
         </div>
         <div className="lg:col-span-5">
           <RiveScene

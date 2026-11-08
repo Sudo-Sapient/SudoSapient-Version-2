@@ -293,9 +293,7 @@ export function UnifiedBlueprintFooter({ className }: { className?: string }) {
         fontSize="11"
         fontWeight="600"
       >
-        <text x="586" y="20" textAnchor="middle">
-          Cleared for launch
-        </text>
+        {/* empty: the fallback animation still fades this group, but no words to index */}
       </g>
     </svg>
   );

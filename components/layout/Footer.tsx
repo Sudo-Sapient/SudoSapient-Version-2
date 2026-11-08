@@ -55,6 +55,9 @@ export function Footer() {
             >
               hello@sudosapient.com
             </a>
+            <p className="mt-1 text-xs text-white/40">
+              Made in Bangalore. Working with teams across India and Dubai.
+            </p>
           </div>
 
           <div className="flex flex-col gap-5 sm:items-end">

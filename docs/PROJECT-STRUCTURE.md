@@ -37,7 +37,7 @@ eslint.config.mjs, postcss.config.mjs, vitest.config.ts, vitest.setup.ts,
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sections/`    | `Hero`, `Pillars`, `PortfolioSoon`, `Process`, `Testimonials`, `FinalCTA`, `TeamElevator`, `LegalPageLayout`                                               |
 | `layout/`      | `Nav`, `Footer`, `Container`. `FooterScene` and `MobileFooterLaunch` are the SVG/GSAP fallbacks for `footer.riv`                                           |
-| `motion/`      | `RiveScene` (lazy Rive wrapper with fallback), `RivePlayer` (the runtime, loaded on demand), `AnimatedText` (rise, scramble, typewriter text reveals)      |
+| `motion/`      | `RiveScene` (lazy Rive wrapper with fallback), `RivePlayer` (the runtime, loaded on demand)                                                                |
 | `scenes/`      | `LadderClimber` (the climber on the right rail, plays `climber.riv`), `HeroScene` (SVG fallback for `hero.riv`)                                            |
 | `blueprint/`   | `BlueprintFrame`, `CornerBrackets`, `TechLabel`, `GridBackground`, `BlueprintCanvas` (OGL WebGL grid, home hero only), `ModuleStack` (used by `HeroScene`) |
 | `figures/`     | The older SVG stick figure library (40 × 70 rig in `rig.ts`). Used by the SVG fallbacks, the ladder climber fallback and `/work/[slug]`                    |

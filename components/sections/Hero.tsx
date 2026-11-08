@@ -9,7 +9,6 @@ import { BlueprintCanvas } from "@/components/blueprint/BlueprintCanvas";
 import { Button } from "@/components/ui/Button";
 import { HeroScene } from "@/components/scenes/HeroScene";
 import { RiveScene } from "@/components/motion/RiveScene";
-import { AnimatedText } from "@/components/motion/AnimatedText";
 import { CTA_LABEL } from "@/lib/site";
 
 export function Hero() {
@@ -20,39 +19,25 @@ export function Hero() {
       <Container className="relative z-10 flex flex-col justify-center py-14 sm:py-20 md:py-24 lg:min-h-[calc(100dvh-4rem)]">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="flex flex-col gap-6 lg:col-span-7">
-            <AnimatedText
-              as="h1"
-              variant="scramble"
-              trigger="load"
-              delay={0.4}
-              speed={0.018}
-              text="Make your company AI-native."
-              className="max-w-4xl text-balance font-heading text-5xl font-semibold leading-[0.98] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-8xl"
-            />
+            {/* Static on purpose: the main line must show without waiting on JavaScript,
+                for slow phones, crawlers and link previews alike. */}
+            <h1 className="max-w-4xl text-balance font-heading text-5xl font-semibold leading-[0.98] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-8xl">
+              Make your company AI-native.
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.72, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-2xl text-lg leading-relaxed text-white/80 sm:text-xl"
-            >
+            <p className="max-w-2xl text-lg leading-relaxed text-white/80 sm:text-xl">
               We sit with your team, see where the hours go, and build AI agents that handle the
               repetitive work. Then we hand it over for your people to run.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.88, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap items-center gap-4"
-            >
+            <div className="flex flex-wrap items-center gap-4">
               <Button asChild variant="solid" size="lg">
                 <Link href="/contact">{CTA_LABEL}</Link>
               </Button>
               <Button asChild variant="ghost" size="lg">
                 <Link href="#how-we-transform">See how we work</Link>
               </Button>
-            </motion.div>
+            </div>
           </div>
 
           <motion.div

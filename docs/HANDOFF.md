@@ -86,8 +86,6 @@ recolours over light and dark sections and can be "shot" with the cursor.
 
 ### Other systems
 
-- `AnimatedText` (`components/motion/`): rise, scramble and typewriter text reveals
-  (GSAP + split-type). Real text stays in the DOM for SEO and screen readers.
 - `BlueprintCursor`: crosshair cursor, only on devices with hover and a fine pointer.
 - `BlueprintCanvas`: OGL WebGL grid behind the home hero only. Every canvas is its own
   WebGL context, so do not add more instances; other blue sections use the static

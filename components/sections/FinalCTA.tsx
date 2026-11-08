@@ -18,7 +18,7 @@ const contacts = [
   },
   {
     label: "LinkedIn",
-    value: "Sudo Sapient",
+    value: "Sabari K, founder", // a personal profile until there's a company page
     href: "https://www.linkedin.com/in/sabari8956/",
     external: true,
   },
