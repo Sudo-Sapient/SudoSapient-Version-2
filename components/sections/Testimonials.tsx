@@ -49,6 +49,27 @@ const testimonials = [
     company: "AI agency",
     discipline: "Multiple projects",
   },
+  {
+    quote:
+      "I wanted to grow the page without living behind a camera. Now I send a voice note or a reference link and get back a finished Reel within hours, ready to post.",
+    name: "George",
+    company: "Be Pawsh",
+    discipline: "AI media",
+  },
+  {
+    quote:
+      "Our work used to live in PDFs and a scattered Instagram grid. Sudo Sapient gave us a brand and a website that feel as considered as our spaces, and every enquiry now lands in one inbox.",
+    name: "Mayaakars",
+    company: "Orient Ventures",
+    discipline: "SaaS",
+  },
+  {
+    quote:
+      "I had the idea for an AI product but no team to build it. Sudo Sapient took it from a rough concept to something my customers can use today, and walked me through every step.",
+    name: "Gauri",
+    company: "Brand Inner World",
+    discipline: "AI product",
+  },
 ] as const;
 
 const motionTransition = { duration: 0.34, ease: [0.16, 1, 0.3, 1] } as const;
@@ -143,7 +164,7 @@ export function Testimonials() {
           What our clients say
         </h2>
         <p className="mt-4 max-w-xl text-lg text-ink/70">
-          Six teams let us into how their business runs day to day. Here is what changed after we
+          Nine teams let us into how their business runs day to day. Here is what changed after we
           automated it.
         </p>
 
@@ -191,7 +212,7 @@ export function Testimonials() {
                 artboard="Mobile"
                 stateMachine="Podium"
                 inputs={speaker}
-                frameClassName="aspect-[340/112] w-full"
+                frameClassName="aspect-[380/125] w-full"
                 ariaLabel={`${current.name} from ${current.company} speaking at the podium`}
                 fallback={null}
               />

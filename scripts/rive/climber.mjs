@@ -37,11 +37,13 @@ line(
   { parent: "w_faR", stroke: { color: "#FFFFFF", thickness: 1.6, cap: "round" } }
 );
 
-// Hands grip the ladder rails (±8 units = the 32px-wide rail), elbows out.
+// Hands grip the ladder rails (±8 units = the 32px-wide rail) above the head, arms
+// nearly straight. At head height (y -60, head spans -61..-49) it read as clutching his head.
 const grip = (lY, rY) => ({ ...reach("w", "L", -8, lY), ...reach("w", "R", 8, rY) });
-const HANG = { ...grip(-60, -60), thL: 10, shL: -10, thR: -10, shR: 10, lean: 0 };
-const CLIMB_A = { ...grip(-60, -52), thL: 38, shL: -72, thR: -6, shR: 6, lean: 2 };
-const CLIMB_B = { ...grip(-52, -60), thL: 6, shL: -6, thR: -38, shR: 72, lean: -2 };
+const HANG = { ...grip(-65, -65), thL: 5, shL: 0, thR: -5, shR: 0, lean: 0 };
+// Climbing: one hand reaches a rung higher while the opposite knee lifts a little.
+const CLIMB_A = { ...grip(-67, -62), thL: 24, shL: -46, thR: -4, shR: 0, lean: 2 };
+const CLIMB_B = { ...grip(-62, -67), thL: 4, shL: 0, thR: -24, shR: 46, lean: -2 };
 const STEP = {
   uaL: 70,
   faL: 20,

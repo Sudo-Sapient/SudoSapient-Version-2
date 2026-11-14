@@ -1,6 +1,6 @@
 // Builds public/rive/testimonials.riv — "The Podium".
-// Six clients sit either side of a podium; the selected one walks up, speaks,
-// takes applause and walks back. Lives inside the white quote card. State machine `Podium`, number input `speaker` (0 to 5):
+// Nine clients sit either side of a podium; the selected one walks up, speaks,
+// takes applause and walks back. Lives inside the white quote card. State machine `Podium`, number input `speaker` (0 to 8):
 // each state plays that client's 9.5s turn. Run: npm run rive:testimonials.
 import { writeFileSync, mkdirSync } from "node:fs";
 import { createRiv } from "rive-mcp-server/dist/rivWriter.js";
@@ -8,7 +8,9 @@ import { makeKit, AMBER, BLUE, DEEP, WHITE } from "./kit.mjs";
 
 const FPS = 60;
 const TURN_SECONDS = 9.5; // Testimonials.tsx advances on the same beat
-const PROPS = ["box", "laptop", "puzzle", "note", "camera", "trophy"]; // Shipzy, Taamul, Jgsaw, Fabplay, Vencuts, Yogi
+// Same order as the testimonials array: Shipzy, Taamul, Jgsaw, Fabplay, Vencuts, Yogi,
+// Be Pawsh, Mayaakars, Brand Inner World
+const PROPS = ["box", "laptop", "puzzle", "note", "camera", "trophy", "phone", "house", "spark"];
 
 function scene(L) {
   const G = L.ground;
@@ -30,10 +32,12 @@ function scene(L) {
     lean: 0,
   });
   const STAND = { uaL: 12, faL: -6, uaR: -12, faR: 6, thL: 4, shL: 0, thR: -4, shR: 0, lean: 0 };
+  // Clapping at chest height, elbows low, hands meeting in front of the body. Raised,
+  // elbows-out hands read as frantic waving.
   const clap = (id, dir, together) => ({
     ...sit(dir),
-    ...reach(id, "L", (together ? 13 : 8) * dir, together ? -40 : -44),
-    ...reach(id, "R", (together ? 16 : 22) * dir, together ? -40 : -36),
+    ...reach(id, "L", (together ? 11 : 8) * dir, together ? -36 : -38, "down"),
+    ...reach(id, "R", (together ? 13 : 16) * dir, together ? -36 : -34, "down"),
   });
   const GESTURE_A = { ...STAND, uaL: 70, faL: 45, uaR: -20, faR: -30 };
   const GESTURE_B = { ...STAND, uaL: 105, faL: 15, uaR: -20, faR: -30, lean: -3 };
@@ -195,7 +199,55 @@ function scene(L) {
           { x: -3, y: 0 },
         ],
       });
+    } else if (PROPS[i] === "spark") {
+      // a four-point sparkle, for an AI product
+      shapes.push({
+        id: `${id}_prop`,
+        type: "polygon",
+        x: 0,
+        y: 17,
+        parent: hand,
+        fill: { color: AMBER },
+        points: [
+          { x: 0, y: -7 },
+          { x: 1.6, y: -1.6 },
+          { x: 7, y: 0 },
+          { x: 1.6, y: 1.6 },
+          { x: 0, y: 7 },
+          { x: -1.6, y: 1.6 },
+          { x: -7, y: 0 },
+          { x: -1.6, y: -1.6 },
+        ],
+      });
+    } else if (PROPS[i] === "house") {
+      shapes.push({
+        id: `${id}_prop`,
+        type: "polygon",
+        x: 0,
+        y: 17,
+        parent: hand,
+        stroke: ink(1.3),
+        fill: { color: DEEP },
+        points: [
+          { x: -5, y: -1 },
+          { x: 0, y: -6 },
+          { x: 5, y: -1 },
+          { x: 5, y: 5 },
+          { x: -5, y: 5 },
+        ],
+      });
+      shapes.push({
+        id: `${id}_door`,
+        type: "rect",
+        x: 0,
+        y: 20,
+        width: 2.4,
+        height: 4,
+        parent: hand,
+        fill: { color: AMBER },
+      });
     } else {
+      // "phone": a handset held upright, for short-form video
       shapes.push({
         id: `${id}_prop`,
         type: "rect",
@@ -330,8 +382,8 @@ function scene(L) {
     seated.forEach(({ id, dir }) => {
       if (id === c.id) return;
       pose(id, talkEnd - 6, sit(dir));
-      for (let t = talkEnd; t < back + 6; t += 10)
-        pose(id, t, clap(id, dir, (t / 10) % 2 === 0), "ease-in-out");
+      for (let t = talkEnd, n = 0; t < back + 6; t += 10, n++)
+        pose(id, t, clap(id, dir, n % 2 === 0), "ease-in-out");
       pose(id, back + 16, sit(dir), "ease-out");
     });
     // Walk back and sit.
@@ -387,15 +439,15 @@ const desktop = scene({
   h: 170,
   ground: 160,
   podium: 340,
-  seats: [40, 125, 210, 470, 555, 640],
+  seats: [30, 95, 160, 225, 440, 495, 550, 605, 655],
 });
 const mobile = scene({
   name: "Mobile",
-  w: 340,
-  h: 112, // short: the figures only need the bottom of the card on phones
-  ground: 104,
-  podium: 236,
-  seats: [20, 60, 100, 140, 288, 326],
+  w: 380,
+  h: 125, // short: the figures only need the bottom of the card on phones
+  ground: 116,
+  podium: 186,
+  seats: [18, 56, 94, 132, 230, 266, 302, 338, 368],
 });
 
 const { bytes, warnings } = createRiv({ artboards: [desktop, mobile] });

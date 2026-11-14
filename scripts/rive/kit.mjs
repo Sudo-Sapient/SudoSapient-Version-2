@@ -228,8 +228,9 @@ export function makeKit(G, { line: LINE = WHITE, paper: PAPER = NIGHT } = {}) {
     fiveR: { uaL: 140, faL: 10, uaR: -20, faR: 8, thL: 7, shL: 0, thR: -7, shR: 0, lean: 4 },
   };
   // Two-bone reach: rotations that put `side`'s hand on (tx, ty) in the figure's own
-  // coordinates (feet at 0,0), with the elbow bent outward.
-  const reach = (id, side, tx, ty) => {
+  // coordinates (feet at 0,0). The elbow bends outward by default; "down" keeps it low,
+  // for hands working in front of the chest (clapping, holding things).
+  const reach = (id, side, tx, ty, elbow = "out") => {
     const fat = builds[id]?.fat;
     const sx = (fat ? 9 : 2) * (side === "L" ? -1 : 1),
       sy = fat ? -45 : -42;
@@ -248,9 +249,9 @@ export function makeKit(G, { line: LINE = WHITE, paper: PAPER = NIGHT } = {}) {
           ey = sy + Math.cos(r) * L1;
         let fa = deg(Math.atan2(-(tx - ex), ty - ey)) - ua;
         fa = ((((fa + 180) % 360) + 360) % 360) - 180;
-        return { ua, fa, out: Math.abs(ex) };
+        return { ua, fa, out: Math.abs(ex), low: ey };
       })
-      .sort((a, b) => b.out - a.out)[0];
+      .sort((a, b) => (elbow === "down" ? b.low - a.low : b.out - a.out))[0];
     return { [`ua${side}`]: pick.ua, [`fa${side}`]: pick.fa };
   };
   // Repeat a track's latest value at frame f, so the next key doesn't interpolate across
